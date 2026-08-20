@@ -1,4 +1,4 @@
-# Failure propagation paths with evidence
+# Failure propagation paths
 
 This repository is the public code and result pack for an MSc thesis (Alexis Marin, SRH Heidelberg, 2026).
 
