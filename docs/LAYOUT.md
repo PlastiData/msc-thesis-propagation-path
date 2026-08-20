@@ -23,8 +23,9 @@ results/evidence_path_poc/
   sample10/
 docs/REPRODUCE.md
 docs/LAYOUT.md
+docs/figures/             # path example, channels, direction, pipeline, seed vs path
 scripts/validate.sh
 CLAUDE.md
 ```
 
-The Fang et al. platform `src/` is not vendored here. Download `rcabench-platform-feat-fse26.zip` from the same Zenodo record if you need `./main.py eval`.
+Method diagrams under `docs/figures/` are linked from the root README so visitors see the chain, the horizontal/vertical edge model, and how ranking (AC@k) differs from Path Coverage.
