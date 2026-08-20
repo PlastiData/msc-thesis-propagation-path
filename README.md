@@ -11,13 +11,14 @@ This repository is the public code and result pack for an MSc thesis (Alexis Mar
 | `analysis/cli.py` | CLI entry for one case or a sample list |
 | `analysis/pipeline/` | Reality → graph → evidence → judgment → emit |
 | `analysis/samples/` | Case id lists (`sample10`, `sample100`, `sample_all`) |
+| `rankings/` | Upstream RCA rankings (44 MB) so the RCA seed is reproducible |
 | `tests/` | Unit and integration tests |
 | `results/evidence_path_poc/sample_all/` | Frozen outputs for 1422 benchmark cases (`strict/` and `relaxed/`; open `index.html`) |
 | `results/evidence_path_poc/sample10/` | Small subset for a quick look |
 | `docs/REPRODUCE.md` | Install, browse results, datapack, re run a case |
 | `scripts/validate.sh` | Checks that the tree is complete and tests pass |
 
-**What is not here.** The ~13 GB RCABench telemetry pack and the ~15 GB upstream ranking outputs. Download the datapack from Zenodo ([DOI 10.5281/zenodo.17105974](https://doi.org/10.5281/zenodo.17105974), CC BY 4.0). The frozen dual seed numbers in `results/` already include both injection seed and RCA seed columns.
+**What is not here.** The ~13 GB RCABench telemetry pack. Download it from Zenodo ([DOI 10.5281/zenodo.17105974](https://doi.org/10.5281/zenodo.17105974), CC BY 4.0). Everything else needed to recompute a case is in this repository, including the upstream rankings that provide the RCA seed.
 
 **Run**
 

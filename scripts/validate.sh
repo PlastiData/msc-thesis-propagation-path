@@ -13,6 +13,8 @@ test -d analysis/pipeline
 test -f analysis/pipeline/evidence_rules.json
 test -f analysis/pipeline/fault_types.py
 test -f analysis/ground_truth.py
+test -f rankings/meta/rcabench/dataset.perf.parquet
+test -d rankings/data/rcabench
 test -f results/evidence_path_poc/sample_all/strict/summary.json
 test -f results/evidence_path_poc/sample_all/relaxed/summary.json
 test -f results/evidence_path_poc/sample_all/strict/index.html

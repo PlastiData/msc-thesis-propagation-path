@@ -6,8 +6,10 @@
 |---|---|
 | Thesis code and tests | this repo `analysis/`, `tests/` |
 | Frozen dual seed results (n=1422) | `results/evidence_path_poc/sample_all/{strict,relaxed}/` |
+| Upstream RCA rankings (44 MB) | this repo `rankings/` (per case `output.parquet` plus `meta/rcabench/dataset.perf.parquet`) |
 | Telemetry datapack (~13.4 GB) | [Zenodo 10.5281/zenodo.17105974](https://doi.org/10.5281/zenodo.17105974) → `rcabench-absolute_anomaly.tar.gz` |
-| Upstream RCA ranking outputs | not shipped; dual seed numbers are frozen in `results/`; injection seed re runs need data only |
+
+The heavy intermediate artefacts of the upstream algorithms (the `sdg.pkl` graph pickles, about 14.6 GB) are not needed. Only the ranking tables are read, and those ship here.
 
 Unpack the Zenodo datapack so cases live at:
 
@@ -52,7 +54,7 @@ Sample list:
   --data-root data/rcabench-platform-v2/data/rcabench
 ```
 
-Without local algo `output/` trees, the RCA column reports `algo_output_missing`; the injection seed path still runs. Full dual seed recompute needs those outputs (USB or local archive), not this GitHub tree.
+Both seeds run. The injection seed comes from `injection.json`; the RCA seed is rank 1 of the best upstream algorithm, read from `rankings/`. A full local platform run under `output/rcabench-platform-v2/` is preferred when present. With neither, the RCA column reports `algo_output_missing` and the injection seed path still runs.
 
 ## Attribution
 

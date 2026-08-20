@@ -11,6 +11,9 @@ analysis/
   trace_graph.py         # adapter
   samples/               # sample10.txt, sample100.txt, sample_all.txt
   docs/                  # PIPELINE.md, PAVE_MAPPING.md
+rankings/                # upstream RCA rankings (44 MB), source of the RCA seed
+  data/rcabench/<case>/<algo>/output.parquet
+  meta/rcabench/dataset.perf.parquet
 tests/
   conftest.py
   unit/

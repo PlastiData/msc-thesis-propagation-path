@@ -1,7 +1,9 @@
-"""Upstream RCA rankings from output/… as investigation metadata (not the pipeline core).
+"""Upstream RCA rankings as investigation metadata (not the pipeline core).
 
-RCA seed needs per-case algo parquet under output_root. Without those files the
-inject-seed path still runs; RCA column reports algo_output_missing.
+The RCA seed is rank 1 of the best upstream algorithm for a case. Rankings ship in
+`rankings/`; a full local platform run under `output/` is used instead when present.
+Without either, the injection seed path still runs and the RCA column reports
+algo_output_missing.
 """
 
 from __future__ import annotations
@@ -14,15 +16,18 @@ AUTO_ALGO = "auto"
 DEFAULT_ALGO = AUTO_ALGO
 KNOWN_ALGOS = ("traceback-A8", "traceback-A7", "nsigma", "baro", "random")
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-DATASETS = {
-    "rcabench": {
-        "data_root": REPO_ROOT / "data/rcabench-platform-v2/data/rcabench",
-        "output_root": REPO_ROOT / "output/rcabench-platform-v2/rcabench",
-    },
-}
-DATASET_PERF = (
-    REPO_ROOT / "output/rcabench-platform-v2/meta/rcabench/dataset.perf.parquet"
+RANKINGS_ROOTS = (
+    REPO_ROOT / "output/rcabench-platform-v2",
+    REPO_ROOT / "rankings",
 )
+DATASETS = {
+    "rcabench": {"data_root": REPO_ROOT / "data/rcabench-platform-v2/data/rcabench"},
+}
+
+
+def _rankings_root() -> Path:
+    found = next((root for root in RANKINGS_ROOTS if root.is_dir()), None)
+    return found or RANKINGS_ROOTS[0]
 
 
 def resolve_paths(dataset: str) -> tuple[Path, Path]:
@@ -30,7 +35,7 @@ def resolve_paths(dataset: str) -> tuple[Path, Path]:
     if paths is None:
         supported = ", ".join(sorted(DATASETS))
         raise ValueError(f"unknown dataset {dataset!r}; supported: {supported}")
-    return paths["data_root"], paths["output_root"]
+    return paths["data_root"], _rankings_root() / "data" / dataset
 
 
 def _service_frame(output_parquet: Path) -> pd.DataFrame:
@@ -90,7 +95,12 @@ def _ranking_metrics(frame: pd.DataFrame, labels: list[str]) -> dict:
     }
 
 
-def load_dataset_perf(path: Path = DATASET_PERF) -> list[dict]:
+def dataset_perf_path(dataset: str = "rcabench") -> Path:
+    return _rankings_root() / "meta" / dataset / "dataset.perf.parquet"
+
+
+def load_dataset_perf(path: Path | None = None) -> list[dict]:
+    path = path or dataset_perf_path()
     if not path.exists():
         return []
     frame = pd.read_parquet(path)

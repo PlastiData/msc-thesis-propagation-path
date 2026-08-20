@@ -10,6 +10,7 @@ Public code and result pack for an MSc thesis (Alexis Marin, SRH Heidelberg, 202
 | `analysis/pipeline/` | Core stages (see read order below) |
 | `analysis/ground_truth.py`, `analysis/trace_graph.py` | Adapters used by the pipeline |
 | `analysis/samples/` | Case id lists (`sample10`, `sample100`, `sample_all`) |
+| `rankings/` | Upstream RCA rankings; source of the RCA seed. `output/` overrides it when present |
 | `tests/` | Unit under `tests/unit/`, smoke under `tests/integration/` |
 | `results/evidence_path_poc/` | Frozen HTML/JSON (path name kept stable) |
 | `docs/` | Layout and reproduce notes |
