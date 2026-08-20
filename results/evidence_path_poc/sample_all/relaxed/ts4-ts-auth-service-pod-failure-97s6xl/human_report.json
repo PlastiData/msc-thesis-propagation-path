@@ -1,0 +1,168 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-ui-dashboard",
+    "rank1_hit": false
+  },
+  "case_id": "ts4-ts-auth-service-pod-failure-97s6xl",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-auth-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 2,
+          "error_count": 0,
+          "route": "POST /api/v1/users/login",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 37200360533.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 37406688682.6667,
+                  "z": -10.569
+                },
+                {
+                  "abnormal_mean": 49834.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": -417109333333.3333
+                },
+                {
+                  "abnormal_mean": 3202933919.2889,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2445128874.6667,
+                  "z": 100.4674
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 16251813802.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 16000207360.0,
+                  "z": 3.1782
+                },
+                {
+                  "abnormal_mean": 4245.75,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 3145.875,
+                  "z": 4.3961
+                },
+                {
+                  "abnormal_mean": 16251813802.6667,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 16000207360.0,
+                  "z": 3.1782
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "26cb98d544107ec6478ed2c3e477c975",
+            "8aa2e81516c8c5f0949204767a45b71a"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 1 (PodFailure) injected into ts-auth-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-19T14:03:52Z: injection_start @ ts-auth-service \u2014 fault injection window start",
+      "2025-07-19 14:03:52.216412633+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-19 14:03:53.050627382+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-19T14:07:52Z: injection_end @ ts-auth-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-auth-service-pod-failure-97s6xl",
+    "category": "PodChaos",
+    "chaos_type": "PodFailure",
+    "evid": "obs",
+    "fault_kind": "pod_unavailable",
+    "hops": 1,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "PodFailure",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_unavailable",
+      "fault_type": 1,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, sustained to window end",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-ui-dashboard",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 6.4,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-auth-service-pod-failure-97s6xl",
+    "category": "PodChaos",
+    "chaos_type": "PodFailure",
+    "evid": null,
+    "fault_kind": "pod_unavailable",
+    "hops": null,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "PodFailure",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_unavailable",
+      "fault_type": 1,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, sustained to window end",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-ui-dashboard",
+    "rca_pct": 0,
+    "refuse": "required_horizontal_relationship_unavailable",
+    "sec": 6.4,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

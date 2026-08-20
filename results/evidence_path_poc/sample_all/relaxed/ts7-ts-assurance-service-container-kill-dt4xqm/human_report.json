@@ -1,0 +1,231 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-route-service",
+      "ts-route-plan-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-route-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts7-ts-assurance-service-container-kill-dt4xqm",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-assurance-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 4,
+          "error_count": 0,
+          "route": "GET /api/v1/assuranceservice/assurances/{typeIndex}/{orderId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2.5981,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.053,
+                  "z": 26.497
+                },
+                {
+                  "abnormal_mean": 408031.3191,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": -58912680851.0638
+                },
+                {
+                  "abnormal_mean": 2626134653.1556,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2459333717.3333,
+                  "z": 17.0685
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 322.145,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 53.2575,
+                  "z": 5.4745
+                },
+                {
+                  "abnormal_mean": 0.5996,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.1038,
+                  "z": 8.4202
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "a746f9eb01abc7dea69fa54edfd90966",
+            "ed10372793b4405f55742e60e5c38426",
+            "8f027e183915e003ef673e3a44bd8f67"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 7,
+          "error_count": 0,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 322.145,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 53.2575,
+                  "z": 5.4745
+                },
+                {
+                  "abnormal_mean": 0.5996,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.1038,
+                  "z": 8.4202
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 34808996522.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 35209729621.3333,
+                  "z": -7.733
+                },
+                {
+                  "abnormal_mean": 34810429440.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 35209917013.3333,
+                  "z": -7.6942
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "a746f9eb01abc7dea69fa54edfd90966",
+            "ed10372793b4405f55742e60e5c38426",
+            "a81f644f489f973bb6019aca59e80543"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 2 (ContainerKill) injected into ts-assurance-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-20T04:41:07Z: injection_start @ ts-assurance-service \u2014 fault injection window start",
+      "2025-07-20 04:41:07.305511396+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-20 04:41:10.333999862+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-20T04:45:07Z: injection_end @ ts-assurance-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts7-ts-assurance-service-container-kill-dt4xqm",
+    "category": "PodChaos",
+    "chaos_type": "ContainerKill",
+    "evid": "obs",
+    "fault_kind": "pod_failure",
+    "hops": 2,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "ContainerKill",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_failure",
+      "fault_type": 2,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, brief, recovers in window",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 0,
+    "refuse": null,
+    "sec": 9.9,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts7-ts-assurance-service-container-kill-dt4xqm",
+    "category": "PodChaos",
+    "chaos_type": "ContainerKill",
+    "evid": "obs",
+    "fault_kind": "pod_failure",
+    "hops": 5,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "ContainerKill",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_failure",
+      "fault_type": 2,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, brief, recovers in window",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 33,
+    "refuse": null,
+    "sec": 9.9,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

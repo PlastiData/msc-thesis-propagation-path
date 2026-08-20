@@ -1,0 +1,170 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-route-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-route-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts4-ts-auth-service-stress-z67ksb",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-auth-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 595,
+          "error_count": 0,
+          "route": "POST /api/v1/users/login",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 1.0015,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.5669,
+                  "z": 4.509
+                },
+                {
+                  "abnormal_mean": 548689.7021,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 81745702127.6596
+                },
+                {
+                  "abnormal_mean": 144629.6889,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 170932.0,
+                  "z": -5.9479
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0356,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0459,
+                  "z": -3.4055
+                },
+                {
+                  "abnormal_mean": 35108550263.8298,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 35219547221.3333,
+                  "z": -5.792
+                },
+                {
+                  "abnormal_mean": 20151.2766,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 11106.5625,
+                  "z": 4.181
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "76f113d5e9db187813ed65ce14d54087",
+            "cdf24b99d4e337deef5b521233ddb1f2",
+            "5456ded951927ccbde7a1e2a09716d71"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 28 (JVMMemoryStress) injected into ts-auth-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-12T06:16:18Z: injection_start @ ts-auth-service \u2014 fault injection window start",
+      "2025-08-12 06:16:18.077093897+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-12 06:16:33.924583160+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-12T06:20:16Z: injection_end @ ts-auth-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-auth-service-stress-z67ksb",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 20.4,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-auth-service-stress-z67ksb",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 5,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 20.4,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

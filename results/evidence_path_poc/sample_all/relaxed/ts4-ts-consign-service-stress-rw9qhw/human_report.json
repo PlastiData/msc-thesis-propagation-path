@@ -1,0 +1,163 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-consign-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-consign-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts4-ts-consign-service-stress-rw9qhw",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-consign-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 67,
+          "error_count": 0,
+          "route": "GET /api/v1/consignservice/consigns/account/{id}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 1.4493,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0336,
+                  "z": 34.8528
+                },
+                {
+                  "abnormal_mean": 584769.3617,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 117825361702.1276
+                },
+                {
+                  "abnormal_mean": 2536369890.2326,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2434057472.0,
+                  "z": 79.6957
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 13303.9149,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 8427.4792,
+                  "z": 5.1342
+                },
+                {
+                  "abnormal_mean": 13962.234,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 9082.5,
+                  "z": 5.0928
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "76c5f8f32a08ad6c041bfda41f659a87",
+            "05d0b8b17bebfb1e66227d27db50c017",
+            "cb7a3a664b6960728327e5aa8573e3cf"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 28 (JVMMemoryStress) injected into ts-consign-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-19T02:42:50Z: injection_start @ ts-consign-service \u2014 fault injection window start",
+      "2025-08-19 02:42:50.030873647+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-19 02:43:20.680931100+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-19T02:46:47Z: injection_end @ ts-consign-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-consign-service-stress-rw9qhw",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 11.3,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-consign-service-stress-rw9qhw",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 11.3,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

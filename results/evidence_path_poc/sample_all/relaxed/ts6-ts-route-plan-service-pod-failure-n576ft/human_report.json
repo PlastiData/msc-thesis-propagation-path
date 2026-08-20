@@ -1,0 +1,254 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-route-plan-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-route-plan-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts6-ts-route-plan-service-pod-failure-n576ft",
+  "evidence": {
+    "composition": {
+      "inferred": "50.0%",
+      "observed": "50.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "fail",
+          "temporal": "unknown"
+        },
+        "hop": "ts-route-plan-service -> ts-travel-plan-service",
+        "level": "inferred",
+        "missing_evidence": [
+          "direct_abnormal_parent_child_relationship",
+          "usable_temporal_onset_ordering"
+        ],
+        "refs": {
+          "call_count": null,
+          "error_count": null,
+          "route": null,
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 39253.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": -427690666666.6667
+                },
+                {
+                  "abnormal_mean": 3220617079.4667,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2496441429.3333,
+                  "z": 176.777
+                },
+                {
+                  "abnormal_mean": 623.0444,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 138524.3125,
+                  "z": -96.9158
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 41672325973.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 41471855274.6667,
+                  "z": 3.0812
+                },
+                {
+                  "abnormal_mean": 2494642773.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2506653013.3333,
+                  "z": -3.0542
+                },
+                {
+                  "abnormal_mean": 143315.0208,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 138007.3125,
+                  "z": 4.3724
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": []
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-plan-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 102,
+          "error_count": 102,
+          "route": "POST /api/v1/travelplanservice/travelPlan/minStation",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 41672325973.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 41471855274.6667,
+                  "z": 3.0812
+                },
+                {
+                  "abnormal_mean": 2494642773.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2506653013.3333,
+                  "z": -3.0542
+                },
+                {
+                  "abnormal_mean": 143315.0208,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 138007.3125,
+                  "z": 4.3724
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 8240.5417,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 4930.7917,
+                  "z": 4.4759
+                },
+                {
+                  "abnormal_mean": 7393877.3333,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 3788117.3333,
+                  "z": 4.0781
+                },
+                {
+                  "abnormal_mean": 8961.7083,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 5616.2292,
+                  "z": 4.505
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "441322ba72d41b3940ae0f9a132b0180",
+            "1c5a245ba59a94b272830ef1f0bad339",
+            "b3121374c1bfc901ec4dda04078e5022"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [
+      "direct_abnormal_parent_child_relationship",
+      "usable_temporal_onset_ordering"
+    ],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 1 (PodFailure) injected into ts-route-plan-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-20T19:57:44Z: injection_start @ ts-route-plan-service \u2014 fault injection window start",
+      "2025-07-20 19:57:55.133000+00:00: first_error_span @ ts-travel-plan-service \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-20 19:57:55.156800274+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-07-20 19:57:55.156800274+00:00: path_first_error @ ts-ui-dashboard \u2014 first Error span on accepted-path service",
+      "2025-07-20T20:01:43Z: injection_end @ ts-route-plan-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts6-ts-route-plan-service-pod-failure-n576ft",
+    "category": "PodChaos",
+    "chaos_type": "PodFailure",
+    "evid": "inf",
+    "fault_kind": "pod_unavailable",
+    "hops": 2,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "PodFailure",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_unavailable",
+      "fault_type": 1,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, sustained to window end",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-route-plan-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 6.6,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts6-ts-route-plan-service-pod-failure-n576ft",
+    "category": "PodChaos",
+    "chaos_type": "PodFailure",
+    "evid": "inf",
+    "fault_kind": "pod_unavailable",
+    "hops": 2,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "PodFailure",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_unavailable",
+      "fault_type": 1,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, sustained to window end",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-route-plan-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 6.6,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

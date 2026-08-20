@@ -1,0 +1,163 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-contacts-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-contacts-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts3-mysql-bandwidth-kpqsfl",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-contacts-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 23,
+          "error_count": 20,
+          "route": "GET /api/v1/contactservice/contacts/account/{accountId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 76.765,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 27.765,
+                  "z": 3.6659
+                },
+                {
+                  "abnormal_mean": 1341610.6667,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 814165.3333,
+                  "z": 5.6861
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0052,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0355,
+                  "z": -4.4261
+                },
+                {
+                  "abnormal_mean": 30438860885.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 30789271125.3333,
+                  "z": -16.2723
+                },
+                {
+                  "abnormal_mean": 0.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -4.5952
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "6f27d7cb49548551e9ca50b3ee9b3b49",
+            "4574209f04a007b39604862f2bd802bd",
+            "e69535e4cede92326af5d8282ae30573"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 21 (NetworkBandwidth) injected into ts-contacts-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-25T11:24:36Z: injection_start @ ts-contacts-service \u2014 fault injection window start",
+      "2025-07-25 11:24:36.043860656+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-25 11:24:36.679000+00:00: first_error_span @ ts-contacts-service \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-25T11:28:36Z: injection_end @ ts-contacts-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts3-mysql-bandwidth-kpqsfl",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-contacts-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 6.0,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts3-mysql-bandwidth-kpqsfl",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-contacts-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 6.0,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

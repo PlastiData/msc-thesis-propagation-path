@@ -1,0 +1,169 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-ui-dashboard",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-ui-dashboard-request-replace-method-cqn54z",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-route-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 297,
+          "error_count": 0,
+          "route": "DELETE /error",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2404122624.0,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2425394261.3333,
+                  "z": -7.7619
+                },
+                {
+                  "abnormal_mean": 166448.8958,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 155320.5625,
+                  "z": 5.7468
+                },
+                {
+                  "abnormal_mean": 806177706.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 784914090.6667,
+                  "z": 7.3803
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 7060.4375,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 3506.5417,
+                  "z": 5.1378
+                },
+                {
+                  "abnormal_mean": 7557717.3333,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 3642624.0,
+                  "z": 4.5768
+                },
+                {
+                  "abnormal_mean": 7906.5208,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 4273.0417,
+                  "z": 5.4225
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "0ceaa326ba0b95731357b68ed7262c4a",
+            "5fee36cc771890cfa0dbc2d6d1f0a1fe",
+            "e962dc514eacaf73451ef5fe32e2550b"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 12 (HTTPRequestReplaceMethod) injected into ts-route-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-20T09:07:27Z: injection_start @ ts-route-service \u2014 fault injection window start",
+      "2025-07-20 09:07:27.088243127+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-20 09:07:30.341609782+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-20T09:11:26Z: injection_end @ ts-route-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-ui-dashboard-request-replace-method-cqn54z",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestReplaceMethod",
+    "evid": "obs",
+    "fault_kind": "http_payload_modified",
+    "hops": 1,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestReplaceMethod",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_payload_modified",
+      "fault_type": 12,
+      "mapped": true,
+      "obs_channel_expected": "request method differs from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-ui-dashboard",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 7.4,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-ui-dashboard-request-replace-method-cqn54z",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestReplaceMethod",
+    "evid": null,
+    "fault_kind": "http_payload_modified",
+    "hops": null,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestReplaceMethod",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_payload_modified",
+      "fault_type": 12,
+      "mapped": true,
+      "obs_channel_expected": "request method differs from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-ui-dashboard",
+    "rca_pct": 0,
+    "refuse": "required_horizontal_relationship_unavailable",
+    "sec": 7.4,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

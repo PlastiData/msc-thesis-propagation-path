@@ -1,0 +1,289 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-consign-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-consign-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts0-ts-travel-service-mysql-28wmss",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-service -> ts-food-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 110,
+          "error_count": 0,
+          "route": "GET /api/v1/travelservice/routes/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 3080192.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2613248000000.0
+                },
+                {
+                  "abnormal_mean": 2363813975.1489,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2406892458.6667,
+                  "z": -8.8395
+                },
+                {
+                  "abnormal_mean": 187595.1277,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 169998.4375,
+                  "z": 7.7066
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.4071,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.1149,
+                  "ratio": 3.5412
+                },
+                {
+                  "abnormal_mean": 1067923.0638,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 812970.6667,
+                  "z": 3.7498
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "36726afc5c583243b037716bb7976258",
+            "ae781dfe415a15d0cf8851a9986200a9",
+            "68191778a74bd9062e8d71c8c74e992d"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-food-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 21,
+          "error_count": 0,
+          "route": "POST /api/v1/foodservice/orders",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.4071,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.1149,
+                  "ratio": 3.5412
+                },
+                {
+                  "abnormal_mean": 1067923.0638,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 812970.6667,
+                  "z": 3.7498
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 1090233.1915,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 818176.0,
+                  "z": 4.1238
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "77e7a776f65e3539e531cba4d411c559",
+            "cbe236aa65cabeee53f13bb1b0f2ce47",
+            "6f2e52fd596d5086c3a7945efdf385ed"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 94,
+          "error_count": 0,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 1090233.1915,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 818176.0,
+                  "z": 4.1238
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 12021.7872,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 6029.6042,
+                  "z": 5.0726
+                },
+                {
+                  "abnormal_mean": 17963400.1702,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 9607168.0,
+                  "z": 3.8322
+                },
+                {
+                  "abnormal_mean": 12650.6809,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 6726.625,
+                  "z": 4.9304
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "d7cad13858d1f0b0b86ed5cae5fae931",
+            "77e7a776f65e3539e531cba4d411c559",
+            "31e581a14ff48df9bf1b76d6e93208d7"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 29 (JVMMySQLLatency) injected into ts-travel-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-18T23:06:44Z: injection_start @ ts-travel-service \u2014 fault injection window start",
+      "2025-08-18 23:10:08.599959301+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-18 23:10:08.612962632+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-08-18 23:10:08.612962632+00:00: path_first_error @ ts-ui-dashboard \u2014 first Error span on accepted-path service",
+      "2025-08-18T23:10:42Z: injection_end @ ts-travel-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts0-ts-travel-service-mysql-28wmss",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMySQLLatency",
+    "evid": "obs",
+    "fault_kind": "jvm_jdbc_latency",
+    "hops": 3,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMySQLLatency",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_jdbc_latency",
+      "fault_type": 29,
+      "mapped": true,
+      "obs_channel_expected": "elevated span duration on a JDBC call",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-service",
+    "rca_pct": 25,
+    "refuse": null,
+    "sec": 3.6,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts0-ts-travel-service-mysql-28wmss",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMySQLLatency",
+    "evid": "obs",
+    "fault_kind": "jvm_jdbc_latency",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMySQLLatency",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_jdbc_latency",
+      "fault_type": 29,
+      "mapped": true,
+      "obs_channel_expected": "elevated span duration on a JDBC call",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 3.6,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

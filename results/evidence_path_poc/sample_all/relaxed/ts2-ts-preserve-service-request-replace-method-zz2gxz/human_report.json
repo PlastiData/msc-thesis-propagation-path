@@ -1,0 +1,244 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-preserve-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-preserve-service-request-replace-method-zz2gxz",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-security-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 22,
+          "error_count": 0,
+          "route": "HEAD /api/v1/securityservice/securityConfigs/{accountId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 28681715200.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 28591944362.6667,
+                  "z": 5.9599
+                },
+                {
+                  "abnormal_mean": 28681715200.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 28592139776.0,
+                  "z": 5.9406
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 32573421056.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 32425649152.0,
+                  "z": 5.5176
+                },
+                {
+                  "abnormal_mean": 0.0438,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0056,
+                  "ratio": 7.804
+                },
+                {
+                  "abnormal_mean": 0.0475,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0137,
+                  "ratio": 3.4714
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "b6e804182fd34aae91581e5f63d93b00",
+            "3818d60db44b5f6adf81bba1c36d1337",
+            "e484b56ac62e3fb1f21e3e6ca3081c48"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 20,
+          "error_count": 20,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 32573421056.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 32425649152.0,
+                  "z": 5.5176
+                },
+                {
+                  "abnormal_mean": 0.0438,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0056,
+                  "ratio": 7.804
+                },
+                {
+                  "abnormal_mean": 0.0475,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0137,
+                  "ratio": 3.4714
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0087,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0365,
+                  "z": -4.371
+                },
+                {
+                  "abnormal_mean": 28681715200.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 28591944362.6667,
+                  "z": 5.9599
+                },
+                {
+                  "abnormal_mean": 0.0001,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -4.7546
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "b6e804182fd34aae91581e5f63d93b00",
+            "3818d60db44b5f6adf81bba1c36d1337",
+            "e484b56ac62e3fb1f21e3e6ca3081c48"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 12 (HTTPRequestReplaceMethod) injected into ts-security-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-07T21:45:01Z: injection_start @ ts-security-service \u2014 fault injection window start",
+      "2025-08-07 21:45:01.017074209+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-07 21:45:02.946049229+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-07 21:45:02.958000+00:00: path_first_error @ ts-preserve-service \u2014 first Error span on accepted-path service",
+      "2025-08-07T21:49:01Z: injection_end @ ts-security-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-preserve-service-request-replace-method-zz2gxz",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestReplaceMethod",
+    "evid": "obs",
+    "fault_kind": "http_payload_modified",
+    "hops": 2,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestReplaceMethod",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_payload_modified",
+      "fault_type": 12,
+      "mapped": true,
+      "obs_channel_expected": "request method differs from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 11.0,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-preserve-service-request-replace-method-zz2gxz",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestReplaceMethod",
+    "evid": "obs",
+    "fault_kind": "http_payload_modified",
+    "hops": 1,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestReplaceMethod",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_payload_modified",
+      "fault_type": 12,
+      "mapped": true,
+      "obs_channel_expected": "request method differs from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 11.0,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

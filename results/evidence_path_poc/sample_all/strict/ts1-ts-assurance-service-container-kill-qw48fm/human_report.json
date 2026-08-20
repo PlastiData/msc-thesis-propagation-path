@@ -1,0 +1,252 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-basic-service",
+      "ts-travel-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-basic-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts1-ts-assurance-service-container-kill-qw48fm",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-assurance-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 14,
+          "error_count": 0,
+          "route": "GET /api/v1/assuranceservice/assurances/{typeIndex}/{orderId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.53,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0318,
+                  "z": 14.2508
+                },
+                {
+                  "abnormal_mean": 428885.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": -38058666666.6667
+                },
+                {
+                  "abnormal_mean": 119806.2,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 155299.3542,
+                  "z": -9.5836
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 2473886293.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2481250218.6667,
+                  "z": -7.3239
+                },
+                {
+                  "abnormal_mean": 736745642.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 729403306.6667,
+                  "z": 7.2457
+                },
+                {
+                  "abnormal_mean": 747724202.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.usage",
+                  "normal_mean": 740360277.3333,
+                  "z": 7.3239
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "5fde229ce418fe3aceb4457203f73eec",
+            "2cfdfa0c623d55665ee8d4bca81e79e4",
+            "11bc43180c388e4137347cedf266069e"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 89,
+          "error_count": 0,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2473886293.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2481250218.6667,
+                  "z": -7.3239
+                },
+                {
+                  "abnormal_mean": 736745642.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 729403306.6667,
+                  "z": 7.2457
+                },
+                {
+                  "abnormal_mean": 747724202.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.usage",
+                  "normal_mean": 740360277.3333,
+                  "z": 7.3239
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0284,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0396,
+                  "z": -3.3853
+                },
+                {
+                  "abnormal_mean": 12699.5625,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 7060.4167,
+                  "z": 3.4093
+                },
+                {
+                  "abnormal_mean": 0.606,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0912,
+                  "ratio": 6.6456
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "4d537dbc27ea5402c948d218debe5229",
+            "5fde229ce418fe3aceb4457203f73eec",
+            "3342f05f7b24dab171e0514159de236b"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 2 (ContainerKill) injected into ts-assurance-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-12T05:59:50Z: injection_start @ ts-assurance-service \u2014 fault injection window start",
+      "2025-08-12 05:59:50.199602896+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-12 05:59:50.201578787+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-08-12 05:59:50.201578787+00:00: path_first_error @ ts-ui-dashboard \u2014 first Error span on accepted-path service",
+      "2025-08-12T06:03:50Z: injection_end @ ts-assurance-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-assurance-service-container-kill-qw48fm",
+    "category": "PodChaos",
+    "chaos_type": "ContainerKill",
+    "evid": "obs",
+    "fault_kind": "pod_failure",
+    "hops": 2,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "ContainerKill",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_failure",
+      "fault_type": 2,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, brief, recovers in window",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-basic-service",
+    "rca_pct": 33,
+    "refuse": null,
+    "sec": 40.6,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-assurance-service-container-kill-qw48fm",
+    "category": "PodChaos",
+    "chaos_type": "ContainerKill",
+    "evid": "obs",
+    "fault_kind": "pod_failure",
+    "hops": 4,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "ContainerKill",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_failure",
+      "fault_type": 2,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, brief, recovers in window",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-basic-service",
+    "rca_pct": 40,
+    "refuse": null,
+    "sec": 40.6,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

@@ -1,0 +1,492 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-order-other-service",
+      "ts-security-service",
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-order-other-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts1-ts-order-other-service-exception-twstdp",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-order-other-service -> ts-seat-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 174,
+          "error_count": 0,
+          "route": "POST /api/v1/orderOtherService/orderOther/tickets",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 1.1054,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.1159,
+                  "z": 15.5228
+                },
+                {
+                  "abnormal_mean": 24168099840.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 24221865984.0,
+                  "z": -4.2639
+                },
+                {
+                  "abnormal_mean": 3025749.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2558805333333.3335
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0994,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.3768,
+                  "z": -3.6979
+                },
+                {
+                  "abnormal_mean": 33688942421.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 33930294954.6667,
+                  "z": -14.9117
+                },
+                {
+                  "abnormal_mean": 0.665,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p99_seconds",
+                  "normal_mean": 0.1649,
+                  "ratio": 4.0336
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "2ff5010d1c4310ed22ca59a1075239da",
+            "23128ac188aeb702190d59750cf13607",
+            "581d232bd0642521d7f429bda1fb8e36"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-seat-service -> ts-travel-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 142,
+          "error_count": 0,
+          "route": "POST /api/v1/seatservice/seats/left_tickets",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0994,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.3768,
+                  "z": -3.6979
+                },
+                {
+                  "abnormal_mean": 33688942421.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 33930294954.6667,
+                  "z": -14.9117
+                },
+                {
+                  "abnormal_mean": 0.665,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p99_seconds",
+                  "normal_mean": 0.1649,
+                  "ratio": 4.0336
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 33688942421.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 33930294954.6667,
+                  "z": -14.9117
+                },
+                {
+                  "abnormal_mean": 0.0891,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0269,
+                  "ratio": 3.31
+                },
+                {
+                  "abnormal_mean": 0.1593,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0462,
+                  "z": 48.3488
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "a6d9674355f744bc087a520ec2bacbb3",
+            "fd5d6aae6f71d3b0bfd99ad1da199e18",
+            "70c6206d24098410af207b2b5911868e"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-service -> ts-food-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 21,
+          "error_count": 0,
+          "route": "GET /api/v1/travelservice/routes/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 33688942421.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 33930294954.6667,
+                  "z": -14.9117
+                },
+                {
+                  "abnormal_mean": 0.0891,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0269,
+                  "ratio": 3.31
+                },
+                {
+                  "abnormal_mean": 0.1593,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0462,
+                  "z": 48.3488
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 33688942421.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 33930294954.6667,
+                  "z": -14.9117
+                },
+                {
+                  "abnormal_mean": 0.1596,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0462,
+                  "z": 41.2365
+                },
+                {
+                  "abnormal_mean": 33688966912.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 33930294954.6667,
+                  "z": -14.9102
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "ddf8b2638bce0edfbcda79c97b10a06b",
+            "3fc96c49569414cedcdd0d4971196363",
+            "271cf9e23703e7185a43992cda739672"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-food-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1,
+          "error_count": 0,
+          "route": "POST /api/v1/foodservice/orders",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 33688942421.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 33930294954.6667,
+                  "z": -14.9117
+                },
+                {
+                  "abnormal_mean": 0.1596,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0462,
+                  "z": 41.2365
+                },
+                {
+                  "abnormal_mean": 33688966912.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 33930294954.6667,
+                  "z": -14.9102
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 10.0,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0076,
+                  "ratio": 1323.0369
+                },
+                {
+                  "abnormal_mean": 5.7262,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0386,
+                  "ratio": 148.1646
+                },
+                {
+                  "abnormal_mean": 5.7287,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.0675,
+                  "ratio": 84.8996
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "b47b195a630caf1e786cd0fae881c10a"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 20,
+          "error_count": 14,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 10.0,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0076,
+                  "ratio": 1323.0369
+                },
+                {
+                  "abnormal_mean": 5.7262,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0386,
+                  "ratio": 148.1646
+                },
+                {
+                  "abnormal_mean": 5.7287,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.0675,
+                  "ratio": 84.8996
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0104,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0396,
+                  "z": -11.6961
+                },
+                {
+                  "abnormal_mean": 24864512.0,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 26704554.6667,
+                  "z": -4.3463
+                },
+                {
+                  "abnormal_mean": 0.0001,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -12.2292
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "8c0aed522d1430de3d1cd2c7994ddd3b",
+            "172d7fd9fb6c13621d2a10d224f5d757",
+            "542a40f86a8589ee2a2c433bb876f1a1"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 25 (JVMException) injected into ts-order-other-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-31T02:06:36Z: injection_start @ ts-order-other-service \u2014 fault injection window start",
+      "2025-08-31 02:06:36.099247185+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-31 02:06:37.770510062+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-31 02:06:37.777000+00:00: path_first_error @ ts-preserve-service \u2014 first Error span on accepted-path service",
+      "2025-08-31 02:06:37.792000+00:00: path_first_error @ ts-order-other-service \u2014 first Error span on accepted-path service",
+      "2025-08-31T02:10:35Z: injection_end @ ts-order-other-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-order-other-service-exception-twstdp",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 5,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-order-other-service",
+    "rca_pct": 33,
+    "refuse": null,
+    "sec": 6.8,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-order-other-service-exception-twstdp",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 5,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-order-other-service",
+    "rca_pct": 33,
+    "refuse": null,
+    "sec": 6.8,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

@@ -1,0 +1,161 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-train-service",
+      "ts-basic-service",
+      "ts-travel-service",
+      "ts-route-plan-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-train-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts5-mysql-bandwidth-2ctlcv",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-train-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 14,
+          "error_count": 14,
+          "route": "GET /api/v1/trainservice/trains",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 1218389.3333,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 880640.0,
+                  "z": 3.1667
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0033,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0386,
+                  "z": -4.951
+                },
+                {
+                  "abnormal_mean": 0.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -5.0387
+                },
+                {
+                  "abnormal_mean": 0.004,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.usage",
+                  "normal_mean": 0.0389,
+                  "z": -5.0387
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "6780a45c3d6a8a9b854f8a85203f3fe6",
+            "54674b4a3635ee8e97aefe55b037b4a8",
+            "2d1220b34ddc84d6b70d11da66756140"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 21 (NetworkBandwidth) injected into ts-train-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-25T05:22:17Z: injection_start @ ts-train-service \u2014 fault injection window start",
+      "2025-07-25 05:22:17.061350440+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-25 05:22:17.096000+00:00: first_error_span @ ts-route-plan-service \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-25 05:22:17.287000+00:00: path_first_error @ ts-train-service \u2014 first Error span on accepted-path service",
+      "2025-07-25T05:26:17Z: injection_end @ ts-train-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts5-mysql-bandwidth-2ctlcv",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-train-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 5.8,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts5-mysql-bandwidth-2ctlcv",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-train-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 5.8,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

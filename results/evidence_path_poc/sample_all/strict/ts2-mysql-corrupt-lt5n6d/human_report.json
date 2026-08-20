@@ -1,0 +1,249 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-contacts-service",
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-contacts-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-mysql-corrupt-lt5n6d",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-contacts-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1,
+          "error_count": 0,
+          "route": "GET /api/v1/contactservice/contacts/{id}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 7.5024,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0108,
+                  "ratio": 694.2626
+                },
+                {
+                  "abnormal_mean": 7.5024,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.0131,
+                  "ratio": 571.6143
+                },
+                {
+                  "abnormal_mean": 9.9125,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 1.275,
+                  "z": 17.1734
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 5.0187,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0098,
+                  "ratio": 512.0344
+                },
+                {
+                  "abnormal_mean": 5.0249,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p99_seconds",
+                  "normal_mean": 0.0529,
+                  "ratio": 95.011
+                },
+                {
+                  "abnormal_mean": 0.1235,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0518,
+                  "z": 67.5032
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "beea4f2e63dd7be71f9bd65f733696bd"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1,
+          "error_count": 1,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 5.0187,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0098,
+                  "ratio": 512.0344
+                },
+                {
+                  "abnormal_mean": 5.0249,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p99_seconds",
+                  "normal_mean": 0.0529,
+                  "ratio": 95.011
+                },
+                {
+                  "abnormal_mean": 0.1235,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0518,
+                  "z": 67.5032
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0017,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0162,
+                  "z": -10.9381
+                },
+                {
+                  "abnormal_mean": 44985227605.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 45066369536.0,
+                  "z": -5.7651
+                },
+                {
+                  "abnormal_mean": 3.1686,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0711,
+                  "ratio": 44.5558
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "beea4f2e63dd7be71f9bd65f733696bd"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 20 (NetworkCorrupt) injected into ts-contacts-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-19T08:25:17Z: injection_start @ ts-contacts-service \u2014 fault injection window start",
+      "2025-07-19 08:25:17.167496038+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-19 08:25:18.028393055+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-19 08:26:48.520000+00:00: path_first_error @ ts-preserve-service \u2014 first Error span on accepted-path service",
+      "2025-07-19 08:27:32.242000+00:00: path_first_error @ ts-contacts-service \u2014 first Error span on accepted-path service",
+      "2025-07-19T08:29:17Z: injection_end @ ts-contacts-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-mysql-corrupt-lt5n6d",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkCorrupt",
+    "evid": "obs",
+    "fault_kind": "network_corrupt",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkCorrupt",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_corrupt",
+      "fault_type": 20,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, TCP retransmit signal",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-contacts-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 5.7,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-mysql-corrupt-lt5n6d",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkCorrupt",
+    "evid": "obs",
+    "fault_kind": "network_corrupt",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkCorrupt",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_corrupt",
+      "fault_type": 20,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, TCP retransmit signal",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-contacts-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 5.7,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

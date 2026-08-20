@@ -1,0 +1,248 @@
+{
+  "algo": {
+    "algo": "auto",
+    "algo_ac_at_1": null,
+    "available": false,
+    "error": "algo_output_missing",
+    "predicted_chain": [],
+    "rank1": null,
+    "rank1_hit": null
+  },
+  "case_id": "ts1-ts-route-plan-service-return-2cvc6m",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-route-plan-service -> ts-travel-plan-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1844,
+          "error_count": 1844,
+          "route": "POST /api/v1/routeplanservice/routePlan/cheapestRoute",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.5316,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0651,
+                  "z": 9.4826
+                },
+                {
+                  "abnormal_mean": 26885259349.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 26950311850.6667,
+                  "z": -3.151
+                },
+                {
+                  "abnormal_mean": 3080192.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2613248000000.0
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 4.7384,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.2213,
+                  "ratio": 21.4111
+                },
+                {
+                  "abnormal_mean": 6.1652,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.599,
+                  "ratio": 10.2931
+                },
+                {
+                  "abnormal_mean": 7.4523,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.8887,
+                  "ratio": 8.386
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "9f553092991adfd009303418185a33fb",
+            "05eb38ec851cd1106656d49358c4e7ed",
+            "8cbb2cc023ffb8f5b61a596912fc7174"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-plan-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 118,
+          "error_count": 116,
+          "route": "POST /api/v1/travelplanservice/travelPlan/cheapest",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 4.7384,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.2213,
+                  "ratio": 21.4111
+                },
+                {
+                  "abnormal_mean": 6.1652,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.599,
+                  "ratio": 10.2931
+                },
+                {
+                  "abnormal_mean": 7.4523,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.8887,
+                  "ratio": 8.386
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0068,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0367,
+                  "z": -8.6621
+                },
+                {
+                  "abnormal_mean": 26885259349.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 26950311850.6667,
+                  "z": -3.151
+                },
+                {
+                  "abnormal_mean": 0.0001,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -10.6116
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "9f553092991adfd009303418185a33fb",
+            "05eb38ec851cd1106656d49358c4e7ed",
+            "8cbb2cc023ffb8f5b61a596912fc7174"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 24 (JVMReturn) injected into ts-route-plan-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-09-02T15:42:41Z: injection_start @ ts-route-plan-service \u2014 fault injection window start",
+      "2025-09-02 15:42:41.012425062+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-09-02 15:42:41.808000+00:00: first_error_span @ ts-travel-plan-service \u2014 earliest Error span in abnormal window (any service)",
+      "2025-09-02 15:42:41.812000+00:00: path_first_error @ ts-route-plan-service \u2014 first Error span on accepted-path service",
+      "2025-09-02T15:46:40Z: injection_end @ ts-route-plan-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "auto",
+    "case": "ts1-ts-route-plan-service-return-2cvc6m",
+    "category": "JVMChaos",
+    "chaos_type": "JVMReturn",
+    "evid": "obs",
+    "fault_kind": "jvm_method_mutated",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMReturn",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_mutated",
+      "fault_type": 24,
+      "mapped": true,
+      "obs_channel_expected": "method returns a value differing from baseline",
+      "target_layer": "application"
+    },
+    "rank1": null,
+    "rca_pct": 0,
+    "refuse": null,
+    "sec": 1.1,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "auto",
+    "case": "ts1-ts-route-plan-service-return-2cvc6m",
+    "category": "JVMChaos",
+    "chaos_type": "JVMReturn",
+    "evid": null,
+    "fault_kind": "jvm_method_mutated",
+    "hops": null,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMReturn",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_mutated",
+      "fault_type": 24,
+      "mapped": true,
+      "obs_channel_expected": "method returns a value differing from baseline",
+      "target_layer": "application"
+    },
+    "rank1": null,
+    "rca_pct": 0,
+    "refuse": "algo_output_missing",
+    "sec": 1.1,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

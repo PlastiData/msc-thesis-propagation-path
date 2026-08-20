@@ -1,0 +1,93 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-route-service",
+      "ts-basic-service",
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-route-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts1-ts-ui-dashboard-response-delay-mhcfcl",
+  "evidence": {
+    "available": [
+      "Injection at ts-verification-code-service",
+      "Symptom at ts-ui-dashboard",
+      "Direct abnormal-window parent-child relationship",
+      "ts-verification-code-service shows 1 abnormal metric signal(s)",
+      "ts-ui-dashboard has no metric deviation under configured thresholds",
+      "Temporal ordering left unknown; timing alone cannot prove causality",
+      "Direct abnormal-window parent-child relationship",
+      "ts-auth-service shows 3 abnormal metric signal(s)"
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove a unique true causal path.",
+    "missing_evidence": [
+      "No official process-level ground truth was available.",
+      "Paths existed but none met acceptance policy 'strict'."
+    ],
+    "primary_rejection_reason": "required_horizontal_relationship_unavailable",
+    "safe_statement": "A connected candidate path could not be reconstructed."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 8 (HTTPResponseDelay) at ts-verification-code-service.",
+    "observed_symptom": "ts-ui-dashboard via frozen-policy-v1:primary."
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-ui-dashboard-response-delay-mhcfcl",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPResponseDelay",
+    "evid": null,
+    "fault_kind": "http_slow",
+    "hops": null,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPResponseDelay",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_slow",
+      "fault_type": 8,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span duration distribution",
+      "target_layer": "application"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 0,
+    "refuse": "required_horizontal_relationship_unavailable",
+    "sec": 6.4,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-ui-dashboard-response-delay-mhcfcl",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPResponseDelay",
+    "evid": null,
+    "fault_kind": "http_slow",
+    "hops": null,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPResponseDelay",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_slow",
+      "fault_type": 8,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span duration distribution",
+      "target_layer": "application"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 0,
+    "refuse": "required_horizontal_relationship_unavailable",
+    "sec": 6.4,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "insufficient_evidence"
+}

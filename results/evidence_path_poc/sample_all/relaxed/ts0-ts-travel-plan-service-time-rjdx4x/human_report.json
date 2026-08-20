@@ -1,0 +1,173 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-route-service",
+      "ts-travel-service",
+      "ts-route-plan-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-route-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts0-ts-travel-plan-service-time-rjdx4x",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-plan-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 10,
+          "error_count": 0,
+          "route": "POST /api/v1/travelplanservice/travelPlan/cheapest",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 16601553834.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 16895530666.6667,
+                  "z": -15.8386
+                },
+                {
+                  "abnormal_mean": 148879.5417,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 144167.0,
+                  "z": 3.3496
+                },
+                {
+                  "abnormal_mean": 0.9564,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.2827,
+                  "ratio": 3.3836
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0089,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0152,
+                  "z": -4.0395
+                },
+                {
+                  "abnormal_mean": 36605293141.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 36791839061.3333,
+                  "z": -12.48
+                },
+                {
+                  "abnormal_mean": 0.0853,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0174,
+                  "ratio": 4.9151
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "6807cc002939d7be5d44b2ddae6a51e5",
+            "3b3f07fca1e6e711287139a7335b4359",
+            "c1d9429820def3369446aefeece78316"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 16 (TimeSkew) injected into ts-travel-plan-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-19T14:31:49Z: injection_start @ ts-travel-plan-service \u2014 fault injection window start",
+      "2025-07-19 14:31:49.177233452+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-19 14:35:07.218336194+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-19T14:35:50Z: injection_end @ ts-travel-plan-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts0-ts-travel-plan-service-time-rjdx4x",
+    "category": "TimeChaos",
+    "chaos_type": "TimeSkew",
+    "evid": "obs",
+    "fault_kind": "clock_skew",
+    "hops": 1,
+    "injected_fault": {
+      "category": "TimeChaos",
+      "chaos_type": "TimeSkew",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "clock_skew",
+      "fault_type": 16,
+      "mapped": true,
+      "obs_channel_expected": "cross-service timestamp drift in correlated logs",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 0,
+    "refuse": null,
+    "sec": 5.4,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts0-ts-travel-plan-service-time-rjdx4x",
+    "category": "TimeChaos",
+    "chaos_type": "TimeSkew",
+    "evid": "obs",
+    "fault_kind": "clock_skew",
+    "hops": 5,
+    "injected_fault": {
+      "category": "TimeChaos",
+      "chaos_type": "TimeSkew",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "clock_skew",
+      "fault_type": 16,
+      "mapped": true,
+      "obs_channel_expected": "cross-service timestamp drift in correlated logs",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 33,
+    "refuse": null,
+    "sec": 5.4,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

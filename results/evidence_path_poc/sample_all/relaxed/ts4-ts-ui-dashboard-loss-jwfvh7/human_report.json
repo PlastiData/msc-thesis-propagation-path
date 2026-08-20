@@ -1,0 +1,211 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-ui-dashboard",
+    "rank1_hit": true
+  },
+  "case_id": "ts4-ts-ui-dashboard-loss-jwfvh7",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-user-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 2,
+          "error_count": 0,
+          "route": "GET /api/v1/userservice/users/id/{userId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 41485150720.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 41236525568.0,
+                  "z": 6.8291
+                },
+                {
+                  "abnormal_mean": 41485159680.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 41236525568.0,
+                  "z": 6.8293
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 114.23,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 42.6075,
+                  "z": 3.853
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "e955cc8521b07ff3634a909f7e9a091b",
+            "4328581afc5bb001eeb860ad0eb9cc82"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1,
+          "error_count": 0,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 114.23,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 42.6075,
+                  "z": 3.853
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0019,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0139,
+                  "z": -3.1864
+                },
+                {
+                  "abnormal_mean": 0.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0001,
+                  "z": -3.2996
+                },
+                {
+                  "abnormal_mean": 0.0021,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.usage",
+                  "normal_mean": 0.0142,
+                  "z": -3.2996
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "4328581afc5bb001eeb860ad0eb9cc82"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 18 (NetworkLoss) injected into ts-user-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-20T13:00:39Z: injection_start @ ts-user-service \u2014 fault injection window start",
+      "2025-07-20 13:00:39.403743168+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-20 13:00:39.953814589+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-20T13:04:38Z: injection_end @ ts-user-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-ui-dashboard-loss-jwfvh7",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkLoss",
+    "evid": "obs",
+    "fault_kind": "network_loss",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkLoss",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_loss",
+      "fault_type": 18,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, trace retry pattern",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-ui-dashboard",
+    "rca_pct": 33,
+    "refuse": null,
+    "sec": 4.8,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-ui-dashboard-loss-jwfvh7",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkLoss",
+    "evid": null,
+    "fault_kind": "network_loss",
+    "hops": null,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkLoss",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_loss",
+      "fault_type": 18,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, trace retry pattern",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-ui-dashboard",
+    "rca_pct": 0,
+    "refuse": "required_horizontal_relationship_unavailable",
+    "sec": 4.8,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

@@ -1,0 +1,251 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-consign-price-service",
+      "ts-consign-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-consign-price-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-consign-price-service-container-kill-lj9llf",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-consign-price-service -> ts-consign-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 7,
+          "error_count": 0,
+          "route": "GET /api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.6501,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.01,
+                  "z": 32.6187
+                },
+                {
+                  "abnormal_mean": 422058.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": -44885333333.3333
+                },
+                {
+                  "abnormal_mean": 2481144172.0889,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2464069376.0,
+                  "z": 31.3619
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 21620112042.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 21556795609.8723,
+                  "z": 3.3157
+                },
+                {
+                  "abnormal_mean": 0.8426,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.01,
+                  "ratio": 84.2639
+                },
+                {
+                  "abnormal_mean": 0.5415,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0129,
+                  "ratio": 41.9219
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "f66acd68b8d752d38dd84dd2994bd960",
+            "e9b45861dafbe3ad3a8188ad74c18048",
+            "9f64a21ff0f4e2080de88fa99f6718cb"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-consign-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 48,
+          "error_count": 8,
+          "route": "GET /api/v1/consignservice/consigns/account/{id}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 21620112042.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 21556795609.8723,
+                  "z": 3.3157
+                },
+                {
+                  "abnormal_mean": 0.8426,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.01,
+                  "ratio": 84.2639
+                },
+                {
+                  "abnormal_mean": 0.5415,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0129,
+                  "ratio": 41.9219
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0116,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0157,
+                  "z": -5.2233
+                },
+                {
+                  "abnormal_mean": 21620112042.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 21556795609.8723,
+                  "z": 3.3157
+                },
+                {
+                  "abnormal_mean": 0.3804,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.1027,
+                  "ratio": 3.705
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "c26d3a3f4a835428503b4af5edbb5755",
+            "06e1aee71be9357f6fd94ee30b3e0416",
+            "32a1d6df91fbc86bdee2da0fec509ad3"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 2 (ContainerKill) injected into ts-consign-price-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-17T12:53:02Z: injection_start @ ts-consign-price-service \u2014 fault injection window start",
+      "2025-07-17 12:53:02.017052740+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-17 12:53:09.810000+00:00: first_error_span @ ts-consign-service \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-17T12:57:02Z: injection_end @ ts-consign-price-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-consign-price-service-container-kill-lj9llf",
+    "category": "PodChaos",
+    "chaos_type": "ContainerKill",
+    "evid": "obs",
+    "fault_kind": "pod_failure",
+    "hops": 2,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "ContainerKill",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_failure",
+      "fault_type": 2,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, brief, recovers in window",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-consign-price-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 8.7,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-consign-price-service-container-kill-lj9llf",
+    "category": "PodChaos",
+    "chaos_type": "ContainerKill",
+    "evid": "obs",
+    "fault_kind": "pod_failure",
+    "hops": 2,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "ContainerKill",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_failure",
+      "fault_type": 2,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, brief, recovers in window",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-consign-price-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 8.7,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

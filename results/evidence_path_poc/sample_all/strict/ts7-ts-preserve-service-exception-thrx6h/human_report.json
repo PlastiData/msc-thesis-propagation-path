@@ -1,0 +1,158 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-preserve-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts7-ts-preserve-service-exception-thrx6h",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 48,
+          "error_count": 48,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 3024590.9787,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2557646978723.405
+                },
+                {
+                  "abnormal_mean": 142299.7872,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 136940.6667,
+                  "z": 3.1462
+                },
+                {
+                  "abnormal_mean": 3677075.0638,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 667818.6667,
+                  "z": 77.7747
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 6806419.0638,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 3911592.8511,
+                  "z": 3.2234
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "3c3119d988b6345a86863d3f06dd3757",
+            "6453c36954f876fffc66809f1af4fdff",
+            "811db78e3caaa2bbfffec43867609fbd"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 25 (JVMException) injected into ts-preserve-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-20T14:18:39Z: injection_start @ ts-preserve-service \u2014 fault injection window start",
+      "2025-07-20 14:18:39.756399127+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-20 14:18:39.757000+00:00: path_first_error @ ts-preserve-service \u2014 first Error span on accepted-path service",
+      "2025-07-20 14:18:39.763189684+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-07-20 14:18:39.763189684+00:00: path_first_error @ ts-ui-dashboard \u2014 first Error span on accepted-path service",
+      "2025-07-20T14:22:34Z: injection_end @ ts-preserve-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts7-ts-preserve-service-exception-thrx6h",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 10.6,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts7-ts-preserve-service-exception-thrx6h",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 10.6,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

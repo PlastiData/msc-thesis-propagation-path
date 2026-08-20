@@ -1,0 +1,312 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-route-plan-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-route-plan-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts5-ts-route-plan-service-request-delay-drzzdc",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel2-service -> ts-route-plan-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 220,
+          "error_count": 0,
+          "route": "POST /api/v1/travel2service/trips/left",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 189875.4583,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 178629.4583,
+                  "z": 3.0035
+                },
+                {
+                  "abnormal_mean": 2969685.3333,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 2192469.3333,
+                  "z": 3.4957
+                },
+                {
+                  "abnormal_mean": 190824.3125,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 178968.5208,
+                  "z": 3.1455
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 981504.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 758357.3333,
+                  "z": 5.5249
+                },
+                {
+                  "abnormal_mean": 155708.3958,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 147217.7708,
+                  "z": 3.0131
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "691dd8c8c10e1d8046ed4857a097eb2b",
+            "24aae1c72adcbbb047079cfb185a2daf",
+            "8c5e8c35fea334520c8c68543a498575"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-route-plan-service -> ts-travel-plan-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 117,
+          "error_count": 8,
+          "route": "POST /api/v1/routeplanservice/routePlan/quickestRoute",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 981504.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 758357.3333,
+                  "z": 5.5249
+                },
+                {
+                  "abnormal_mean": 155708.3958,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 147217.7708,
+                  "z": 3.0131
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 162844.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 149771.7292,
+                  "z": 4.9949
+                },
+                {
+                  "abnormal_mean": 1331456.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 976384.0,
+                  "z": 4.8626
+                },
+                {
+                  "abnormal_mean": 2472214016.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.available",
+                  "normal_mean": 2486656085.3333,
+                  "z": -3.3049
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "e45c813b6a7fadefe85e4a52acace1a4",
+            "67cf527d73f51224bc7646e305f2ea1b",
+            "691dd8c8c10e1d8046ed4857a097eb2b"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-plan-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 119,
+          "error_count": 10,
+          "route": "POST /api/v1/travelplanservice/travelPlan/quickest",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 162844.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 149771.7292,
+                  "z": 4.9949
+                },
+                {
+                  "abnormal_mean": 1331456.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 976384.0,
+                  "z": 4.8626
+                },
+                {
+                  "abnormal_mean": 2472214016.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.available",
+                  "normal_mean": 2486656085.3333,
+                  "z": -3.3049
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 13686.6042,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 8406.5,
+                  "z": 5.0329
+                },
+                {
+                  "abnormal_mean": 14358.9583,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 9132.6667,
+                  "z": 5.3345
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "14cff2b928fbaa4c2fde3ef387a07dc4",
+            "9b9bdef8bc3bc8711bfe113bcda52ba3",
+            "e45c813b6a7fadefe85e4a52acace1a4"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 7 (HTTPRequestDelay) injected into ts-travel2-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-09T00:50:05Z: injection_start @ ts-travel2-service \u2014 fault injection window start",
+      "2025-08-09 00:50:05.799769119+00:00: first_error_span @ ts-ui-dashboard \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-09 00:50:05.799769119+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-08-09 00:50:05.800000+00:00: path_first_error @ ts-travel-plan-service \u2014 first Error span on accepted-path service",
+      "2025-08-09 00:50:07.062000+00:00: path_first_error @ ts-route-plan-service \u2014 first Error span on accepted-path service",
+      "2025-08-09T00:54:05Z: injection_end @ ts-travel2-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-route-plan-service-request-delay-drzzdc",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestDelay",
+    "evid": "obs",
+    "fault_kind": "http_slow",
+    "hops": 3,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestDelay",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_slow",
+      "fault_type": 7,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span duration distribution",
+      "target_layer": "application"
+    },
+    "rank1": "ts-route-plan-service",
+    "rca_pct": 75,
+    "refuse": null,
+    "sec": 9.0,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-route-plan-service-request-delay-drzzdc",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestDelay",
+    "evid": "obs",
+    "fault_kind": "http_slow",
+    "hops": 2,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestDelay",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_slow",
+      "fault_type": 7,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span duration distribution",
+      "target_layer": "application"
+    },
+    "rank1": "ts-route-plan-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 9.0,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

@@ -1,0 +1,164 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-preserve-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts4-ts-basic-service-corrupt-4vwk2d",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 4,
+          "error_count": 1,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 12756077226.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 12578142634.6667,
+                  "z": 3.5047
+                },
+                {
+                  "abnormal_mean": 2490813696.0,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2497173162.6667,
+                  "z": -7.1358
+                },
+                {
+                  "abnormal_mean": 140594.3958,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 138778.3958,
+                  "z": 6.1122
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 12409.8333,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 9418.375,
+                  "z": 3.543
+                },
+                {
+                  "abnormal_mean": 13197.4167,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 10200.1042,
+                  "z": 3.8343
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "a71f53427fc2af9b239250e6f6c041f7",
+            "8740476e8c05830517970a5271137926",
+            "d69cf73b30969786e2a292036efde6fc"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 20 (NetworkCorrupt) injected into ts-preserve-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-18T23:21:27Z: injection_start @ ts-preserve-service \u2014 fault injection window start",
+      "2025-08-18 23:21:27.080483185+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-18 23:21:28.625216340+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-18 23:22:16.616000+00:00: path_first_error @ ts-preserve-service \u2014 first Error span on accepted-path service",
+      "2025-08-18T23:25:27Z: injection_end @ ts-preserve-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-basic-service-corrupt-4vwk2d",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkCorrupt",
+    "evid": "obs",
+    "fault_kind": "network_corrupt",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkCorrupt",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_corrupt",
+      "fault_type": 20,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, TCP retransmit signal",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 16.9,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-basic-service-corrupt-4vwk2d",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkCorrupt",
+    "evid": "obs",
+    "fault_kind": "network_corrupt",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkCorrupt",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_corrupt",
+      "fault_type": 20,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, TCP retransmit signal",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 16.9,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

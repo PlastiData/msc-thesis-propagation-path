@@ -1,0 +1,242 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-seat-service",
+      "ts-travel2-service",
+      "ts-route-plan-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-seat-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts9-ts-order-service-partition-msxm42",
+  "evidence": {
+    "composition": {
+      "inferred": "50.0%",
+      "observed": "50.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-seat-service -> ts-travel-plan-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 16,
+          "error_count": 0,
+          "route": "POST /api/v1/seatservice/seats/left_tickets",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 40889897301.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 40737349120.0,
+                  "z": 6.1719
+                },
+                {
+                  "abnormal_mean": 0.0001,
+                  "family": "gauge",
+                  "metric": "jvm.cpu.recent_utilization",
+                  "normal_mean": 0.001,
+                  "z": -3.0814
+                },
+                {
+                  "abnormal_mean": 40889897301.3333,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 40737388202.6667,
+                  "z": 6.1792
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 34747034197.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 35168438186.6667,
+                  "z": -4.266
+                },
+                {
+                  "abnormal_mean": 0.0001,
+                  "family": "gauge",
+                  "metric": "jvm.cpu.recent_utilization",
+                  "normal_mean": 0.0005,
+                  "z": -4.1728
+                },
+                {
+                  "abnormal_mean": 0.0205,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0316,
+                  "z": -3.4822
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "4f585f8f267948501b602fe395411b74",
+            "8b21d89fbd318072ebec47bd6185ea8f",
+            "5a4b8616fd900e241eae734044e8918c"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "fail",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-plan-service -> ts-ui-dashboard",
+        "level": "inferred",
+        "missing_evidence": [
+          "statistical_deviation_at_both_endpoints",
+          "usable_temporal_onset_ordering",
+          "incident_evidence_at_both_endpoints"
+        ],
+        "refs": {
+          "call_count": 10,
+          "error_count": 5,
+          "route": "POST /api/v1/travelplanservice/travelPlan/quickest",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 34747034197.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 35168438186.6667,
+                  "z": -4.266
+                },
+                {
+                  "abnormal_mean": 0.0001,
+                  "family": "gauge",
+                  "metric": "jvm.cpu.recent_utilization",
+                  "normal_mean": 0.0005,
+                  "z": -4.1728
+                },
+                {
+                  "abnormal_mean": 0.0205,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0316,
+                  "z": -3.4822
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [],
+              "n_compared": 26,
+              "source": "metrics",
+              "verdict": "fail"
+            }
+          },
+          "trace_ids": [
+            "4f585f8f267948501b602fe395411b74",
+            "8b21d89fbd318072ebec47bd6185ea8f",
+            "75c94307ef7ea308ca8f98b25ec94b62"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [
+      "statistical_deviation_at_both_endpoints",
+      "usable_temporal_onset_ordering",
+      "incident_evidence_at_both_endpoints"
+    ],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 22 (NetworkPartition) injected into ts-seat-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-20T02:39:54Z: injection_start @ ts-seat-service \u2014 fault injection window start",
+      "2025-07-20 02:39:54.018011786+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-20 02:39:56.537169891+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-20 02:40:22.238000+00:00: path_first_error @ ts-travel-plan-service \u2014 first Error span on accepted-path service",
+      "2025-07-20 02:40:22.298000+00:00: path_first_error @ ts-seat-service \u2014 first Error span on accepted-path service",
+      "2025-07-20T02:43:53Z: injection_end @ ts-seat-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts9-ts-order-service-partition-msxm42",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkPartition",
+    "evid": "inf",
+    "fault_kind": "network_partition",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkPartition",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_partition",
+      "fault_type": 22,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, timeout share approaches one",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-seat-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 5.5,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts9-ts-order-service-partition-msxm42",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkPartition",
+    "evid": "inf",
+    "fault_kind": "network_partition",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkPartition",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_partition",
+      "fault_type": 22,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, timeout share approaches one",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-seat-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 5.5,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

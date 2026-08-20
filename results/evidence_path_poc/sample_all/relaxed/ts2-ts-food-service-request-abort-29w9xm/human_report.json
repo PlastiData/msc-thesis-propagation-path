@@ -1,0 +1,237 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-food-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-food-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-food-service-request-abort-29w9xm",
+  "evidence": {
+    "composition": {
+      "inferred": "50.0%",
+      "observed": "50.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "fail",
+          "structural": "fail",
+          "temporal": "unknown"
+        },
+        "hop": "ts-station-food-service -> ts-food-service",
+        "level": "inferred",
+        "missing_evidence": [
+          "direct_abnormal_parent_child_relationship",
+          "statistical_deviation_at_both_endpoints",
+          "usable_temporal_onset_ordering",
+          "incident_evidence_at_both_endpoints"
+        ],
+        "refs": {
+          "call_count": null,
+          "error_count": null,
+          "route": null,
+          "stat": {
+            "source": {
+              "hits": [],
+              "n_compared": 32,
+              "source": "metrics",
+              "verdict": "fail"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.1936,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.055,
+                  "z": 3.4738
+                },
+                {
+                  "abnormal_mean": 2378879146.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2406745173.3333,
+                  "z": -4.6852
+                },
+                {
+                  "abnormal_mean": 830725717.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 803332693.3333,
+                  "z": 4.5945
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": []
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-food-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 798,
+          "error_count": 786,
+          "route": "GET /api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.1936,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.055,
+                  "z": 3.4738
+                },
+                {
+                  "abnormal_mean": 2378879146.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2406745173.3333,
+                  "z": -4.6852
+                },
+                {
+                  "abnormal_mean": 830725717.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 803332693.3333,
+                  "z": 4.5945
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0037,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.015,
+                  "z": -10.1899
+                },
+                {
+                  "abnormal_mean": 1.9287,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0093,
+                  "ratio": 206.8379
+                },
+                {
+                  "abnormal_mean": 0.8106,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.1005,
+                  "ratio": 8.0638
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "d3165e7dbc957704431ceaa9a77bc5ef",
+            "d11a27f40401d66bad449c0beb77bc82",
+            "9ea4de38eb8feb4454c82e2389c5b2b5"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [
+      "direct_abnormal_parent_child_relationship",
+      "statistical_deviation_at_both_endpoints",
+      "usable_temporal_onset_ordering",
+      "incident_evidence_at_both_endpoints"
+    ],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 5 (HTTPRequestAbort) injected into ts-station-food-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-19T03:49:22Z: injection_start @ ts-station-food-service \u2014 fault injection window start",
+      "2025-07-19 03:49:28.921769063+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-19 03:49:28.922724227+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-07-19 03:49:28.922724227+00:00: path_first_error @ ts-ui-dashboard \u2014 first Error span on accepted-path service",
+      "2025-07-19 03:49:28.943000+00:00: path_first_error @ ts-food-service \u2014 first Error span on accepted-path service",
+      "2025-07-19T03:53:22Z: injection_end @ ts-station-food-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-food-service-request-abort-29w9xm",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestAbort",
+    "evid": "inf",
+    "fault_kind": "http_aborted",
+    "hops": 2,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestAbort",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_aborted",
+      "fault_type": 5,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span status, request-failure rate",
+      "target_layer": "application"
+    },
+    "rank1": "ts-food-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 6.3,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-food-service-request-abort-29w9xm",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestAbort",
+    "evid": "obs",
+    "fault_kind": "http_aborted",
+    "hops": 1,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestAbort",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_aborted",
+      "fault_type": 5,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span status, request-failure rate",
+      "target_layer": "application"
+    },
+    "rank1": "ts-food-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 6.3,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

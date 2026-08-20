@@ -1,0 +1,252 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-train-food-service",
+      "ts-food-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-train-food-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts1-mysql-partition-rmwzw9",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-train-food-service -> ts-food-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 21,
+          "error_count": 19,
+          "route": "GET /api/v1/trainfoodservice/trainfoods/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 143925.8125,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 140881.3125,
+                  "z": 3.0802
+                },
+                {
+                  "abnormal_mean": 10.0,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0074,
+                  "ratio": 1355.0208
+                },
+                {
+                  "abnormal_mean": 10.0,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0094,
+                  "ratio": 1063.6698
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 3.3422,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0114,
+                  "ratio": 293.1526
+                },
+                {
+                  "abnormal_mean": 6.6721,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.023,
+                  "ratio": 289.6624
+                },
+                {
+                  "abnormal_mean": 6.6723,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.0258,
+                  "ratio": 258.3421
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "5755c4d7d5e492a3fbd27bf96f9a6261",
+            "9a18b434bd23d2e2a332b25f184bdc41",
+            "8e3a221bacdcd254585f859fe1d64401"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-food-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 11,
+          "error_count": 9,
+          "route": "GET /api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 3.3422,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0114,
+                  "ratio": 293.1526
+                },
+                {
+                  "abnormal_mean": 6.6721,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.023,
+                  "ratio": 289.6624
+                },
+                {
+                  "abnormal_mean": 6.6723,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.0258,
+                  "ratio": 258.3421
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0019,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0146,
+                  "z": -10.181
+                },
+                {
+                  "abnormal_mean": 0.4236,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.1105,
+                  "ratio": 3.8331
+                },
+                {
+                  "abnormal_mean": 1.6483,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p99_seconds",
+                  "normal_mean": 0.3583,
+                  "ratio": 4.6
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "5755c4d7d5e492a3fbd27bf96f9a6261",
+            "9a18b434bd23d2e2a332b25f184bdc41",
+            "8e3a221bacdcd254585f859fe1d64401"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 22 (NetworkPartition) injected into ts-train-food-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-19T06:37:45Z: injection_start @ ts-train-food-service \u2014 fault injection window start",
+      "2025-07-19 06:37:45.075915383+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-19 06:37:47.959000+00:00: first_error_span @ ts-food-service \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-19 06:37:48.013000+00:00: path_first_error @ ts-train-food-service \u2014 first Error span on accepted-path service",
+      "2025-07-19T06:41:45Z: injection_end @ ts-train-food-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts1-mysql-partition-rmwzw9",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkPartition",
+    "evid": "obs",
+    "fault_kind": "network_partition",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkPartition",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_partition",
+      "fault_type": 22,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, timeout share approaches one",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-train-food-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 4.9,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts1-mysql-partition-rmwzw9",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkPartition",
+    "evid": "obs",
+    "fault_kind": "network_partition",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkPartition",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_partition",
+      "fault_type": 22,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, timeout share approaches one",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-train-food-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 4.9,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

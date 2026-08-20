@@ -1,0 +1,225 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-travel2-service",
+      "ts-route-plan-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-travel2-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts5-ts-travel2-service-partition-59c854",
+  "evidence": {
+    "composition": {
+      "inferred": "50.0%",
+      "observed": "50.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-seat-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 8,
+          "error_count": 0,
+          "route": "POST /api/v1/seatservice/seats",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 156419.375,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 152089.7917,
+                  "z": 7.406
+                },
+                {
+                  "abnormal_mean": 157068.1458,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 152897.2083,
+                  "z": 7.0549
+                },
+                {
+                  "abnormal_mean": 738441898.6667,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.rss",
+                  "normal_mean": 734459306.6667,
+                  "z": 3.1251
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 143121.4167,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 135028.5833,
+                  "z": 6.1143
+                },
+                {
+                  "abnormal_mean": 143625.6042,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 135830.8958,
+                  "z": 6.0541
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "0683cedda0b221ac7d74f0bad2605164",
+            "479f9817f2b222a181d373a5fde6b20d",
+            "237f49973db006aba75f40272371b724"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "fail",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "inferred",
+        "missing_evidence": [
+          "statistical_deviation_at_both_endpoints",
+          "usable_temporal_onset_ordering",
+          "incident_evidence_at_both_endpoints"
+        ],
+        "refs": {
+          "call_count": 8,
+          "error_count": 0,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 143121.4167,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 135028.5833,
+                  "z": 6.1143
+                },
+                {
+                  "abnormal_mean": 143625.6042,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 135830.8958,
+                  "z": 6.0541
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [],
+              "n_compared": 26,
+              "source": "metrics",
+              "verdict": "fail"
+            }
+          },
+          "trace_ids": [
+            "0683cedda0b221ac7d74f0bad2605164",
+            "479f9817f2b222a181d373a5fde6b20d",
+            "237f49973db006aba75f40272371b724"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [
+      "statistical_deviation_at_both_endpoints",
+      "usable_temporal_onset_ordering",
+      "incident_evidence_at_both_endpoints"
+    ],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 22 (NetworkPartition) injected into ts-seat-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-08T00:35:47Z: injection_start @ ts-seat-service \u2014 fault injection window start",
+      "2025-08-08 00:35:47.172400963+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-08 00:35:49.857551761+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-08T00:39:47Z: injection_end @ ts-seat-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-travel2-service-partition-59c854",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkPartition",
+    "evid": "inf",
+    "fault_kind": "network_partition",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkPartition",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_partition",
+      "fault_type": 22,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, timeout share approaches one",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-travel2-service",
+    "rca_pct": 33,
+    "refuse": null,
+    "sec": 5.1,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-travel2-service-partition-59c854",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkPartition",
+    "evid": null,
+    "fault_kind": "network_partition",
+    "hops": null,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkPartition",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_partition",
+      "fault_type": 22,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, timeout share approaches one",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-travel2-service",
+    "rca_pct": 0,
+    "refuse": "required_horizontal_relationship_unavailable",
+    "sec": 5.1,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

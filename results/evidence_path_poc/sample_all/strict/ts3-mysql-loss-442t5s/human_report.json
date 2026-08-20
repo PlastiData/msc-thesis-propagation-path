@@ -1,0 +1,172 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-route-service",
+      "ts-basic-service",
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-route-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts3-mysql-loss-442t5s",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-auth-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 277,
+          "error_count": 0,
+          "route": "POST /api/v1/users/login",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.2065,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.534,
+                  "z": -3.5136
+                },
+                {
+                  "abnormal_mean": 0.2193,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0046,
+                  "ratio": 47.9831
+                },
+                {
+                  "abnormal_mean": 0.3078,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.005,
+                  "ratio": 62.1721
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0112,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0366,
+                  "z": -12.1768
+                },
+                {
+                  "abnormal_mean": 0.8076,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.1007,
+                  "ratio": 8.0176
+                },
+                {
+                  "abnormal_mean": 1.1421,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.1498,
+                  "ratio": 7.6239
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "72918fd7d186d16ac2f91d0e5162ecf3",
+            "bbda1aa026bbb1a164742adc172611b4",
+            "f17630fe490f2e026f255b7400db4d77"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 18 (NetworkLoss) injected into ts-auth-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-10T15:44:04Z: injection_start @ ts-auth-service \u2014 fault injection window start",
+      "2025-08-10 15:44:04.009279214+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-10 15:44:05.052425404+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-10T15:48:04Z: injection_end @ ts-auth-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts3-mysql-loss-442t5s",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkLoss",
+    "evid": "obs",
+    "fault_kind": "network_loss",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkLoss",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_loss",
+      "fault_type": 18,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, trace retry pattern",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 11.1,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts3-mysql-loss-442t5s",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkLoss",
+    "evid": "obs",
+    "fault_kind": "network_loss",
+    "hops": 5,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkLoss",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_loss",
+      "fault_type": 18,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, trace retry pattern",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-route-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 11.1,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

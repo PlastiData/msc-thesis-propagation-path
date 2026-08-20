@@ -1,0 +1,252 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-verification-code-service",
+      "ts-auth-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-verification-code-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts1-ts-auth-service-response-replace-code-xn6gk2",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-verification-code-service -> ts-auth-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 5303,
+          "error_count": 0,
+          "route": "GET /api/v1/verifycode/verify/{verifyCode}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2441475498.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2454338304.0,
+                  "z": -21.1999
+                },
+                {
+                  "abnormal_mean": 165978.4167,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 160647.1458,
+                  "z": 6.5057
+                },
+                {
+                  "abnormal_mean": 768938069.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 756200789.3333,
+                  "z": 19.7243
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 1.4405,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.437,
+                  "z": 5.1893
+                },
+                {
+                  "abnormal_mean": 1437685248.0,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2416672085.3333,
+                  "z": -734.18
+                },
+                {
+                  "abnormal_mean": 190775.6875,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 173605.2917,
+                  "z": 7.8003
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "493be8598f30a875dd7de57af15273ac",
+            "56accb2c20eca2cf0308bfa9fa61ef8c",
+            "44422bc50f641a547d8f555d0874e8af"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-auth-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 5302,
+          "error_count": 5295,
+          "route": "POST /api/v1/users/login",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 1.4405,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.437,
+                  "z": 5.1893
+                },
+                {
+                  "abnormal_mean": 1437685248.0,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2416672085.3333,
+                  "z": -734.18
+                },
+                {
+                  "abnormal_mean": 190775.6875,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 173605.2917,
+                  "z": 7.8003
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0062,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0306,
+                  "z": -3.2889
+                },
+                {
+                  "abnormal_mean": 1.7151,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0366,
+                  "ratio": 46.9218
+                },
+                {
+                  "abnormal_mean": 2.1816,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.2442,
+                  "ratio": 8.932
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "493be8598f30a875dd7de57af15273ac",
+            "56accb2c20eca2cf0308bfa9fa61ef8c",
+            "44422bc50f641a547d8f555d0874e8af"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 13 (HTTPResponseReplaceCode) injected into ts-verification-code-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-06T00:45:17Z: injection_start @ ts-verification-code-service \u2014 fault injection window start",
+      "2025-08-06 00:45:17.740786016+00:00: first_error_span @ ts-ui-dashboard \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-06 00:45:17.740786016+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-08-06 00:45:18.045000+00:00: path_first_error @ ts-auth-service \u2014 first Error span on accepted-path service",
+      "2025-08-06T00:49:17Z: injection_end @ ts-verification-code-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-auth-service-response-replace-code-xn6gk2",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPResponseReplaceCode",
+    "evid": "obs",
+    "fault_kind": "http_response_status_modified",
+    "hops": 2,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPResponseReplaceCode",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_response_status_modified",
+      "fault_type": 13,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span status-code distribution",
+      "target_layer": "application"
+    },
+    "rank1": "ts-verification-code-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 22.5,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-auth-service-response-replace-code-xn6gk2",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPResponseReplaceCode",
+    "evid": "obs",
+    "fault_kind": "http_response_status_modified",
+    "hops": 2,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPResponseReplaceCode",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_response_status_modified",
+      "fault_type": 13,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span status-code distribution",
+      "target_layer": "application"
+    },
+    "rank1": "ts-verification-code-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 22.5,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

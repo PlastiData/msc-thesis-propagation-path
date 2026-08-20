@@ -1,0 +1,168 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-preserve-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts4-ts-security-service-bandwidth-cs99dm",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1,
+          "error_count": 0,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2480189184.0,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2493954816.0,
+                  "z": -5.0064
+                },
+                {
+                  "abnormal_mean": 140016.1875,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 135053.5208,
+                  "z": 5.3036
+                },
+                {
+                  "abnormal_mean": 730320042.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 716619093.3333,
+                  "z": 5.1087
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0074,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0394,
+                  "z": -5.8919
+                },
+                {
+                  "abnormal_mean": 0.0001,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -7.098
+                },
+                {
+                  "abnormal_mean": 0.0067,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.usage",
+                  "normal_mean": 0.0396,
+                  "z": -7.098
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "3df6b97e5b42dc7a8519a9ccc5375b32"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 21 (NetworkBandwidth) injected into ts-preserve-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-25T04:19:23Z: injection_start @ ts-preserve-service \u2014 fault injection window start",
+      "2025-07-25 04:19:23.009289538+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-25 04:19:24.480036520+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-25T04:23:23Z: injection_end @ ts-preserve-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-security-service-bandwidth-cs99dm",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 12.9,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-security-service-bandwidth-cs99dm",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 12.9,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

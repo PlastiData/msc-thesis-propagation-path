@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Evidence dashboard — sample10/relaxed</title>
+<style>
+:root { --bg:#f7f5f2; --ink:#1a1a1a; --muted:#666; --line:#ddd; --card:#fff; }
+body{font-family:ui-sans-serif,system-ui,sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:1.45rem;margin:0 0 .4rem}
+h2{font-size:1.05rem;margin:1.2rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+.lead{line-height:1.45;max-width:70ch}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.filters button{background:var(--card);border:1px solid var(--line);padding:.35rem .7rem;cursor:pointer;font:inherit}
+.filters button.active{border-color:#111;font-weight:600}
+.queue{display:flex;flex-direction:column;gap:.75rem}
+.qrow{background:var(--card);border:1px solid var(--line);padding:.85rem 1rem}
+.qrow.hidden{display:none}
+.qhead{display:flex;align-items:center;gap:.75rem;margin-bottom:.55rem;flex-wrap:wrap}
+.qhead .cid{font-weight:600;color:#0b5;text-decoration:none}
+.agree{font-size:.78rem;font-family:ui-monospace,monospace;border:1px solid var(--line);padding:.1rem .4rem}
+.qseed{display:flex;align-items:center;gap:.55rem;margin:.35rem 0;flex-wrap:wrap}
+.qseed .lab{min-width:3.2rem;font-size:.75rem;color:var(--muted);text-transform:uppercase}
+.qseed .ver{font-size:.82rem;font-family:ui-monospace,monospace;min-width:5.5rem}
+.strip{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.2rem}
+.strip .hop{background:#111;color:#fff;padding:.15rem .4rem;font-size:.78rem;border-radius:4px}
+.strip .tick{display:inline-block;width:14px;height:0;border-top:3px solid #1b9e77}
+.strip .tick.dashed{border-top-style:dashed;border-color:#d95f02}
+.strip.refuse{color:#a45;font-family:ui-monospace,monospace;font-size:.82rem}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;margin:1rem 0}
+.tile{background:var(--card);border:1px solid var(--line);padding:1rem}
+.tile .n{font-size:1.5rem;font-weight:700}
+.tile .l{color:var(--muted);font-size:.85rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:900px){.tiles{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);padding:1rem}
+table{border-collapse:collapse;width:100%;font-size:.86rem;background:var(--card)}
+th,td{border:1px solid var(--line);padding:.35rem .4rem;text-align:left;vertical-align:top}
+.muted{color:var(--muted)}
+code{font-size:.88em}
+details.eval{margin:2rem 0 1rem;background:var(--card);border:1px solid var(--line);padding:.75rem 1rem}
+details.eval>summary{cursor:pointer;font-weight:600}
+</style></head><body><main>
+<h1>Investigation console — sample10 / relaxed</h1>
+<p class="lead">Return a candidate propagation path with Observed / Supported /
+Inferred labels and re-executable refs, or refuse with a named gap.
+Paths are candidates under this policy, not causal ground truth.</p>
+
+<nav class="filters" aria-label="Queue filter">
+<button type="button" data-filter="all" class="active">all</button>
+<button type="button" data-filter="differ">differ</button>
+<button type="button" data-filter="refuse">refuse</button>
+<button type="button" data-filter="same">same</button>
+</nav>
+
+<section id="queue">
+<h2>Investigation queue</h2>
+<p class="muted">Sorted: differ → one-sided refuse → same.</p>
+<div class="queue"><article class='qrow' data-agree='differ' data-filter='differ'><div class='qhead'><a class='cid' href='ts0-mysql-partition-cfvlsw/graph.html'>ts0-mysql-partition-cfvlsw</a><span class='agree'>differ</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>travel2</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='differ' data-filter='differ'><div class='qhead'><a class='cid' href='ts0-mysql-partition-jh4jkt/graph.html'>ts0-mysql-partition-jh4jkt</a><span class='agree'>differ</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>train</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='differ' data-filter='differ'><div class='qhead'><a class='cid' href='ts0-ts-config-service-stress-g6rpl9/graph.html'>ts0-ts-config-service-stress-g6rpl9</a><span class='agree'>differ</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>config</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>seat</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>food</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>preserve</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>seat</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>food</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>preserve</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='differ' data-filter='differ'><div class='qhead'><a class='cid' href='ts4-ts-basic-service-request-delay-rxfqg2/graph.html'>ts4-ts-basic-service-request-delay-rxfqg2</a><span class='agree'>differ</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>station</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='differ' data-filter='differ'><div class='qhead'><a class='cid' href='ts4-ts-basic-service-request-replace-path-n9jq9s/graph.html'>ts4-ts-basic-service-request-replace-path-n9jq9s</a><span class='agree'>differ</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>route</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='differ' data-filter='differ'><div class='qhead'><a class='cid' href='ts4-ts-ui-dashboard-response-delay-fzgvbz/graph.html'>ts4-ts-ui-dashboard-response-delay-fzgvbz</a><span class='agree'>differ</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>travel2</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>route</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>food</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>preserve</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='differ' data-filter='differ'><div class='qhead'><a class='cid' href='ts5-ts-travel2-service-stress-v9ch2t/graph.html'>ts5-ts-travel2-service-stress-v9ch2t</a><span class='agree'>differ</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>travel2</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='rca_only' data-filter='refuse'><div class='qhead'><a class='cid' href='ts4-ts-route-plan-service-request-delay-rqmwn4/graph.html'>ts4-ts-route-plan-service-request-delay-rqmwn4</a><span class='agree'>rca_only</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>refuse — horiz</span><span class='strip refuse'>refuse — horiz</span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='same' data-filter='same'><div class='qhead'><a class='cid' href='ts0-ts-consign-price-service-stress-nwzn4t/graph.html'>ts0-ts-consign-price-service-stress-nwzn4t</a><span class='agree'>same</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>consign-price</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>consign</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>consign-price</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>consign</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article><article class='qrow' data-agree='same' data-filter='same'><div class='qhead'><a class='cid' href='ts2-mysql-partition-5zrq5z/graph.html'>ts2-mysql-partition-5zrq5z</a><span class='agree'>same</span></div><div class='qseed'><span class='lab'>Inject</span><span class='ver'>path</span><span class='strip'><span class='hop'>contacts</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='qseed'><span class='lab'>RCA</span><span class='ver'>path</span><span class='strip'><span class='hop'>contacts</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></article></div>
+</section>
+
+<details class="eval">
+<summary>Evaluation metrics (RQ-A / RQ-B / RQ-C)</summary>
+<section>
+<h2>RQ-A — coverage and policy</h2>
+
+<table>
+<thead><tr><th>Policy</th><th>Inject constructed</th><th>Inject cov</th>
+<th>RCA constructed</th><th>RCA cov</th></tr></thead>
+<tbody><tr><td>relaxed (this run)</td><td>9/10</td><td>90.0%</td><td>10/10</td><td>100.0%</td></tr><tr><td>strict</td><td>8/10</td><td>80.0%</td><td>9/10</td><td>90.0%</td></tr></tbody>
+</table>
+
+
+<p class="muted">Seed ordering footnote: dataset AC@1 leader <code>traceback-A8</code> (62.5%); full table in <code>dataset.perf.parquet</code>.</p>
+</section>
+
+<section>
+<h2>Accept / refuse by injection taxonomy</h2>
+<p class="muted">Stratified by injected fault (benchmark label) via OpenRCA 2.0 Tables 5–6 taxonomy lookup — not detected error type, not Table 7 rule firing.</p>
+<h3>By target layer (infra vs app)</h3>
+
+<table>
+<thead><tr>
+<th>target_layer</th>
+<th>Inject accept</th><th>Inject refuse</th><th>Inject n</th>
+<th>RCA accept</th><th>RCA refuse</th><th>RCA n</th>
+</tr></thead>
+<tbody><tr><td>application</td><td>6</td><td>1</td><td>7</td><td>7</td><td>0</td><td>7</td></tr><tr><td>infrastructure</td><td>3</td><td>0</td><td>3</td><td>3</td><td>0</td><td>3</td></tr></tbody>
+</table>
+
+<h3>By fault kind (Table 6)</h3>
+
+<table>
+<thead><tr>
+<th>fault_kind</th>
+<th>Inject accept</th><th>Inject refuse</th><th>Inject n</th>
+<th>RCA accept</th><th>RCA refuse</th><th>RCA n</th>
+</tr></thead>
+<tbody><tr><td>http_payload_modified</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr><tr><td>http_slow</td><td>2</td><td>1</td><td>3</td><td>3</td><td>0</td><td>3</td></tr><tr><td>jvm_heap_stress</td><td>3</td><td>0</td><td>3</td><td>3</td><td>0</td><td>3</td></tr><tr><td>network_partition</td><td>3</td><td>0</td><td>3</td><td>3</td><td>0</td><td>3</td></tr></tbody>
+</table>
+
+<details>
+<summary>By Chaos Mesh category (Table 5)</summary>
+
+<table>
+<thead><tr>
+<th>category</th>
+<th>Inject accept</th><th>Inject refuse</th><th>Inject n</th>
+<th>RCA accept</th><th>RCA refuse</th><th>RCA n</th>
+</tr></thead>
+<tbody><tr><td>HTTPChaos</td><td>3</td><td>1</td><td>4</td><td>4</td><td>0</td><td>4</td></tr><tr><td>JVMChaos</td><td>3</td><td>0</td><td>3</td><td>3</td><td>0</td><td>3</td></tr><tr><td>NetworkChaos</td><td>3</td><td>0</td><td>3</td><td>3</td><td>0</td><td>3</td></tr></tbody>
+</table>
+
+</details>
+</section>
+
+<section>
+<h2>RQ-C — refuse both seeds</h2>
+<div class="grid">
+<div class="card">
+<h3>Inject seed refusals</h3>
+<table><thead><tr><th>Reason</th><th>n</th></tr></thead>
+<tbody><tr><td>horiz</td><td>1</td></tr></tbody></table>
+</div>
+<div class="card">
+<h3>RCA seed refusals</h3>
+<table><thead><tr><th>Reason</th><th>n</th></tr></thead>
+<tbody><tr><td colspan='2'>no refusals</td></tr></tbody></table>
+</div>
+</div>
+</section>
+<section>
+<h2>Agreement — inject vs RCA node lists</h2>
+<p class="muted">Exact <code>selected_path_nodes</code> equality when both constructed.</p>
+<div class="tiles"><div class='tile'><div class='n'>2</div><div class='l'>same</div></div><div class='tile'><div class='n'>7</div><div class='l'>differ</div></div><div class='tile'><div class='n'>0</div><div class='l'>inject_only</div></div><div class='tile'><div class='n'>1</div><div class='l'>rca_only</div></div><div class='tile'><div class='n'>0</div><div class='l'>both_refuse</div></div></div>
+</section>
+<section>
+<h2>RQ-B — evidence composition (honesty)</h2>
+<p>Fault-returned edges: Observed 96.7%,
+Supported 0.0%,
+Inferred 3.3%
+(29/0/1
+ of 30).</p>
+<p class="muted">Supported is empty when classifiers never emit it; temporal is often
+<code>unknown</code>. Edge mix is availability, not a success metric.</p>
+</section>
+</details>
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.filters button');
+  var rows = document.querySelectorAll('.qrow');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.getAttribute('data-filter');
+      buttons.forEach(function (b) { b.classList.toggle('active', b === btn); });
+      rows.forEach(function (row) {
+        var show = key === 'all' || (row.getAttribute('data-filter') || '').split(' ').indexOf(key) >= 0;
+        row.classList.toggle('hidden', !show);
+      });
+    });
+  });
+})();
+</script>
+</main></body></html>

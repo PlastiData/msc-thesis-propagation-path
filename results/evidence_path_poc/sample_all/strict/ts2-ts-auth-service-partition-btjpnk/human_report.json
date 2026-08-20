@@ -1,0 +1,91 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-auth-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-auth-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-auth-service-partition-btjpnk",
+  "evidence": {
+    "available": [
+      "Injection at mysql",
+      "Symptom at ts-ui-dashboard",
+      "Direct abnormal-window parent-child relationship",
+      "ts-auth-service shows 3 abnormal metric signal(s)",
+      "ts-ui-dashboard shows 3 abnormal metric signal(s)",
+      "Temporal ordering left unknown; timing alone cannot prove causality",
+      "Direct abnormal-window parent-child relationship",
+      "Direct abnormal-window parent-child relationship"
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove a unique true causal path.",
+    "missing_evidence": [
+      "No official process-level ground truth was available.",
+      "No connected horizontal candidate path from injection to symptom."
+    ],
+    "primary_rejection_reason": "no_connected_candidate_path",
+    "safe_statement": "A connected candidate path could not be reconstructed."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 22 (NetworkPartition) at mysql.",
+    "observed_symptom": "ts-ui-dashboard via frozen-policy-v1:primary."
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-auth-service-partition-btjpnk",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkPartition",
+    "evid": null,
+    "fault_kind": "network_partition",
+    "hops": null,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkPartition",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_partition",
+      "fault_type": 22,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, timeout share approaches one",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-auth-service",
+    "rca_pct": 0,
+    "refuse": "no_connected_candidate_path",
+    "sec": 6.5,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-auth-service-partition-btjpnk",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkPartition",
+    "evid": "obs",
+    "fault_kind": "network_partition",
+    "hops": 1,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkPartition",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_partition",
+      "fault_type": 22,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, timeout share approaches one",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-auth-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 6.5,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "insufficient_evidence"
+}

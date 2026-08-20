@@ -1,0 +1,91 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-food-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-food-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-food-service-request-abort-29w9xm",
+  "evidence": {
+    "available": [
+      "Injection at ts-station-food-service",
+      "Symptom at ts-ui-dashboard",
+      "Dependency present only in normal window",
+      "ts-station-food-service has no metric deviation under configured thresholds",
+      "ts-food-service shows 3 abnormal metric signal(s)",
+      "Temporal ordering left unknown; timing alone cannot prove causality",
+      "Direct abnormal-window parent-child relationship",
+      "ts-ui-dashboard shows 3 abnormal metric signal(s)"
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove a unique true causal path.",
+    "missing_evidence": [
+      "No official process-level ground truth was available.",
+      "Paths existed but none met acceptance policy 'strict'."
+    ],
+    "primary_rejection_reason": "required_horizontal_relationship_unavailable",
+    "safe_statement": "A connected candidate path could not be reconstructed."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 5 (HTTPRequestAbort) at ts-station-food-service.",
+    "observed_symptom": "ts-ui-dashboard via frozen-policy-v1:primary."
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-food-service-request-abort-29w9xm",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestAbort",
+    "evid": null,
+    "fault_kind": "http_aborted",
+    "hops": null,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestAbort",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_aborted",
+      "fault_type": 5,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span status, request-failure rate",
+      "target_layer": "application"
+    },
+    "rank1": "ts-food-service",
+    "rca_pct": 0,
+    "refuse": "required_horizontal_relationship_unavailable",
+    "sec": 5.3,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-food-service-request-abort-29w9xm",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestAbort",
+    "evid": "obs",
+    "fault_kind": "http_aborted",
+    "hops": 1,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestAbort",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_aborted",
+      "fault_type": 5,
+      "mapped": true,
+      "obs_channel_expected": "HTTP span status, request-failure rate",
+      "target_layer": "application"
+    },
+    "rank1": "ts-food-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 5.3,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "insufficient_evidence"
+}

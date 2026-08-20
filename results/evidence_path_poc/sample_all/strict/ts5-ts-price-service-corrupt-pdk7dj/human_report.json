@@ -1,0 +1,95 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-price-service",
+      "ts-basic-service",
+      "ts-travel-service",
+      "ts-route-plan-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-price-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts5-ts-price-service-corrupt-pdk7dj",
+  "evidence": {
+    "available": [
+      "Injection at mysql",
+      "Symptom at ts-ui-dashboard",
+      "Direct abnormal-window parent-child relationship",
+      "ts-price-service has no metric deviation under configured thresholds",
+      "ts-basic-service has no metric deviation under configured thresholds",
+      "Temporal ordering left unknown; timing alone cannot prove causality",
+      "Direct abnormal-window parent-child relationship",
+      "ts-preserve-service has no metric deviation under configured thresholds"
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove a unique true causal path.",
+    "missing_evidence": [
+      "No official process-level ground truth was available.",
+      "No connected horizontal candidate path from injection to symptom."
+    ],
+    "primary_rejection_reason": "no_connected_candidate_path",
+    "safe_statement": "A connected candidate path could not be reconstructed."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 20 (NetworkCorrupt) at mysql.",
+    "observed_symptom": "ts-ui-dashboard via frozen-policy-v1:primary."
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-price-service-corrupt-pdk7dj",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkCorrupt",
+    "evid": null,
+    "fault_kind": "network_corrupt",
+    "hops": null,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkCorrupt",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_corrupt",
+      "fault_type": 20,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, TCP retransmit signal",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-price-service",
+    "rca_pct": 0,
+    "refuse": "no_connected_candidate_path",
+    "sec": 7.0,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-price-service-corrupt-pdk7dj",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkCorrupt",
+    "evid": null,
+    "fault_kind": "network_corrupt",
+    "hops": null,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkCorrupt",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_corrupt",
+      "fault_type": 20,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, TCP retransmit signal",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-price-service",
+    "rca_pct": 0,
+    "refuse": "required_horizontal_relationship_unavailable",
+    "sec": 7.0,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "insufficient_evidence"
+}

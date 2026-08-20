@@ -1,0 +1,245 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-consign-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-consign-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts5-ts-ui-dashboard-request-replace-method-ppzff4",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-train-service -> ts-travel-plan-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 500,
+          "error_count": 0,
+          "route": "GET /api/v1/trainservice/trains/byName/{name}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2405195946.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2418479104.0,
+                  "z": -3.7761
+                },
+                {
+                  "abnormal_mean": 178613.3958,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 170743.5833,
+                  "z": 3.9649
+                },
+                {
+                  "abnormal_mean": 805078016.0,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 791830954.6667,
+                  "z": 3.7654
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 2465134592.0,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2475987797.3333,
+                  "z": -6.4729
+                },
+                {
+                  "abnormal_mean": 160477.5208,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 147029.8125,
+                  "z": 8.3665
+                },
+                {
+                  "abnormal_mean": 745202517.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 734459136.0,
+                  "z": 6.8898
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "77ff9041e2e526bfd14b6d0d464d0e33",
+            "5c38108675b7f0abe84bc1cdaedfe26f",
+            "c1ae5cca603c53cc377f207e715be603"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-plan-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 233,
+          "error_count": 0,
+          "route": "POST /api/v1/travelplanservice/travelPlan/cheapest",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2465134592.0,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2475987797.3333,
+                  "z": -6.4729
+                },
+                {
+                  "abnormal_mean": 160477.5208,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 147029.8125,
+                  "z": 8.3665
+                },
+                {
+                  "abnormal_mean": 745202517.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 734459136.0,
+                  "z": 6.8898
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 21876.625,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 14235.6875,
+                  "z": 3.3828
+                },
+                {
+                  "abnormal_mean": 22535.2292,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 14954.7708,
+                  "z": 3.3455
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "77ff9041e2e526bfd14b6d0d464d0e33",
+            "5c38108675b7f0abe84bc1cdaedfe26f",
+            "c1ae5cca603c53cc377f207e715be603"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 12 (HTTPRequestReplaceMethod) injected into ts-train-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-07T17:00:32Z: injection_start @ ts-train-service \u2014 fault injection window start",
+      "2025-08-07 17:00:32.930751897+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-07 17:00:34.896219299+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-08-07 17:00:34.896219299+00:00: path_first_error @ ts-ui-dashboard \u2014 first Error span on accepted-path service",
+      "2025-08-07 17:00:34.999982706+00:00: path_first_error @ ts-train-service \u2014 first Error span on accepted-path service",
+      "2025-08-07T17:04:32Z: injection_end @ ts-train-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-ui-dashboard-request-replace-method-ppzff4",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestReplaceMethod",
+    "evid": "obs",
+    "fault_kind": "http_payload_modified",
+    "hops": 2,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestReplaceMethod",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_payload_modified",
+      "fault_type": 12,
+      "mapped": true,
+      "obs_channel_expected": "request method differs from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 9.5,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-ui-dashboard-request-replace-method-ppzff4",
+    "category": "HTTPChaos",
+    "chaos_type": "HTTPRequestReplaceMethod",
+    "evid": "obs",
+    "fault_kind": "http_payload_modified",
+    "hops": 1,
+    "injected_fault": {
+      "category": "HTTPChaos",
+      "chaos_type": "HTTPRequestReplaceMethod",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "http_payload_modified",
+      "fault_type": 12,
+      "mapped": true,
+      "obs_channel_expected": "request method differs from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 9.5,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

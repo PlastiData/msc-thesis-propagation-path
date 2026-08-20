@@ -1,0 +1,252 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-security-service",
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-security-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts3-mysql-bandwidth-v4q5v9",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-security-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 42,
+          "error_count": 38,
+          "route": "GET /api/v1/securityservice/securityConfigs/{accountId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 15661128021.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 15904321365.3333,
+                  "z": -12.4452
+                },
+                {
+                  "abnormal_mean": 161566.4375,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 155135.5833,
+                  "z": 3.9258
+                },
+                {
+                  "abnormal_mean": 786592853.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 773540010.6667,
+                  "z": 3.1427
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 13468875178.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 13373766912.0,
+                  "z": 3.9917
+                },
+                {
+                  "abnormal_mean": 5.0044,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0089,
+                  "ratio": 560.5802
+                },
+                {
+                  "abnormal_mean": 5.0154,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0969,
+                  "ratio": 51.7551
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "acb823dafe31a5c559d17d7ab2fae608",
+            "226ba3db3f60a299a4fa71628dd00c71",
+            "d6d280acfc2841f6df87323e9731340f"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 19,
+          "error_count": 15,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 13468875178.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 13373766912.0,
+                  "z": 3.9917
+                },
+                {
+                  "abnormal_mean": 5.0044,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0089,
+                  "ratio": 560.5802
+                },
+                {
+                  "abnormal_mean": 5.0154,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0969,
+                  "ratio": 51.7551
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0083,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0321,
+                  "z": -4.3394
+                },
+                {
+                  "abnormal_mean": 16919310506.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 16794016938.6667,
+                  "z": 4.1346
+                },
+                {
+                  "abnormal_mean": 1.2135,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p95_seconds",
+                  "normal_mean": 0.2823,
+                  "ratio": 4.2991
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "acb823dafe31a5c559d17d7ab2fae608",
+            "226ba3db3f60a299a4fa71628dd00c71",
+            "d6d280acfc2841f6df87323e9731340f"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 21 (NetworkBandwidth) injected into ts-security-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-24T01:23:05Z: injection_start @ ts-security-service \u2014 fault injection window start",
+      "2025-07-24 01:23:05.004772837+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-24 01:23:05.937000+00:00: first_error_span @ ts-preserve-service \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-24 01:23:05.951000+00:00: path_first_error @ ts-security-service \u2014 first Error span on accepted-path service",
+      "2025-07-24T01:27:05Z: injection_end @ ts-security-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts3-mysql-bandwidth-v4q5v9",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-security-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 5.7,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts3-mysql-bandwidth-v4q5v9",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-security-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 5.7,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

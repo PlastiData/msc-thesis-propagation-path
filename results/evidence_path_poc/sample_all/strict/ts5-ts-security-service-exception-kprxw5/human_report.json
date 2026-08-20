@@ -1,0 +1,252 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-preserve-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts5-ts-security-service-exception-kprxw5",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-security-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 174,
+          "error_count": 174,
+          "route": "GET /api/v1/securityservice/securityConfigs/{accountId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 3027927.04,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2560983040000.0
+                },
+                {
+                  "abnormal_mean": 2398424514.56,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2413125205.3333,
+                  "z": -5.1897
+                },
+                {
+                  "abnormal_mean": 167411.82,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 158144.2917,
+                  "z": 15.6022
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 2477762351.0204,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2491251797.3333,
+                  "z": -4.7388
+                },
+                {
+                  "abnormal_mean": 149423.4898,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 138793.4583,
+                  "z": 7.6754
+                },
+                {
+                  "abnormal_mean": 732808003.9184,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 719354282.6667,
+                  "z": 4.7123
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "489cdff7bbbbcc2328e5deadb166cd87",
+            "036d3d1dc64c8d573acce4e7bcb804c2",
+            "391d5091809dec537890880df7aa1d85"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 174,
+          "error_count": 174,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2477762351.0204,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2491251797.3333,
+                  "z": -4.7388
+                },
+                {
+                  "abnormal_mean": 149423.4898,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 138793.4583,
+                  "z": 7.6754
+                },
+                {
+                  "abnormal_mean": 732808003.9184,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 719354282.6667,
+                  "z": 4.7123
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.375,
+                  "family": "gauge",
+                  "metric": "container.memory.major_page_faults",
+                  "normal_mean": 0.0,
+                  "z": 375000.0
+                },
+                {
+                  "abnormal_mean": 15421.0417,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 8596.3125,
+                  "z": 5.2693
+                },
+                {
+                  "abnormal_mean": 0.3958,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.major_page_faults",
+                  "normal_mean": 0.0,
+                  "z": 395833.3333
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "489cdff7bbbbcc2328e5deadb166cd87",
+            "036d3d1dc64c8d573acce4e7bcb804c2",
+            "391d5091809dec537890880df7aa1d85"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 25 (JVMException) injected into ts-security-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-24T15:03:41Z: injection_start @ ts-security-service \u2014 fault injection window start",
+      "2025-07-24 15:03:41.812989519+00:00: first_error_span @ ts-ui-dashboard \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-24 15:03:41.812989519+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-07-24 15:03:41.816000+00:00: path_first_error @ ts-preserve-service \u2014 first Error span on accepted-path service",
+      "2025-07-24 15:03:41.823000+00:00: path_first_error @ ts-security-service \u2014 first Error span on accepted-path service",
+      "2025-07-24T15:07:40Z: injection_end @ ts-security-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-security-service-exception-kprxw5",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 8.0,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-security-service-exception-kprxw5",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-preserve-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 8.0,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

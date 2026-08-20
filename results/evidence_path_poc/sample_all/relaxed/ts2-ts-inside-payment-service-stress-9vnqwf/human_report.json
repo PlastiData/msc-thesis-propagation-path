@@ -1,0 +1,243 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-inside-payment-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-inside-payment-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-inside-payment-service-stress-9vnqwf",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-inside-payment-service -> ts-cancel-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1,
+          "error_count": 0,
+          "route": "GET /api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.8817,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0231,
+                  "z": 52.1453
+                },
+                {
+                  "abnormal_mean": 710826.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 243882666666.6666
+                },
+                {
+                  "abnormal_mean": 2389088756.6222,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2442152021.3333,
+                  "z": -17.4747
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0378,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0086,
+                  "z": 5.147
+                },
+                {
+                  "abnormal_mean": 2523584206.9787,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2531239338.6667,
+                  "z": -10.1299
+                },
+                {
+                  "abnormal_mean": 130874.4255,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 130108.9583,
+                  "z": 3.1034
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "9dd607cf43181185b61401a17a8fe4f0"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-cancel-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 8,
+          "error_count": 0,
+          "route": "GET /api/v1/cancelservice/cancel/refound/{orderId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0378,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0086,
+                  "z": 5.147
+                },
+                {
+                  "abnormal_mean": 2523584206.9787,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2531239338.6667,
+                  "z": -10.1299
+                },
+                {
+                  "abnormal_mean": 130874.4255,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 130108.9583,
+                  "z": 3.1034
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 11004.0851,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 6998.8125,
+                  "z": 3.6176
+                },
+                {
+                  "abnormal_mean": 11697.8936,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 7671.4583,
+                  "z": 3.696
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "a513f5e22861d39df92d166a042236b3",
+            "3d226b83db90360597f6462a56e0ee1b",
+            "67269aa960d471258ed68d507c413057"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 28 (JVMMemoryStress) injected into ts-inside-payment-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-09-06T10:46:29Z: injection_start @ ts-inside-payment-service \u2014 fault injection window start",
+      "2025-09-06 10:46:51.094155530+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-09-06 10:46:51.117472567+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-09-06 10:46:51.117472567+00:00: path_first_error @ ts-ui-dashboard \u2014 first Error span on accepted-path service",
+      "2025-09-06 10:47:11.432416411+00:00: path_first_error @ ts-cancel-service \u2014 first Error span on accepted-path service",
+      "2025-09-06T10:50:25Z: injection_end @ ts-inside-payment-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-inside-payment-service-stress-9vnqwf",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-inside-payment-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 9.3,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-inside-payment-service-stress-9vnqwf",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-inside-payment-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 9.3,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

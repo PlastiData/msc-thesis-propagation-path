@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>ts4-ts-order-service-bandwidth-kqnvn7</title>
+<style>
+:root { --bg:#faf9f7; --ink:#1a1a1a; --muted:#666; --line:#ddd; }
+body{font-family:ui-sans-serif,system-ui,sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:1.35rem;margin:0 0 .5rem}
+h2{font-size:1.05rem;margin:1.5rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+h3{font-size:.95rem;margin:.2rem 0 .5rem}
+.banner{padding:.9rem 1rem;background:#fff;border-left:5px solid #c44;margin:1rem 0;box-shadow:0 1px 0 var(--line)}
+.verdicts{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin:.4rem 0 .6rem;font-family:ui-monospace,monospace;font-size:.92rem}
+.verdicts .v{font-weight:700}
+.agree{display:inline-block;font-size:.8rem;padding:.15rem .45rem;border:1px solid var(--line);background:#fff}
+.path-compare{background:#fff;border:1px solid var(--line);padding:1rem;margin:1rem 0}
+.path-row{display:flex;align-items:center;gap:.75rem;margin:.55rem 0;flex-wrap:wrap}
+.path-row .lab{min-width:4.5rem;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.strip{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.25rem}
+.strip .hop{background:#111;color:#fff;padding:.2rem .45rem;font-size:.82rem;border-radius:4px}
+.strip .tick{display:inline-block;width:18px;height:0;border-top:3px solid #1b9e77;margin:0 .1rem}
+.strip .tick.dashed{border-top-style:dashed;border-color:#d95f02}
+.strip.refuse{color:#a45;font-family:ui-monospace,monospace;font-size:.88rem}
+.tag.same{font-size:.75rem;color:var(--muted);border:1px solid var(--line);padding:.1rem .35rem}
+.maps{margin:.5rem 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;padding:1rem;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:#fff}
+th,td{border:1px solid var(--line);padding:.4rem;text-align:left;vertical-align:top}
+.muted{color:var(--muted)} .warn{color:#a45} .tiny{font-size:.78rem;line-height:1.35;margin-top:.15rem}
+.legend span{display:inline-block;margin-right:1rem}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:.3rem;vertical-align:middle}
+ul.timeline{list-style:none;padding:0;margin:0}
+ul.timeline li{padding:.35rem 0;border-bottom:1px solid var(--line)}
+ul.timeline .t{color:var(--muted);font-size:.85rem;display:block}
+code{font-size:.9em} code.tid{font-size:.78em}
+a{color:#0b5}
+</style></head><body><main>
+<p><a href="../index.html">← sample index</a></p>
+<h1>ts4-ts-order-service-bandwidth-kqnvn7</h1>
+<div class="banner" id="verdict">
+<div class="verdicts">
+<span>Inject <span class="v">REFUSE — horiz</span></span>
+<span>RCA <span class="v">REFUSE — horiz</span></span>
+<span class="agree">both_refuse</span>
+</div>
+Injection <code>ui-dashboard</code>
+ → symptom <code>ui-dashboard</code><br>
+<div class='tiny'><strong>Injected fault (benchmark label)</strong>: fault_type=21 → <code>NetworkBandwidth</code> (NetworkChaos, infrastructure, kind=<code>network_bandwidth_limit</code>, channel=vertical+horizontal)</div>
+Injection window <code>2025-08-28T11:05:34Z</code> → <code>2025-08-28T11:09:34Z</code><br>Symptom route <code>/api/v1/orderservice/order/refresh</code><br>
+RCA seed algo <code>traceback-A8</code> (AC@1 62.5%)
+ → <code>ui-dashboard</code><br>
+<em>Evidence levels describe availability, not causal correctness.</em>
+</div>
+<div class="legend">
+<span><i style="background:#1b9e77"></i>observed</span>
+<span><i style="background:#7570b3"></i>supported</span>
+<span><i style="background:#d95f02"></i>inferred (dashed)</span>
+</div>
+<section id="dual-path">
+<h2>Dual-path compare</h2>
+<div class="path-compare"><div class='path-row'><div class='lab'>Inject</div><span class='strip refuse'>refuse — horiz</span></div><div class='path-row'><div class='lab'>RCA</div><span class='strip refuse'>refuse — horiz</span></div></div>
+
+
+</section>
+<section><h2>Why no fault-seeded path</h2><p><strong>required_horizontal_relationship_unavailable</strong></p><ul><li>No official process-level ground truth was available.</li><li>Paths existed but none met acceptance policy &#x27;relaxed&#x27;.</li></ul></section>
+<section id="evidence">
+<h2>Edge evidence</h2>
+<p class="muted tiny">Struct/Stat are verdicts. Route, calls/errors, trace ids, and metric numbers are re-queryable refs from abnormal-window telemetry. Per-hop onset time is not available on this dataset.</p>
+<table>
+<thead><tr><th>From</th><th>To</th><th>Route</th><th>Level</th><th>Struct</th><th>Calls</th><th>Traces</th><th>Stat</th></tr></thead>
+<tbody>
+<tr><td colspan="8">No selected edges</td></tr>
+</tbody></table>
+</section>
+
+<section>
+<h2>Upstream RCA rankings (from output parquet)</h2>
+<p>Primary walk seed: <strong>traceback-A8</strong>
+ → <code>ui-dashboard</code> (hit).
+ Injection label best rank under primary: <strong>1</strong>.</p>
+<p><strong>Walk chain:</strong> ui-dashboard</p>
+
+<div class="grid">
+<div class="card">
+<h3>All algorithms on this case</h3>
+<table><thead><tr><th>Algo</th><th>Rank-1</th><th>Hit@1</th><th>Hit@5</th><th>True rank</th></tr></thead>
+<tbody><tr><td>traceback-A8</td><td>ui-dashboard</td><td>✓</td><td>✓</td><td>1</td></tr><tr><td>traceback-A7</td><td>wait-order</td><td>·</td><td>·</td><td>—</td></tr><tr><td>nsigma</td><td>wait-order</td><td>·</td><td>·</td><td>58</td></tr><tr><td>baro</td><td>ticket-office</td><td>·</td><td>·</td><td>174</td></tr><tr><td>random</td><td>preserve</td><td>·</td><td>·</td><td>23</td></tr></tbody></table>
+</div>
+<div class="card">
+<h3>traceback-A8 top services</h3>
+<table><thead><tr><th>Rank</th><th>Service</th><th>Hit</th></tr></thead>
+<tbody><tr><td>1</td><td>ui-dashboard</td><td>✓</td></tr><tr><td>2</td><td>cancel</td><td>·</td></tr><tr><td>3</td><td>inside-payment</td><td>·</td></tr><tr><td>4</td><td>order</td><td>✓</td></tr><tr><td>5</td><td>travel-plan</td><td>·</td></tr><tr><td>6</td><td>route-plan</td><td>·</td></tr><tr><td>7</td><td>travel</td><td>·</td></tr><tr><td>8</td><td>wait-order</td><td>·</td></tr></tbody></table>
+</div>
+</div>
+<p class="muted">Rankings come from <code>output/rcabench-platform-v2/data/rcabench/&lt;case&gt;/&lt;algo&gt;/output.parquet</code>.
+Evidence path labels are independent of these scores.</p>
+</section>
+
+<div class="grid">
+<div class="card">
+<h2>Timeline anchors</h2>
+<p class="muted tiny">Sparse anchors only (injection window, first error, symptom / path errors) — not a full incident Gantt.</p>
+<ul class="timeline"><li><span class='t'>2025-08-28T11:05:34Z</span> <strong>injection_start</strong> @ <code>ui-dashboard</code><div class='muted tiny'>fault injection window start</div></li><li><span class='t'>2025-08-28 11:05:34.085512998+00:00</span> <strong>selected_symptom</strong> @ <code>ui-dashboard</code><div class='muted tiny'>first span on symptom service (no Error); policy pick has no clock</div></li><li><span class='t'>2025-08-28 11:06:57.938086711+00:00</span> <strong>first_error_span</strong> @ <code>loadgenerator</code><div class='muted tiny'>earliest Error span in abnormal window (any service)</div></li><li><span class='t'>2025-08-28T11:09:34Z</span> <strong>injection_end</strong> @ <code>ui-dashboard</code><div class='muted tiny'>fault injection window end</div></li></ul>
+</div>
+<div class="card">
+<h2>What was detected</h2>
+<ul><li>Injection at ts-ui-dashboard</li><li>Symptom at ts-ui-dashboard</li><li>Direct abnormal-window parent-child relationship</li><li>Direct abnormal-window parent-child relationship</li><li>Direct abnormal-window parent-child relationship</li><li>Direct abnormal-window parent-child relationship</li><li>Direct abnormal-window parent-child relationship</li><li>Direct abnormal-window parent-child relationship</li><li>Direct abnormal-window parent-child relationship</li><li>Direct abnormal-window parent-child relationship</li></ul>
+</div>
+</div>
+</main></body></html>

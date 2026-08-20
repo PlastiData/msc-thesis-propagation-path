@@ -1,0 +1,245 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-train-food-service",
+      "ts-food-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-train-food-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts4-mysql-bandwidth-kplll7",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-train-food-service -> ts-food-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 43,
+          "error_count": 19,
+          "route": "GET /api/v1/trainfoodservice/trainfoods/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 35524584960.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 35370303488.0,
+                  "z": 4.0671
+                },
+                {
+                  "abnormal_mean": 39.04,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 4.9575,
+                  "z": 12.1298
+                },
+                {
+                  "abnormal_mean": 0.2389,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0479,
+                  "z": 15.7522
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 17674437566.6383,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 17946332330.6667,
+                  "z": -15.9399
+                },
+                {
+                  "abnormal_mean": 37.985,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 2.795,
+                  "z": 26.2007
+                },
+                {
+                  "abnormal_mean": 0.2413,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0278,
+                  "z": 42.9567
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "4faea49fae4bbcf5014ae3c19399f86e",
+            "3a5c08d3c448e8c60b1bf52ae23ca078",
+            "2ba292eea633ff8e9afd702baf47d46e"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-food-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 43,
+          "error_count": 19,
+          "route": "GET /api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 17674437566.6383,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 17946332330.6667,
+                  "z": -15.9399
+                },
+                {
+                  "abnormal_mean": 37.985,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 2.795,
+                  "z": 26.2007
+                },
+                {
+                  "abnormal_mean": 0.2413,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0278,
+                  "z": 42.9567
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 35524584960.0,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 35370303488.0,
+                  "z": 4.0671
+                },
+                {
+                  "abnormal_mean": 35524584960.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 35370303488.0,
+                  "z": 4.0671
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "4faea49fae4bbcf5014ae3c19399f86e",
+            "3a5c08d3c448e8c60b1bf52ae23ca078",
+            "2ba292eea633ff8e9afd702baf47d46e"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 21 (NetworkBandwidth) injected into ts-train-food-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-05T10:19:08Z: injection_start @ ts-train-food-service \u2014 fault injection window start",
+      "2025-08-05 10:19:08.036355369+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-05 10:19:11.832000+00:00: first_error_span @ ts-food-service \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-05 10:19:11.836000+00:00: path_first_error @ ts-train-food-service \u2014 first Error span on accepted-path service",
+      "2025-08-05T10:23:07Z: injection_end @ ts-train-food-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts4-mysql-bandwidth-kplll7",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-train-food-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 9.1,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts4-mysql-bandwidth-kplll7",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkBandwidth",
+    "evid": "obs",
+    "fault_kind": "network_bandwidth_limit",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkBandwidth",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_bandwidth_limit",
+      "fault_type": 21,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, throughput drop",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-train-food-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 9.1,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

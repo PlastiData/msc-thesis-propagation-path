@@ -1,0 +1,92 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-order-service",
+      "ts-preserve-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-order-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts1-ts-order-service-delay-mxmrwz",
+  "evidence": {
+    "available": [
+      "Injection at mysql",
+      "Symptom at ts-ui-dashboard",
+      "Direct abnormal-window parent-child relationship",
+      "ts-order-service shows 3 abnormal metric signal(s)",
+      "ts-ui-dashboard shows 3 abnormal metric signal(s)",
+      "Temporal ordering left unknown; timing alone cannot prove causality",
+      "Dependency present only in normal window",
+      "ts-cancel-service shows 2 abnormal metric signal(s)"
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove a unique true causal path.",
+    "missing_evidence": [
+      "No official process-level ground truth was available.",
+      "No connected horizontal candidate path from injection to symptom."
+    ],
+    "primary_rejection_reason": "no_connected_candidate_path",
+    "safe_statement": "A connected candidate path could not be reconstructed."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 17 (NetworkDelay) at mysql.",
+    "observed_symptom": "ts-ui-dashboard via frozen-policy-v1:primary."
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-order-service-delay-mxmrwz",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkDelay",
+    "evid": null,
+    "fault_kind": "network_delay",
+    "hops": null,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkDelay",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_delay",
+      "fault_type": 17,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, trace latency tail",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-order-service",
+    "rca_pct": 0,
+    "refuse": "no_connected_candidate_path",
+    "sec": 4.6,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-order-service-delay-mxmrwz",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkDelay",
+    "evid": "obs",
+    "fault_kind": "network_delay",
+    "hops": 5,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkDelay",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_delay",
+      "fault_type": 17,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, trace latency tail",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-order-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 4.6,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "insufficient_evidence"
+}

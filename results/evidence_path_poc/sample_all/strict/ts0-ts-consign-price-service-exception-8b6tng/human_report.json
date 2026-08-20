@@ -1,0 +1,253 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-consign-price-service",
+      "ts-consign-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-consign-price-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts0-ts-consign-price-service-exception-8b6tng",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-consign-price-service -> ts-consign-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 764,
+          "error_count": 764,
+          "route": "GET /api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.2362,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0223,
+                  "z": 3.2576
+                },
+                {
+                  "abnormal_mean": 3024590.9787,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2557646978723.405
+                },
+                {
+                  "abnormal_mean": 2431728531.0638,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2465233920.0,
+                  "z": -9.2926
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 16400321949.9574,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 16490062677.3333,
+                  "z": -3.9203
+                },
+                {
+                  "abnormal_mean": 2448944193.3617,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2460535978.6667,
+                  "z": -4.6662
+                },
+                {
+                  "abnormal_mean": 161203.9149,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 152941.9167,
+                  "z": 4.5071
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "15391048f1045e3040be1dba4280d0af",
+            "3a222c6241452a69f2716d10690c6211",
+            "56a01cf8bded8f30b9f02463c38f1fb2"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-consign-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 115,
+          "error_count": 48,
+          "route": "GET /api/v1/consignservice/consigns/account/{id}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 16400321949.9574,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 16490062677.3333,
+                  "z": -3.9203
+                },
+                {
+                  "abnormal_mean": 2448944193.3617,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2460535978.6667,
+                  "z": -4.6662
+                },
+                {
+                  "abnormal_mean": 161203.9149,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 152941.9167,
+                  "z": 4.5071
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0281,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0402,
+                  "z": -7.6835
+                },
+                {
+                  "abnormal_mean": 14781.1875,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 8254.125,
+                  "z": 3.0069
+                },
+                {
+                  "abnormal_mean": 0.0002,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -4.8346
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "3ac4d049d41160d286cfcadd38c72699",
+            "badc72d217d637b0a15ce7cbd97ab5fa",
+            "9584608d05bfe049d8fd15690afb771b"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 25 (JVMException) injected into ts-consign-price-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-20T15:55:39Z: injection_start @ ts-consign-price-service \u2014 fault injection window start",
+      "2025-08-20 15:55:39.052795188+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-20 15:55:57.058807946+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-20 15:55:57.077000+00:00: path_first_error @ ts-consign-price-service \u2014 first Error span on accepted-path service",
+      "2025-08-20 15:55:57.096000+00:00: path_first_error @ ts-consign-service \u2014 first Error span on accepted-path service",
+      "2025-08-20T15:59:38Z: injection_end @ ts-consign-price-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts0-ts-consign-price-service-exception-8b6tng",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-price-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 9.4,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts0-ts-consign-price-service-exception-8b6tng",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-price-service",
+    "rca_pct": 67,
+    "refuse": null,
+    "sec": 9.4,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

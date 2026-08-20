@@ -1,0 +1,171 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-travel-plan-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts1-ts-travel-plan-service-return-kp5bqw",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-travel-plan-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1940,
+          "error_count": 1940,
+          "route": "POST /api/v1/travelplanservice/travelPlan/cheapest",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2971306.6667,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2504362666666.6665
+                },
+                {
+                  "abnormal_mean": 2463699114.6667,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2489084842.6667,
+                  "z": -14.1799
+                },
+                {
+                  "abnormal_mean": 159910.6458,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 143017.6042,
+                  "z": 5.4415
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0063,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0308,
+                  "z": -3.6551
+                },
+                {
+                  "abnormal_mean": 1.6507,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.1765,
+                  "ratio": 9.3509
+                },
+                {
+                  "abnormal_mean": 2.5341,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.7257,
+                  "ratio": 3.4921
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "769793909fc042b79bf73af1b7169677",
+            "9ce7f8c11cf9a48c77d758051c34201b",
+            "a1d6dead1065548b4f6e2f131c71ca1c"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 24 (JVMReturn) injected into ts-travel-plan-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-23T10:03:39Z: injection_start @ ts-travel-plan-service \u2014 fault injection window start",
+      "2025-07-23 10:03:39.760396469+00:00: first_error_span @ ts-ui-dashboard \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-23 10:03:39.760396469+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-07-23 10:03:39.767000+00:00: path_first_error @ ts-travel-plan-service \u2014 first Error span on accepted-path service",
+      "2025-07-23T10:07:38Z: injection_end @ ts-travel-plan-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-travel-plan-service-return-kp5bqw",
+    "category": "JVMChaos",
+    "chaos_type": "JVMReturn",
+    "evid": "obs",
+    "fault_kind": "jvm_method_mutated",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMReturn",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_mutated",
+      "fault_type": 24,
+      "mapped": true,
+      "obs_channel_expected": "method returns a value differing from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-travel-plan-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 3.8,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts1-ts-travel-plan-service-return-kp5bqw",
+    "category": "JVMChaos",
+    "chaos_type": "JVMReturn",
+    "evid": "obs",
+    "fault_kind": "jvm_method_mutated",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMReturn",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_mutated",
+      "fault_type": 24,
+      "mapped": true,
+      "obs_channel_expected": "method returns a value differing from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-travel-plan-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 3.8,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

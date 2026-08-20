@@ -1,0 +1,252 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-consign-price-service",
+      "ts-consign-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-consign-price-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-consign-price-service-stress-7r95bt",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-consign-price-service -> ts-consign-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 6,
+          "error_count": 0,
+          "route": "GET /api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 1.3573,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0079,
+                  "z": 519.462
+                },
+                {
+                  "abnormal_mean": 2359421318.0952,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2449853440.0,
+                  "z": -285.9362
+                },
+                {
+                  "abnormal_mean": 137845.2857,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 151563.3333,
+                  "z": -124.3533
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 2445897817.0435,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2453622698.6667,
+                  "z": -3.6312
+                },
+                {
+                  "abnormal_mean": 148933.4783,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 145449.3125,
+                  "z": 6.1231
+                },
+                {
+                  "abnormal_mean": 764618395.8261,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 756958037.3333,
+                  "z": 3.6351
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "f74af39d2246d40b4bf78279acbaa96d",
+            "883a355fbea743ac22e1cccbf75c42e5",
+            "7f815921aeeba908ef1452aa39c9d050"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-consign-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 38,
+          "error_count": 11,
+          "route": "PUT /api/v1/consignservice/consigns",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2445897817.0435,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2453622698.6667,
+                  "z": -3.6312
+                },
+                {
+                  "abnormal_mean": 148933.4783,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 145449.3125,
+                  "z": 6.1231
+                },
+                {
+                  "abnormal_mean": 764618395.8261,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 756958037.3333,
+                  "z": 3.6351
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 6557.4783,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 3768.75,
+                  "z": 3.7741
+                },
+                {
+                  "abnormal_mean": 6438644.8696,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 3817813.3333,
+                  "z": 3.0298
+                },
+                {
+                  "abnormal_mean": 7334.8261,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 4550.375,
+                  "z": 3.685
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "dfec8361f9ce597c686af7e3e666bae0",
+            "17454c667de0d6ded9ee45075ded90e4",
+            "24a8f171a7d9e6a53657feb11414497a"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 28 (JVMMemoryStress) injected into ts-consign-price-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-21T02:39:39Z: injection_start @ ts-consign-price-service \u2014 fault injection window start",
+      "2025-07-21 02:39:39.065084739+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-21 02:40:15.131873204+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-21 02:40:15.135000+00:00: path_first_error @ ts-consign-service \u2014 first Error span on accepted-path service",
+      "2025-07-21T02:43:33Z: injection_end @ ts-consign-price-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-consign-price-service-stress-7r95bt",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-price-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 4.1,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-consign-price-service-stress-7r95bt",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-consign-price-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 4.1,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

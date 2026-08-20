@@ -1,0 +1,4359 @@
+{
+  "evaluated_cases": 10,
+  "constructed_cases": 8,
+  "rejected_cases": 2,
+  "path_coverage": 0.8,
+  "returned_edges": 27,
+  "observed_edges": 27,
+  "supported_edges": 0,
+  "inferred_edges": 0,
+  "observed_edge_ratio": 1.0,
+  "supported_edge_ratio": 0.0,
+  "inferred_edge_ratio": 0.0,
+  "rca_constructed_cases": 9,
+  "rca_path_coverage": 0.9,
+  "rca_observed_edges": 26,
+  "rca_supported_edges": 0,
+  "rca_inferred_edges": 0,
+  "rca_observed_edge_ratio": 1.0,
+  "rca_supported_edge_ratio": 0.0,
+  "rca_inferred_edge_ratio": 0.0,
+  "fault_counts": {
+    "constructed": 8,
+    "refused": 2,
+    "refuse_reasons": {
+      "required_horizontal_relationship_unavailable": 2
+    },
+    "evid_counts": {
+      "obs": 8,
+      "sup": 0,
+      "inf": 0
+    }
+  },
+  "algo_counts": {
+    "constructed": 9,
+    "refused": 1,
+    "refuse_reasons": {
+      "required_horizontal_relationship_unavailable": 1
+    },
+    "evid_counts": {
+      "obs": 9,
+      "sup": 0,
+      "inf": 0
+    }
+  },
+  "agreement_profile": {
+    "same": 2,
+    "differ": 6,
+    "inject_only": 0,
+    "rca_only": 1,
+    "both_refuse": 1
+  },
+  "injection_stratification": {
+    "by_target_layer": {
+      "inject": {
+        "infrastructure": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "application": {
+          "n": 7,
+          "accept": 5,
+          "refuse": 2
+        }
+      },
+      "rca": {
+        "infrastructure": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "application": {
+          "n": 7,
+          "accept": 6,
+          "refuse": 1
+        }
+      }
+    },
+    "by_fault_kind": {
+      "inject": {
+        "network_partition": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "jvm_heap_stress": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "http_slow": {
+          "n": 3,
+          "accept": 1,
+          "refuse": 2
+        },
+        "http_payload_modified": {
+          "n": 1,
+          "accept": 1,
+          "refuse": 0
+        }
+      },
+      "rca": {
+        "network_partition": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "jvm_heap_stress": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "http_slow": {
+          "n": 3,
+          "accept": 2,
+          "refuse": 1
+        },
+        "http_payload_modified": {
+          "n": 1,
+          "accept": 1,
+          "refuse": 0
+        }
+      }
+    },
+    "by_category": {
+      "inject": {
+        "NetworkChaos": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "JVMChaos": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "HTTPChaos": {
+          "n": 4,
+          "accept": 2,
+          "refuse": 2
+        }
+      },
+      "rca": {
+        "NetworkChaos": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "JVMChaos": {
+          "n": 3,
+          "accept": 3,
+          "refuse": 0
+        },
+        "HTTPChaos": {
+          "n": 4,
+          "accept": 3,
+          "refuse": 1
+        }
+      }
+    },
+    "note": "Stratified by injected fault (benchmark label) via OpenRCA 2.0 Tables 5\u20136 taxonomy lookup \u2014 not detected error type, not Table 7 rule firing."
+  },
+  "rejection_profile": {
+    "required_horizontal_relationship_unavailable": {
+      "count": 2,
+      "rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "case_id": "ts0-mysql-partition-cfvlsw",
+      "status": "candidate_path_constructed",
+      "reason": null,
+      "path": [
+        "ts-travel2-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "path_brief": "obs=3 sup=0 inf=0",
+      "metrics": {
+        "path_covered": 1,
+        "observed_edges": 3,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 1.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 3
+      },
+      "injection": "ts-travel2-service",
+      "injected_fault": {
+        "fault_type": 22,
+        "mapped": true,
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition",
+        "target_layer": "infrastructure",
+        "expected_propagation_channel": "vertical+horizontal",
+        "fault_kind": "network_partition",
+        "obs_channel_expected": "container.network.*, timeout share approaches one"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-07-19T08:40:10Z",
+          "component": "ts-travel2-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-07-19 08:40:10.082295069+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first span on symptom service (no Error); policy pick has no clock",
+          "span_name": "GET /api/v1/userservice/users/id/4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"
+        },
+        {
+          "timestamp": "2025-07-19 08:40:11.108832484+00:00",
+          "component": "loadgenerator",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-07-19 08:40:11.111000+00:00",
+          "component": "ts-travel-plan-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-19 08:40:11.118000+00:00",
+          "component": "ts-route-plan-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-19 08:40:11.293000+00:00",
+          "component": "ts-travel2-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-19T08:44:10Z",
+          "component": "ts-travel2-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-route-plan-service",
+      "algo_chain": [
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": false,
+      "algo_true_rank": 6,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-route-plan-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 6,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-seat-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-basic-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-travel2-service",
+              "hit": true
+            },
+            {
+              "rank": 7,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-auth-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 23.417476177215576
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": false,
+          "rank1": null,
+          "rank1_hit": null,
+          "hit_at_1": null,
+          "hit_at_3": null,
+          "hit_at_5": null,
+          "true_label_best_rank": null,
+          "top_services": [],
+          "runtime_seconds": null
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "ts-route-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 3,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-travel2-service",
+              "hit": true
+            },
+            {
+              "rank": 4,
+              "service": "ts-preserve-other-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 7,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 8,
+              "service": "ts-execute-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 3.6553804874420166
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "ts-admin-order-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 504,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-admin-order-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 3,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 4,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 5,
+              "service": "rabbitmq",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "rabbitmq",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-admin-basic-info-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 3.3756136894226074
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "ts-route-plan-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 8,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-train-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-config-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-auth-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-order-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-seat-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-travel2-service",
+              "hit": true
+            }
+          ],
+          "runtime_seconds": 0.18144869804382324
+        }
+      },
+      "scorecard": {
+        "case": "ts0-mysql-partition-cfvlsw",
+        "sec": 10.3,
+        "seed": "fault",
+        "evid": "obs",
+        "rca_pct": 50,
+        "hops": 3,
+        "algo": "traceback-A8",
+        "rank1": "ts-route-plan-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 22,
+          "mapped": true,
+          "category": "NetworkChaos",
+          "chaos_type": "NetworkPartition",
+          "target_layer": "infrastructure",
+          "expected_propagation_channel": "vertical+horizontal",
+          "fault_kind": "network_partition",
+          "obs_channel_expected": "container.network.*, timeout share approaches one"
+        },
+        "target_layer": "infrastructure",
+        "fault_kind": "network_partition",
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition"
+      },
+      "scorecard_algo": {
+        "case": "ts0-mysql-partition-cfvlsw",
+        "sec": 10.3,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 67,
+        "hops": 2,
+        "algo": "traceback-A8",
+        "rank1": "ts-route-plan-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 22,
+          "mapped": true,
+          "category": "NetworkChaos",
+          "chaos_type": "NetworkPartition",
+          "target_layer": "infrastructure",
+          "expected_propagation_channel": "vertical+horizontal",
+          "fault_kind": "network_partition",
+          "obs_channel_expected": "container.network.*, timeout share approaches one"
+        },
+        "target_layer": "infrastructure",
+        "fault_kind": "network_partition",
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=2 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-route-plan-service",
+      "agreement": "differ"
+    },
+    {
+      "case_id": "ts0-mysql-partition-jh4jkt",
+      "status": "candidate_path_constructed",
+      "reason": null,
+      "path": [
+        "ts-train-service",
+        "ts-basic-service",
+        "ts-travel-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "path_brief": "obs=5 sup=0 inf=0",
+      "metrics": {
+        "path_covered": 1,
+        "observed_edges": 5,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 1.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 5
+      },
+      "injection": "ts-train-service",
+      "injected_fault": {
+        "fault_type": 22,
+        "mapped": true,
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition",
+        "target_layer": "infrastructure",
+        "expected_propagation_channel": "vertical+horizontal",
+        "fault_kind": "network_partition",
+        "obs_channel_expected": "container.network.*, timeout share approaches one"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-07-18T13:57:00Z",
+          "component": "ts-train-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-07-18 13:57:00.117234079+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first span on symptom service (no Error); policy pick has no clock",
+          "span_name": "GET /api/v1/verifycode/verify/7QaA9W"
+        },
+        {
+          "timestamp": "2025-07-18 13:57:00.613116961+00:00",
+          "component": "loadgenerator",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-07-18 13:57:00.616000+00:00",
+          "component": "ts-travel-plan-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-18 13:57:00.639000+00:00",
+          "component": "ts-route-plan-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-18 13:57:00.799000+00:00",
+          "component": "ts-basic-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-18 13:57:20.953000+00:00",
+          "component": "ts-train-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-18 13:58:46.471000+00:00",
+          "component": "ts-travel-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-18T14:01:00Z",
+          "component": "ts-train-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-basic-service",
+      "algo_chain": [
+        "ts-basic-service",
+        "ts-travel-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": false,
+      "algo_true_rank": 5,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-basic-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": true,
+          "true_label_best_rank": 5,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-basic-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-travel2-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-train-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-order-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 16.947437286376953
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": false,
+          "rank1": null,
+          "rank1_hit": null,
+          "hit_at_1": null,
+          "hit_at_3": null,
+          "hit_at_5": null,
+          "true_label_best_rank": null,
+          "top_services": [],
+          "runtime_seconds": null
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "loadgenerator",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": true,
+          "true_label_best_rank": 5,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-train-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "rabbitmq",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-consign-price-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 2.684507131576538
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "loadgenerator",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": true,
+          "true_label_best_rank": 5,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-train-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 7,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 8,
+              "service": "mysql",
+              "hit": true
+            }
+          ],
+          "runtime_seconds": 3.1109395027160645
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "ts-route-plan-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 2,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-train-service",
+              "hit": true
+            },
+            {
+              "rank": 3,
+              "service": "ts-seat-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-notification-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-order-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-verification-code-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-delivery-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-travel-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 0.015344381332397461
+        }
+      },
+      "scorecard": {
+        "case": "ts0-mysql-partition-jh4jkt",
+        "sec": 12.4,
+        "seed": "fault",
+        "evid": "obs",
+        "rca_pct": 67,
+        "hops": 5,
+        "algo": "traceback-A8",
+        "rank1": "ts-basic-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 22,
+          "mapped": true,
+          "category": "NetworkChaos",
+          "chaos_type": "NetworkPartition",
+          "target_layer": "infrastructure",
+          "expected_propagation_channel": "vertical+horizontal",
+          "fault_kind": "network_partition",
+          "obs_channel_expected": "container.network.*, timeout share approaches one"
+        },
+        "target_layer": "infrastructure",
+        "fault_kind": "network_partition",
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition"
+      },
+      "scorecard_algo": {
+        "case": "ts0-mysql-partition-jh4jkt",
+        "sec": 12.4,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 60,
+        "hops": 4,
+        "algo": "traceback-A8",
+        "rank1": "ts-basic-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 22,
+          "mapped": true,
+          "category": "NetworkChaos",
+          "chaos_type": "NetworkPartition",
+          "target_layer": "infrastructure",
+          "expected_propagation_channel": "vertical+horizontal",
+          "fault_kind": "network_partition",
+          "obs_channel_expected": "container.network.*, timeout share approaches one"
+        },
+        "target_layer": "infrastructure",
+        "fault_kind": "network_partition",
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-basic-service",
+        "ts-travel-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=4 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-basic-service",
+      "agreement": "differ"
+    },
+    {
+      "case_id": "ts0-ts-config-service-stress-g6rpl9",
+      "status": "candidate_path_constructed",
+      "reason": null,
+      "path": [
+        "ts-config-service",
+        "ts-seat-service",
+        "ts-travel-service",
+        "ts-food-service",
+        "ts-preserve-service",
+        "ts-ui-dashboard"
+      ],
+      "path_brief": "obs=5 sup=0 inf=0",
+      "metrics": {
+        "path_covered": 1,
+        "observed_edges": 5,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 1.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 5
+      },
+      "injection": "ts-config-service",
+      "injected_fault": {
+        "fault_type": 28,
+        "mapped": true,
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress",
+        "target_layer": "application",
+        "expected_propagation_channel": "vertical",
+        "fault_kind": "jvm_heap_stress",
+        "obs_channel_expected": "jvm.memory.used climbs to limit"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-09-06T10:32:45Z",
+          "component": "ts-config-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-09-06 10:32:45.037257179+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first span on symptom service (no Error); policy pick has no clock",
+          "span_name": "GET /api/v1/userservice/users/id/{userId}"
+        },
+        {
+          "timestamp": "2025-09-06 10:33:03.953175862+00:00",
+          "component": "loadgenerator",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-09-06 10:33:04.035000+00:00",
+          "component": "ts-seat-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-06T10:36:44Z",
+          "component": "ts-config-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-seat-service",
+      "algo_chain": [
+        "ts-seat-service",
+        "ts-travel2-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": false,
+      "algo_true_rank": 7,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-seat-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 7,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-seat-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-consign-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-order-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 8,
+              "service": "ts-admin-order-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 23.88315987586975
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": true,
+          "rank1": "ts-config-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 1,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-admin-order-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-station-food-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-train-food-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-consign-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "loadgenerator",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 26.451587677001953
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "ts-config-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 1,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 3,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 4,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 5,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 7,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 8,
+              "service": "ts-config-service",
+              "hit": true
+            }
+          ],
+          "runtime_seconds": 4.404545783996582
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "ts-consign-price-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 2,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-consign-price-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 3,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 4,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 5,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 7,
+              "service": "ts-config-service",
+              "hit": true
+            },
+            {
+              "rank": 8,
+              "service": "ts-config-service",
+              "hit": true
+            }
+          ],
+          "runtime_seconds": 2.1785664558410645
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "ts-assurance-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 12,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-assurance-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-delivery-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-travel2-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-notification-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-train-food-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-security-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-contacts-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 0.025707483291625977
+        }
+      },
+      "scorecard": {
+        "case": "ts0-ts-config-service-stress-g6rpl9",
+        "sec": 18.3,
+        "seed": "fault",
+        "evid": "obs",
+        "rca_pct": 33,
+        "hops": 5,
+        "algo": "traceback-A8",
+        "rank1": "ts-seat-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 28,
+          "mapped": true,
+          "category": "JVMChaos",
+          "chaos_type": "JVMMemoryStress",
+          "target_layer": "application",
+          "expected_propagation_channel": "vertical",
+          "fault_kind": "jvm_heap_stress",
+          "obs_channel_expected": "jvm.memory.used climbs to limit"
+        },
+        "target_layer": "application",
+        "fault_kind": "jvm_heap_stress",
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress"
+      },
+      "scorecard_algo": {
+        "case": "ts0-ts-config-service-stress-g6rpl9",
+        "sec": 18.3,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 40,
+        "hops": 4,
+        "algo": "traceback-A8",
+        "rank1": "ts-seat-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 28,
+          "mapped": true,
+          "category": "JVMChaos",
+          "chaos_type": "JVMMemoryStress",
+          "target_layer": "application",
+          "expected_propagation_channel": "vertical",
+          "fault_kind": "jvm_heap_stress",
+          "obs_channel_expected": "jvm.memory.used climbs to limit"
+        },
+        "target_layer": "application",
+        "fault_kind": "jvm_heap_stress",
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-seat-service",
+        "ts-travel-service",
+        "ts-food-service",
+        "ts-preserve-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=4 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-seat-service",
+      "agreement": "differ"
+    },
+    {
+      "case_id": "ts0-ts-consign-price-service-stress-nwzn4t",
+      "status": "candidate_path_constructed",
+      "reason": null,
+      "path": [
+        "ts-consign-price-service",
+        "ts-consign-service",
+        "ts-ui-dashboard"
+      ],
+      "path_brief": "obs=2 sup=0 inf=0",
+      "metrics": {
+        "path_covered": 1,
+        "observed_edges": 2,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 1.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 2
+      },
+      "injection": "ts-consign-price-service",
+      "injected_fault": {
+        "fault_type": 28,
+        "mapped": true,
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress",
+        "target_layer": "application",
+        "expected_propagation_channel": "vertical",
+        "fault_kind": "jvm_heap_stress",
+        "obs_channel_expected": "jvm.memory.used climbs to limit"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-07-20T17:15:47Z",
+          "component": "ts-consign-price-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-07-20 17:15:47.093911414+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first span on symptom service (no Error); policy pick has no clock",
+          "span_name": "GET /api/v1/verifycode/verify/ju7jp9"
+        },
+        {
+          "timestamp": "2025-07-20 17:16:54.372000+00:00",
+          "component": "ts-consign-service",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-07-20T17:19:37Z",
+          "component": "ts-consign-price-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-consign-price-service",
+      "algo_chain": [
+        "ts-consign-price-service",
+        "ts-consign-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": true,
+      "algo_true_rank": 1,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-consign-price-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 1,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-consign-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-train-food-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-train-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-price-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-travel-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 21.453052759170532
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": false,
+          "rank1": null,
+          "rank1_hit": null,
+          "hit_at_1": null,
+          "hit_at_3": null,
+          "hit_at_5": null,
+          "true_label_best_rank": null,
+          "top_services": [],
+          "runtime_seconds": null
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "loadgenerator",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": true,
+          "true_label_best_rank": 5,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 7,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 8,
+              "service": "ts-consign-price-service",
+              "hit": true
+            }
+          ],
+          "runtime_seconds": 5.056501865386963
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "ts-consign-price-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 1,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 3,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 4,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 5,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 7,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 8,
+              "service": "ts-consign-price-service",
+              "hit": true
+            }
+          ],
+          "runtime_seconds": 3.4047694206237793
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "ts-consign-price-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 1,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-consign-price-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-order-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-notification-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-preserve-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-assurance-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-basic-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-consign-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 0.02473592758178711
+        }
+      },
+      "scorecard": {
+        "case": "ts0-ts-consign-price-service-stress-nwzn4t",
+        "sec": 13.8,
+        "seed": "fault",
+        "evid": "obs",
+        "rca_pct": 100,
+        "hops": 2,
+        "algo": "traceback-A8",
+        "rank1": "ts-consign-price-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 28,
+          "mapped": true,
+          "category": "JVMChaos",
+          "chaos_type": "JVMMemoryStress",
+          "target_layer": "application",
+          "expected_propagation_channel": "vertical",
+          "fault_kind": "jvm_heap_stress",
+          "obs_channel_expected": "jvm.memory.used climbs to limit"
+        },
+        "target_layer": "application",
+        "fault_kind": "jvm_heap_stress",
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress"
+      },
+      "scorecard_algo": {
+        "case": "ts0-ts-consign-price-service-stress-nwzn4t",
+        "sec": 13.8,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 100,
+        "hops": 2,
+        "algo": "traceback-A8",
+        "rank1": "ts-consign-price-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 28,
+          "mapped": true,
+          "category": "JVMChaos",
+          "chaos_type": "JVMMemoryStress",
+          "target_layer": "application",
+          "expected_propagation_channel": "vertical",
+          "fault_kind": "jvm_heap_stress",
+          "obs_channel_expected": "jvm.memory.used climbs to limit"
+        },
+        "target_layer": "application",
+        "fault_kind": "jvm_heap_stress",
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-consign-price-service",
+        "ts-consign-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=2 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-consign-price-service",
+      "agreement": "same"
+    },
+    {
+      "case_id": "ts2-mysql-partition-5zrq5z",
+      "status": "candidate_path_constructed",
+      "reason": null,
+      "path": [
+        "ts-contacts-service",
+        "ts-ui-dashboard"
+      ],
+      "path_brief": "obs=1 sup=0 inf=0",
+      "metrics": {
+        "path_covered": 1,
+        "observed_edges": 1,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 1.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 1
+      },
+      "injection": "ts-contacts-service",
+      "injected_fault": {
+        "fault_type": 22,
+        "mapped": true,
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition",
+        "target_layer": "infrastructure",
+        "expected_propagation_channel": "vertical+horizontal",
+        "fault_kind": "network_partition",
+        "obs_channel_expected": "container.network.*, timeout share approaches one"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-07-20T13:31:26Z",
+          "component": "ts-contacts-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-07-20 13:31:27.278556772+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first span on symptom service (no Error); policy pick has no clock",
+          "span_name": "GET /api/v1/userservice/users/id/4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"
+        },
+        {
+          "timestamp": "2025-07-20 13:31:28.172159765+00:00",
+          "component": "loadgenerator",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-07-20 13:31:28.189000+00:00",
+          "component": "ts-contacts-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-07-20T13:35:25Z",
+          "component": "ts-contacts-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-contacts-service",
+      "algo_chain": [
+        "ts-contacts-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": true,
+      "algo_true_rank": 1,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-contacts-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 1,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-contacts-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-basic-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-station-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-travel2-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-route-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-order-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-route-plan-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 24.668529987335205
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": false,
+          "rank1": null,
+          "rank1_hit": null,
+          "hit_at_1": null,
+          "hit_at_3": null,
+          "hit_at_5": null,
+          "true_label_best_rank": null,
+          "top_services": [],
+          "runtime_seconds": null
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "loadgenerator",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 380,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 5,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "ts-auth-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-admin-order-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 3.156928539276123
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "loadgenerator",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": true,
+          "true_label_best_rank": 4,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-contacts-service",
+              "hit": true
+            },
+            {
+              "rank": 5,
+              "service": "mysql",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "rabbitmq",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "rabbitmq",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "rabbitmq",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 2.288489580154419
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "ts-contacts-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 1,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-contacts-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-train-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-auth-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-travel2-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-verification-code-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "mysql",
+              "hit": true
+            }
+          ],
+          "runtime_seconds": 0.013918876647949219
+        }
+      },
+      "scorecard": {
+        "case": "ts2-mysql-partition-5zrq5z",
+        "sec": 12.6,
+        "seed": "fault",
+        "evid": "obs",
+        "rca_pct": 100,
+        "hops": 1,
+        "algo": "traceback-A8",
+        "rank1": "ts-contacts-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 22,
+          "mapped": true,
+          "category": "NetworkChaos",
+          "chaos_type": "NetworkPartition",
+          "target_layer": "infrastructure",
+          "expected_propagation_channel": "vertical+horizontal",
+          "fault_kind": "network_partition",
+          "obs_channel_expected": "container.network.*, timeout share approaches one"
+        },
+        "target_layer": "infrastructure",
+        "fault_kind": "network_partition",
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition"
+      },
+      "scorecard_algo": {
+        "case": "ts2-mysql-partition-5zrq5z",
+        "sec": 12.6,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 100,
+        "hops": 1,
+        "algo": "traceback-A8",
+        "rank1": "ts-contacts-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 22,
+          "mapped": true,
+          "category": "NetworkChaos",
+          "chaos_type": "NetworkPartition",
+          "target_layer": "infrastructure",
+          "expected_propagation_channel": "vertical+horizontal",
+          "fault_kind": "network_partition",
+          "obs_channel_expected": "container.network.*, timeout share approaches one"
+        },
+        "target_layer": "infrastructure",
+        "fault_kind": "network_partition",
+        "category": "NetworkChaos",
+        "chaos_type": "NetworkPartition"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-contacts-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=1 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-contacts-service",
+      "agreement": "same"
+    },
+    {
+      "case_id": "ts4-ts-basic-service-request-delay-rxfqg2",
+      "status": "insufficient_evidence",
+      "reason": "required_horizontal_relationship_unavailable",
+      "path": [],
+      "path_brief": "horiz",
+      "metrics": {
+        "path_covered": 0,
+        "observed_edges": 0,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 0.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 0
+      },
+      "injection": "ts-station-service",
+      "injected_fault": {
+        "fault_type": 7,
+        "mapped": true,
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestDelay",
+        "target_layer": "application",
+        "expected_propagation_channel": "horizontal",
+        "fault_kind": "http_slow",
+        "obs_channel_expected": "HTTP span duration distribution"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-09-04T16:34:30Z",
+          "component": "ts-station-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-09-04 16:34:30.606701933+00:00",
+          "component": "loadgenerator",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-09-04 16:34:30.618968320+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first Error span on symptom service",
+          "span_name": "POST /api/v1/travel2service/trips/left"
+        },
+        {
+          "timestamp": "2025-09-04 16:34:30.618968320+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-04 16:34:31.574000+00:00",
+          "component": "ts-travel-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-04 16:34:31.583000+00:00",
+          "component": "ts-basic-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-04T16:38:29Z",
+          "component": "ts-station-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-basic-service",
+      "algo_chain": [
+        "ts-basic-service",
+        "ts-travel2-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": true,
+      "algo_true_rank": null,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-basic-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": null,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-basic-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-preserve-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-travel2-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-order-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-assurance-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 14.959205150604248
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": true,
+          "rank1": "ts-basic-service",
+          "rank1_hit": true,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 9,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-basic-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-preserve-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-config-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-station-food-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 29.16399049758911
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "rabbitmq",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 132,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "rabbitmq",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "rabbitmq",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-avatar-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-avatar-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-basic-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "ts-travel2-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-preserve-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-preserve-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 1.506180763244629
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "ts-ticket-office-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 44,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-basic-service",
+              "hit": true
+            },
+            {
+              "rank": 8,
+              "service": "ts-basic-service",
+              "hit": true
+            }
+          ],
+          "runtime_seconds": 3.9095377922058105
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "ts-delivery-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 3,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-delivery-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-verification-code-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-station-service",
+              "hit": true
+            },
+            {
+              "rank": 4,
+              "service": "ts-user-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-config-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-train-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-route-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 0.015989065170288086
+        }
+      },
+      "scorecard": {
+        "case": "ts4-ts-basic-service-request-delay-rxfqg2",
+        "sec": 16.0,
+        "seed": "fault",
+        "evid": null,
+        "rca_pct": 0,
+        "hops": null,
+        "algo": "traceback-A8",
+        "rank1": "ts-basic-service",
+        "refuse": "required_horizontal_relationship_unavailable",
+        "injected_fault": {
+          "fault_type": 7,
+          "mapped": true,
+          "category": "HTTPChaos",
+          "chaos_type": "HTTPRequestDelay",
+          "target_layer": "application",
+          "expected_propagation_channel": "horizontal",
+          "fault_kind": "http_slow",
+          "obs_channel_expected": "HTTP span duration distribution"
+        },
+        "target_layer": "application",
+        "fault_kind": "http_slow",
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestDelay"
+      },
+      "scorecard_algo": {
+        "case": "ts4-ts-basic-service-request-delay-rxfqg2",
+        "sec": 16.0,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 100,
+        "hops": 2,
+        "algo": "traceback-A8",
+        "rank1": "ts-basic-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 7,
+          "mapped": true,
+          "category": "HTTPChaos",
+          "chaos_type": "HTTPRequestDelay",
+          "target_layer": "application",
+          "expected_propagation_channel": "horizontal",
+          "fault_kind": "http_slow",
+          "obs_channel_expected": "HTTP span duration distribution"
+        },
+        "target_layer": "application",
+        "fault_kind": "http_slow",
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestDelay"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-basic-service",
+        "ts-travel-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=2 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-basic-service",
+      "agreement": "rca_only"
+    },
+    {
+      "case_id": "ts4-ts-basic-service-request-replace-path-n9jq9s",
+      "status": "candidate_path_constructed",
+      "reason": null,
+      "path": [
+        "ts-route-service",
+        "ts-basic-service",
+        "ts-travel-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "path_brief": "obs=5 sup=0 inf=0",
+      "metrics": {
+        "path_covered": 1,
+        "observed_edges": 5,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 1.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 5
+      },
+      "injection": "ts-route-service",
+      "injected_fault": {
+        "fault_type": 11,
+        "mapped": true,
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestReplacePath",
+        "target_layer": "application",
+        "expected_propagation_channel": "horizontal",
+        "fault_kind": "http_payload_modified",
+        "obs_channel_expected": "request path differs from baseline"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-09-06T16:17:59Z",
+          "component": "ts-route-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-09-06 16:17:59.257459402+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-09-06 16:17:59.257459402+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first Error span on symptom service",
+          "span_name": "POST /api/v1/travelplanservice/travelPlan/cheapest"
+        },
+        {
+          "timestamp": "2025-09-06 16:17:59.259000+00:00",
+          "component": "ts-travel-plan-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-06 16:17:59.267000+00:00",
+          "component": "ts-route-plan-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-06 16:17:59.320000+00:00",
+          "component": "ts-basic-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-06 16:18:01.822000+00:00",
+          "component": "ts-travel-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-06T16:21:59Z",
+          "component": "ts-route-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-basic-service",
+      "algo_chain": [
+        "ts-basic-service",
+        "ts-travel2-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": true,
+      "algo_true_rank": null,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-basic-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": null,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-basic-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-preserve-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-travel2-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-train-food-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 17.695788145065308
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": true,
+          "rank1": "ts-basic-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": null,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-basic-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-station-food-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-price-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-food-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-assurance-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-train-food-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 34.04937219619751
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "ts-news-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 29,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-news-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 1.6651721000671387
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "ts-wait-order-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 71,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-wait-order-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-news-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-station-food-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-station-food-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-wait-order-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-train-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-train-food-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 4.3179285526275635
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "ts-station-food-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 24,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-station-food-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-seat-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-contacts-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-price-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-auth-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 0.018801212310791016
+        }
+      },
+      "scorecard": {
+        "case": "ts4-ts-basic-service-request-replace-path-n9jq9s",
+        "sec": 22.5,
+        "seed": "fault",
+        "evid": "obs",
+        "rca_pct": 50,
+        "hops": 5,
+        "algo": "traceback-A8",
+        "rank1": "ts-basic-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 11,
+          "mapped": true,
+          "category": "HTTPChaos",
+          "chaos_type": "HTTPRequestReplacePath",
+          "target_layer": "application",
+          "expected_propagation_channel": "horizontal",
+          "fault_kind": "http_payload_modified",
+          "obs_channel_expected": "request path differs from baseline"
+        },
+        "target_layer": "application",
+        "fault_kind": "http_payload_modified",
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestReplacePath"
+      },
+      "scorecard_algo": {
+        "case": "ts4-ts-basic-service-request-replace-path-n9jq9s",
+        "sec": 22.5,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 60,
+        "hops": 4,
+        "algo": "traceback-A8",
+        "rank1": "ts-basic-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 11,
+          "mapped": true,
+          "category": "HTTPChaos",
+          "chaos_type": "HTTPRequestReplacePath",
+          "target_layer": "application",
+          "expected_propagation_channel": "horizontal",
+          "fault_kind": "http_payload_modified",
+          "obs_channel_expected": "request path differs from baseline"
+        },
+        "target_layer": "application",
+        "fault_kind": "http_payload_modified",
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestReplacePath"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-basic-service",
+        "ts-travel-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=4 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-basic-service",
+      "agreement": "differ"
+    },
+    {
+      "case_id": "ts4-ts-route-plan-service-request-delay-rqmwn4",
+      "status": "insufficient_evidence",
+      "reason": "required_horizontal_relationship_unavailable",
+      "path": [],
+      "path_brief": "horiz",
+      "metrics": {
+        "path_covered": 0,
+        "observed_edges": 0,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 0.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 0
+      },
+      "injection": "ts-travel-service",
+      "injected_fault": {
+        "fault_type": 7,
+        "mapped": true,
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestDelay",
+        "target_layer": "application",
+        "expected_propagation_channel": "horizontal",
+        "fault_kind": "http_slow",
+        "obs_channel_expected": "HTTP span duration distribution"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-08-05T23:39:07Z",
+          "component": "ts-travel-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-08-05 23:39:09.306031350+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-08-05 23:39:09.306031350+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first Error span on symptom service",
+          "span_name": "POST /api/v1/travelplanservice/travelPlan/quickest"
+        },
+        {
+          "timestamp": "2025-08-05T23:43:06Z",
+          "component": "ts-travel-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-route-plan-service",
+      "algo_chain": [
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": true,
+      "algo_true_rank": null,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-route-plan-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": null,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-plan-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-order-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-travel2-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-food-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-consign-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 17.170655488967896
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": true,
+          "rank1": "ts-route-plan-service",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": null,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-plan-service",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-food-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-order-other-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-user-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-preserve-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-route-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 18.983137369155884
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "ts-cancel-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 84,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-cancel-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 1.9286363124847412
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "ts-payment-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 99,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-cancel-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 3.9663901329040527
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "ts-auth-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 21,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-auth-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-station-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-train-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-consign-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-route-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-order-other-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 0.016558408737182617
+        }
+      },
+      "scorecard": {
+        "case": "ts4-ts-route-plan-service-request-delay-rqmwn4",
+        "sec": 18.1,
+        "seed": "fault",
+        "evid": null,
+        "rca_pct": 0,
+        "hops": null,
+        "algo": "traceback-A8",
+        "rank1": "ts-route-plan-service",
+        "refuse": "required_horizontal_relationship_unavailable",
+        "injected_fault": {
+          "fault_type": 7,
+          "mapped": true,
+          "category": "HTTPChaos",
+          "chaos_type": "HTTPRequestDelay",
+          "target_layer": "application",
+          "expected_propagation_channel": "horizontal",
+          "fault_kind": "http_slow",
+          "obs_channel_expected": "HTTP span duration distribution"
+        },
+        "target_layer": "application",
+        "fault_kind": "http_slow",
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestDelay"
+      },
+      "scorecard_algo": {
+        "case": "ts4-ts-route-plan-service-request-delay-rqmwn4",
+        "sec": 18.1,
+        "seed": "algo",
+        "evid": null,
+        "rca_pct": 0,
+        "hops": null,
+        "algo": "traceback-A8",
+        "rank1": "ts-route-plan-service",
+        "refuse": "required_horizontal_relationship_unavailable",
+        "injected_fault": {
+          "fault_type": 7,
+          "mapped": true,
+          "category": "HTTPChaos",
+          "chaos_type": "HTTPRequestDelay",
+          "target_layer": "application",
+          "expected_propagation_channel": "horizontal",
+          "fault_kind": "http_slow",
+          "obs_channel_expected": "HTTP span duration distribution"
+        },
+        "target_layer": "application",
+        "fault_kind": "http_slow",
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPRequestDelay"
+      },
+      "rca_status": "insufficient_evidence",
+      "rca_reason": "required_horizontal_relationship_unavailable",
+      "rca_path": [],
+      "rca_path_brief": "horiz",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-route-plan-service",
+      "agreement": "both_refuse"
+    },
+    {
+      "case_id": "ts4-ts-ui-dashboard-response-delay-fzgvbz",
+      "status": "candidate_path_constructed",
+      "reason": null,
+      "path": [
+        "ts-travel2-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "path_brief": "obs=3 sup=0 inf=0",
+      "metrics": {
+        "path_covered": 1,
+        "observed_edges": 3,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 1.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 3
+      },
+      "injection": "ts-travel2-service",
+      "injected_fault": {
+        "fault_type": 8,
+        "mapped": true,
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPResponseDelay",
+        "target_layer": "application",
+        "expected_propagation_channel": "horizontal",
+        "fault_kind": "http_slow",
+        "obs_channel_expected": "HTTP span duration distribution"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-08-11T12:24:15Z",
+          "component": "ts-travel2-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-08-11 12:24:15.719158751+00:00",
+          "component": "loadgenerator",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-08-11 12:24:58.941296429+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first Error span on symptom service",
+          "span_name": "POST /api/v1/orderOtherService/orderOther/refresh"
+        },
+        {
+          "timestamp": "2025-08-11 12:24:58.941296429+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-08-11T12:28:15Z",
+          "component": "ts-travel2-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-route-service",
+      "algo_chain": [
+        "ts-route-service",
+        "ts-travel-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": false,
+      "algo_true_rank": 5,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-route-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": true,
+          "true_label_best_rank": 5,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-seat-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-ui-dashboard",
+              "hit": true
+            },
+            {
+              "rank": 5,
+              "service": "ts-travel2-service",
+              "hit": true
+            },
+            {
+              "rank": 6,
+              "service": "ts-basic-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-consign-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 34.19248986244202
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": true,
+          "rank1": "ts-ui-dashboard",
+          "rank1_hit": true,
+          "hit_at_1": true,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": null,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-ui-dashboard",
+              "hit": true
+            },
+            {
+              "rank": 2,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-notification-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-assurance-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 34.622047901153564
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "ts-preserve-other-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 34,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-preserve-other-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-train-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-rebook-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-admin-route-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-execute-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-train-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 3.9250054359436035
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "ts-preserve-other-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 21,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-preserve-other-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-cancel-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-train-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-execute-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-rebook-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-admin-route-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-train-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 4.479423761367798
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "loadgenerator",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 19,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-notification-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-route-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-config-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 0.029226303100585938
+        }
+      },
+      "scorecard": {
+        "case": "ts4-ts-ui-dashboard-response-delay-fzgvbz",
+        "sec": 20.6,
+        "seed": "fault",
+        "evid": "obs",
+        "rca_pct": 50,
+        "hops": 3,
+        "algo": "traceback-A8",
+        "rank1": "ts-route-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 8,
+          "mapped": true,
+          "category": "HTTPChaos",
+          "chaos_type": "HTTPResponseDelay",
+          "target_layer": "application",
+          "expected_propagation_channel": "horizontal",
+          "fault_kind": "http_slow",
+          "obs_channel_expected": "HTTP span duration distribution"
+        },
+        "target_layer": "application",
+        "fault_kind": "http_slow",
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPResponseDelay"
+      },
+      "scorecard_algo": {
+        "case": "ts4-ts-ui-dashboard-response-delay-fzgvbz",
+        "sec": 20.6,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 50,
+        "hops": 5,
+        "algo": "traceback-A8",
+        "rank1": "ts-route-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 8,
+          "mapped": true,
+          "category": "HTTPChaos",
+          "chaos_type": "HTTPResponseDelay",
+          "target_layer": "application",
+          "expected_propagation_channel": "horizontal",
+          "fault_kind": "http_slow",
+          "obs_channel_expected": "HTTP span duration distribution"
+        },
+        "target_layer": "application",
+        "fault_kind": "http_slow",
+        "category": "HTTPChaos",
+        "chaos_type": "HTTPResponseDelay"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-route-service",
+        "ts-basic-service",
+        "ts-travel-service",
+        "ts-food-service",
+        "ts-preserve-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=5 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-route-service",
+      "agreement": "differ"
+    },
+    {
+      "case_id": "ts5-ts-travel2-service-stress-v9ch2t",
+      "status": "candidate_path_constructed",
+      "reason": null,
+      "path": [
+        "ts-travel2-service",
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "path_brief": "obs=3 sup=0 inf=0",
+      "metrics": {
+        "path_covered": 1,
+        "observed_edges": 3,
+        "supported_edges": 0,
+        "inferred_edges": 0,
+        "observed_edge_ratio": 1.0,
+        "supported_edge_ratio": 0.0,
+        "inferred_edge_ratio": 0.0,
+        "returned_edges": 3
+      },
+      "injection": "ts-travel2-service",
+      "injected_fault": {
+        "fault_type": 28,
+        "mapped": true,
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress",
+        "target_layer": "application",
+        "expected_propagation_channel": "vertical",
+        "fault_kind": "jvm_heap_stress",
+        "obs_channel_expected": "jvm.memory.used climbs to limit"
+      },
+      "symptom": "ts-ui-dashboard",
+      "timeline": [
+        {
+          "timestamp": "2025-09-06T05:43:02Z",
+          "component": "ts-travel2-service",
+          "entity_type": "service",
+          "event_type": "injection_start",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window start"
+        },
+        {
+          "timestamp": "2025-09-06 05:43:22.125055059+00:00",
+          "component": "loadgenerator",
+          "entity_type": "service",
+          "event_type": "first_error_span",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_first_error",
+          "note": "earliest Error span in abnormal window (any service)"
+        },
+        {
+          "timestamp": "2025-09-06 05:43:28.614579896+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "selected_symptom",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "symptom_selection",
+          "note": "first Error span on symptom service",
+          "span_name": "POST /api/v1/travelplanservice/travelPlan/quickest"
+        },
+        {
+          "timestamp": "2025-09-06 05:43:28.614579896+00:00",
+          "component": "ts-ui-dashboard",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-06 05:43:28.640000+00:00",
+          "component": "ts-travel-plan-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-06 05:43:28.644000+00:00",
+          "component": "ts-route-plan-service",
+          "entity_type": "service",
+          "event_type": "path_first_error",
+          "source": "abnormal_traces.parquet",
+          "evidence_ref": "timeline_path_first_error",
+          "note": "first Error span on accepted-path service"
+        },
+        {
+          "timestamp": "2025-09-06T05:47:00Z",
+          "component": "ts-travel2-service",
+          "entity_type": "service",
+          "event_type": "injection_end",
+          "source": "injection.json",
+          "evidence_ref": "injection_facts",
+          "note": "fault injection window end"
+        }
+      ],
+      "algo_rank1": "ts-route-plan-service",
+      "algo_chain": [
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "algo_hit_at_1": false,
+      "algo_true_rank": 15,
+      "algo_name": "traceback-A8",
+      "algo_ac_at_1": 0.625265,
+      "rankings": {
+        "traceback-A8": {
+          "algo": "traceback-A8",
+          "available": true,
+          "rank1": "ts-route-plan-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 15,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-user-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-route-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-preserve-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-consign-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 31.64467453956604
+        },
+        "traceback-A7": {
+          "algo": "traceback-A7",
+          "available": true,
+          "rank1": "ts-route-plan-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": true,
+          "hit_at_5": true,
+          "true_label_best_rank": 2,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-route-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-travel2-service",
+              "hit": true
+            },
+            {
+              "rank": 3,
+              "service": "ts-food-delivery-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-inside-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-payment-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "loadgenerator",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-train-food-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 18.33233666419983
+        },
+        "nsigma": {
+          "algo": "nsigma",
+          "available": true,
+          "rank1": "ts-admin-travel-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 9,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-food-delivery-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-food-delivery-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-food-delivery-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-food-delivery-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 1.038789987564087
+        },
+        "baro": {
+          "algo": "baro",
+          "available": true,
+          "rank1": "ts-ticket-office-service",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 16,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-ticket-office-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-admin-travel-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-food-delivery-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 2.443101644515991
+        },
+        "random": {
+          "algo": "random",
+          "available": true,
+          "rank1": "mysql",
+          "rank1_hit": false,
+          "hit_at_1": false,
+          "hit_at_3": false,
+          "hit_at_5": false,
+          "true_label_best_rank": 20,
+          "top_services": [
+            {
+              "rank": 1,
+              "service": "mysql",
+              "hit": false
+            },
+            {
+              "rank": 2,
+              "service": "ts-order-other-service",
+              "hit": false
+            },
+            {
+              "rank": 3,
+              "service": "ts-basic-service",
+              "hit": false
+            },
+            {
+              "rank": 4,
+              "service": "ts-travel-plan-service",
+              "hit": false
+            },
+            {
+              "rank": 5,
+              "service": "ts-ui-dashboard",
+              "hit": false
+            },
+            {
+              "rank": 6,
+              "service": "ts-user-service",
+              "hit": false
+            },
+            {
+              "rank": 7,
+              "service": "ts-seat-service",
+              "hit": false
+            },
+            {
+              "rank": 8,
+              "service": "ts-train-food-service",
+              "hit": false
+            }
+          ],
+          "runtime_seconds": 0.020948410034179688
+        }
+      },
+      "scorecard": {
+        "case": "ts5-ts-travel2-service-stress-v9ch2t",
+        "sec": 29.6,
+        "seed": "fault",
+        "evid": "obs",
+        "rca_pct": 75,
+        "hops": 3,
+        "algo": "traceback-A8",
+        "rank1": "ts-route-plan-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 28,
+          "mapped": true,
+          "category": "JVMChaos",
+          "chaos_type": "JVMMemoryStress",
+          "target_layer": "application",
+          "expected_propagation_channel": "vertical",
+          "fault_kind": "jvm_heap_stress",
+          "obs_channel_expected": "jvm.memory.used climbs to limit"
+        },
+        "target_layer": "application",
+        "fault_kind": "jvm_heap_stress",
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress"
+      },
+      "scorecard_algo": {
+        "case": "ts5-ts-travel2-service-stress-v9ch2t",
+        "sec": 29.6,
+        "seed": "algo",
+        "evid": "obs",
+        "rca_pct": 100,
+        "hops": 2,
+        "algo": "traceback-A8",
+        "rank1": "ts-route-plan-service",
+        "refuse": null,
+        "injected_fault": {
+          "fault_type": 28,
+          "mapped": true,
+          "category": "JVMChaos",
+          "chaos_type": "JVMMemoryStress",
+          "target_layer": "application",
+          "expected_propagation_channel": "vertical",
+          "fault_kind": "jvm_heap_stress",
+          "obs_channel_expected": "jvm.memory.used climbs to limit"
+        },
+        "target_layer": "application",
+        "fault_kind": "jvm_heap_stress",
+        "category": "JVMChaos",
+        "chaos_type": "JVMMemoryStress"
+      },
+      "rca_status": "candidate_path_constructed",
+      "rca_reason": null,
+      "rca_path": [
+        "ts-route-plan-service",
+        "ts-travel-plan-service",
+        "ts-ui-dashboard"
+      ],
+      "rca_path_brief": "obs=2 sup=0 inf=0",
+      "rca_algo": "traceback-A8",
+      "rca_seed": "ts-route-plan-service",
+      "agreement": "differ"
+    }
+  ],
+  "elapsed_s": 174.508,
+  "dataset_perf": [
+    {
+      "algorithm": "traceback-A8",
+      "total": 1417,
+      "AC@1": 0.625265,
+      "AC@3": 0.804517,
+      "AC@5": 0.873677,
+      "MRR": 0.743179
+    },
+    {
+      "algorithm": "traceback-A7",
+      "total": 1417,
+      "AC@1": 0.314044,
+      "AC@3": 0.508821,
+      "AC@5": 0.575159,
+      "MRR": 0.661426
+    },
+    {
+      "algorithm": "nsigma",
+      "total": 1417,
+      "AC@1": 0.174312,
+      "AC@3": 0.228652,
+      "AC@5": 0.297107,
+      "MRR": 0.234656
+    },
+    {
+      "algorithm": "baro",
+      "total": 1417,
+      "AC@1": 0.115737,
+      "AC@3": 0.163726,
+      "AC@5": 0.229358,
+      "MRR": 0.17607
+    },
+    {
+      "algorithm": "random",
+      "total": 1417,
+      "AC@1": 0.053634,
+      "AC@3": 0.165138,
+      "AC@5": 0.266055,
+      "MRR": 0.183041
+    }
+  ],
+  "sibling_policy": {
+    "policy": "relaxed",
+    "path_coverage": 0.9,
+    "rca_path_coverage": 1.0,
+    "constructed_cases": 9,
+    "rca_constructed_cases": 10,
+    "evaluated_cases": 10
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-payment-service",
+      "ts-inside-payment-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-payment-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts2-ts-payment-service-exception-jglltg",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-payment-service -> ts-inside-payment-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 1489,
+          "error_count": 1489,
+          "route": "POST /api/v1/paymentservice/payment",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.4383,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0133,
+                  "z": 68.8434
+                },
+                {
+                  "abnormal_mean": 3024590.9787,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2557646978723.405
+                },
+                {
+                  "abnormal_mean": 2415462530.7234,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2445068288.0,
+                  "z": -13.3154
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 13556624362.2128,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 13346894421.3333,
+                  "z": 4.7244
+                },
+                {
+                  "abnormal_mean": 1.3656,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0075,
+                  "ratio": 181.2461
+                },
+                {
+                  "abnormal_mean": 1.569,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0129,
+                  "ratio": 121.9456
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "cf7df61a757104536c0150bab452a422",
+            "67b4aef0467f438599ad7c8d03bc10d4",
+            "131584e02ab1f39f843855131befaed4"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-inside-payment-service -> ts-cancel-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 3,
+          "error_count": 0,
+          "route": "GET /api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 13556624362.2128,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 13346894421.3333,
+                  "z": 4.7244
+                },
+                {
+                  "abnormal_mean": 1.3656,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0075,
+                  "ratio": 181.2461
+                },
+                {
+                  "abnormal_mean": 1.569,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p90_seconds",
+                  "normal_mean": 0.0129,
+                  "ratio": 121.9456
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 152.0325,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 4.0925,
+                  "z": 46.5616
+                },
+                {
+                  "abnormal_mean": 0.2386,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0286,
+                  "z": 29.7735
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "6ce7805ffa37d09a855542dbc62f75fc",
+            "43fef48cb2f78b028d1c90b2a3f77dfc",
+            "9aff5166471e1c7f8782368cdc46d876"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-cancel-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 6,
+          "error_count": 0,
+          "route": "GET /api/v1/cancelservice/cancel/refound/{orderId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 152.0325,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.load_1m",
+                  "normal_mean": 4.0925,
+                  "z": 46.5616
+                },
+                {
+                  "abnormal_mean": 0.2386,
+                  "family": "gauge",
+                  "metric": "jvm.system.cpu.utilization",
+                  "normal_mean": 0.0286,
+                  "z": 29.7735
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.0097,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0411,
+                  "z": -6.4948
+                },
+                {
+                  "abnormal_mean": 0.4731,
+                  "family": "latency",
+                  "metric": "hubble_http_request_duration_p50_seconds",
+                  "normal_mean": 0.0644,
+                  "ratio": 7.3492
+                },
+                {
+                  "abnormal_mean": 0.0001,
+                  "family": "gauge",
+                  "metric": "k8s.pod.cpu.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -9.1827
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "fe442b0715ac38347b758cd802bd0c46",
+            "6ce7805ffa37d09a855542dbc62f75fc",
+            "e2221647cc617c107988fadaf4718125"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 25 (JVMException) injected into ts-payment-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-24T01:24:39Z: injection_start @ ts-payment-service \u2014 fault injection window start",
+      "2025-07-24 01:24:39.602447280+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-24 01:25:28.609173884+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-24 01:25:29.069000+00:00: path_first_error @ ts-inside-payment-service \u2014 first Error span on accepted-path service",
+      "2025-07-24 01:25:29.115000+00:00: path_first_error @ ts-payment-service \u2014 first Error span on accepted-path service",
+      "2025-07-24T01:28:37Z: injection_end @ ts-payment-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-payment-service-exception-jglltg",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 3,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-payment-service",
+    "rca_pct": 25,
+    "refuse": null,
+    "sec": 12.0,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts2-ts-payment-service-exception-jglltg",
+    "category": "JVMChaos",
+    "chaos_type": "JVMException",
+    "evid": "obs",
+    "fault_kind": "jvm_method_exception",
+    "hops": 3,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMException",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_exception",
+      "fault_type": 25,
+      "mapped": true,
+      "obs_channel_expected": "log exception class on a specific method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-payment-service",
+    "rca_pct": 25,
+    "refuse": null,
+    "sec": 12.0,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

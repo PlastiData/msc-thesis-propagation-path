@@ -1,0 +1,251 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-food-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-food-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts5-ts-train-food-service-container-kill-qbtw4j",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-train-food-service -> ts-food-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 293,
+          "error_count": 0,
+          "route": "GET /api/v1/trainfoodservice/trainfoods/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.9901,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0426,
+                  "z": 14.3807
+                },
+                {
+                  "abnormal_mean": 421103.6596,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": -45840340425.5319
+                },
+                {
+                  "abnormal_mean": 2505144092.4444,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2409340757.3333,
+                  "z": 28.5376
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 2388858965.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2396116736.0,
+                  "z": -7.3272
+                },
+                {
+                  "abnormal_mean": 185927.7083,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 182686.3542,
+                  "z": 11.8721
+                },
+                {
+                  "abnormal_mean": 821332736.0,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 814147242.6667,
+                  "z": 7.0147
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "24080a5a24b5ffe461a95ee24849e074",
+            "4c9e24a276294b89fc620dfb4d8fe4ce",
+            "f2353ad500f1da436e129528606d4b99"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-food-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 390,
+          "error_count": 96,
+          "route": "GET /api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId}",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 2388858965.3333,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2396116736.0,
+                  "z": -7.3272
+                },
+                {
+                  "abnormal_mean": 185927.7083,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 182686.3542,
+                  "z": 11.8721
+                },
+                {
+                  "abnormal_mean": 821332736.0,
+                  "family": "gauge",
+                  "metric": "container.memory.rss",
+                  "normal_mean": 814147242.6667,
+                  "z": 7.0147
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 39308479573.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.available",
+                  "normal_mean": 39228489472.0,
+                  "z": 3.7128
+                },
+                {
+                  "abnormal_mean": 16687.8542,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 9656.6042,
+                  "z": 3.6239
+                },
+                {
+                  "abnormal_mean": 39308479573.3333,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.available",
+                  "normal_mean": 39228497408.0,
+                  "z": 3.7115
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "1e75f5008c29330caae917ea7145417f",
+            "ad3933c4cc95ebfe7c15ef7575ee6fe8",
+            "7c78e3c6917160a91ba7d61d3e1c5713"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 2 (ContainerKill) injected into ts-train-food-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-28T07:41:43Z: injection_start @ ts-train-food-service \u2014 fault injection window start",
+      "2025-08-28 07:41:46.553368966+00:00: first_error_span @ ts-ui-dashboard \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-28 07:41:46.553368966+00:00: selected_symptom @ ts-ui-dashboard \u2014 first Error span on symptom service",
+      "2025-08-28 07:41:46.574000+00:00: path_first_error @ ts-food-service \u2014 first Error span on accepted-path service",
+      "2025-08-28T07:45:43Z: injection_end @ ts-train-food-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-train-food-service-container-kill-qbtw4j",
+    "category": "PodChaos",
+    "chaos_type": "ContainerKill",
+    "evid": "obs",
+    "fault_kind": "pod_failure",
+    "hops": 2,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "ContainerKill",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_failure",
+      "fault_type": 2,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, brief, recovers in window",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-food-service",
+    "rca_pct": 33,
+    "refuse": null,
+    "sec": 7.4,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts5-ts-train-food-service-container-kill-qbtw4j",
+    "category": "PodChaos",
+    "chaos_type": "ContainerKill",
+    "evid": "obs",
+    "fault_kind": "pod_failure",
+    "hops": 1,
+    "injected_fault": {
+      "category": "PodChaos",
+      "chaos_type": "ContainerKill",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "pod_failure",
+      "fault_type": 2,
+      "mapped": true,
+      "obs_channel_expected": "trace emission gap, brief, recovers in window",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-food-service",
+    "rca_pct": 50,
+    "refuse": null,
+    "sec": 7.4,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "candidate_path_constructed"
+}

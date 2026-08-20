@@ -1,0 +1,155 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-user-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-user-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts3-ts-auth-service-return-9tmvzg",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-auth-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 2,
+          "error_count": 0,
+          "route": "POST /api/v1/users/login",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 3024590.9787,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2557646978723.405
+                },
+                {
+                  "abnormal_mean": 2408846357.7872,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2416516778.6667,
+                  "z": -4.5536
+                },
+                {
+                  "abnormal_mean": 176023.0851,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 173747.5625,
+                  "z": 4.3849
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 15776223.3191,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 10513493.3333,
+                  "z": 3.7509
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "f81cc618da61023e4d950ad7787cad2a",
+            "3414d7397007b98635ec6b4092b55188"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 24 (JVMReturn) injected into ts-auth-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-08-31T00:54:54Z: injection_start @ ts-auth-service \u2014 fault injection window start",
+      "2025-08-31 00:54:54.024399171+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-08-31 00:54:54.531216901+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-08-31T00:58:53Z: injection_end @ ts-auth-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts3-ts-auth-service-return-9tmvzg",
+    "category": "JVMChaos",
+    "chaos_type": "JVMReturn",
+    "evid": "obs",
+    "fault_kind": "jvm_method_mutated",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMReturn",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_mutated",
+      "fault_type": 24,
+      "mapped": true,
+      "obs_channel_expected": "method returns a value differing from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-user-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 9.3,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts3-ts-auth-service-return-9tmvzg",
+    "category": "JVMChaos",
+    "chaos_type": "JVMReturn",
+    "evid": "obs",
+    "fault_kind": "jvm_method_mutated",
+    "hops": 1,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMReturn",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_mutated",
+      "fault_type": 24,
+      "mapped": true,
+      "obs_channel_expected": "method returns a value differing from baseline",
+      "target_layer": "application"
+    },
+    "rank1": "ts-user-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 9.3,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

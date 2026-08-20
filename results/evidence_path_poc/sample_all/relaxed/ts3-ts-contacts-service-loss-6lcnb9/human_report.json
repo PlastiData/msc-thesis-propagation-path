@@ -1,0 +1,91 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-contacts-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-contacts-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts3-ts-contacts-service-loss-6lcnb9",
+  "evidence": {
+    "available": [
+      "Injection at mysql",
+      "Symptom at ts-ui-dashboard",
+      "Direct abnormal-window parent-child relationship",
+      "ts-contacts-service shows 3 abnormal metric signal(s)",
+      "ts-ui-dashboard has no metric deviation under configured thresholds",
+      "Temporal ordering left unknown; timing alone cannot prove causality",
+      "Direct abnormal-window parent-child relationship",
+      "ts-preserve-service shows 3 abnormal metric signal(s)"
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove a unique true causal path.",
+    "missing_evidence": [
+      "No official process-level ground truth was available.",
+      "No connected horizontal candidate path from injection to symptom."
+    ],
+    "primary_rejection_reason": "no_connected_candidate_path",
+    "safe_statement": "A connected candidate path could not be reconstructed."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 18 (NetworkLoss) at mysql.",
+    "observed_symptom": "ts-ui-dashboard via frozen-policy-v1:primary."
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts3-ts-contacts-service-loss-6lcnb9",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkLoss",
+    "evid": null,
+    "fault_kind": "network_loss",
+    "hops": null,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkLoss",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_loss",
+      "fault_type": 18,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, trace retry pattern",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-contacts-service",
+    "rca_pct": 0,
+    "refuse": "no_connected_candidate_path",
+    "sec": 5.3,
+    "seed": "fault",
+    "target_layer": "infrastructure"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts3-ts-contacts-service-loss-6lcnb9",
+    "category": "NetworkChaos",
+    "chaos_type": "NetworkLoss",
+    "evid": "inf",
+    "fault_kind": "network_loss",
+    "hops": 2,
+    "injected_fault": {
+      "category": "NetworkChaos",
+      "chaos_type": "NetworkLoss",
+      "expected_propagation_channel": "vertical+horizontal",
+      "fault_kind": "network_loss",
+      "fault_type": 18,
+      "mapped": true,
+      "obs_channel_expected": "container.network.*, trace retry pattern",
+      "target_layer": "infrastructure"
+    },
+    "rank1": "ts-contacts-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 5.3,
+    "seed": "algo",
+    "target_layer": "infrastructure"
+  },
+  "status": "insufficient_evidence"
+}

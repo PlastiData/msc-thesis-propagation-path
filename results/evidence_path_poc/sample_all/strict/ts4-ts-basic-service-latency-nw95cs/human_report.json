@@ -1,0 +1,230 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-train-service",
+      "ts-travel-plan-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-train-service",
+    "rank1_hit": false
+  },
+  "case_id": "ts4-ts-basic-service-latency-nw95cs",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-basic-service -> ts-preserve-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 10,
+          "error_count": 0,
+          "route": "POST /api/v1/basicservice/basic/travel",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 3025749.3333,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 2558805333333.3335
+                },
+                {
+                  "abnormal_mean": 10006613.3333,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 5854378.6667,
+                  "z": 5.6925
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 144393.3191,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 142624.375,
+                  "z": 3.3667
+                },
+                {
+                  "abnormal_mean": 145097.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 143268.7292,
+                  "z": 3.9367
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "30b0dfc1e0948e730e486ed2459f8e76",
+            "1b19253c4823c9df72c580e80fbbc850",
+            "a53598322d0f7b1718456ac0a980d67c"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-preserve-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 10,
+          "error_count": 0,
+          "route": "POST /api/v1/preserveservice/preserve",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 144393.3191,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 142624.375,
+                  "z": 3.3667
+                },
+                {
+                  "abnormal_mean": 145097.0,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 143268.7292,
+                  "z": 3.9367
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 3187059626.6667,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.available",
+                  "normal_mean": 3185074517.3333,
+                  "z": 3.3581
+                },
+                {
+                  "abnormal_mean": 0.0003,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.node.utilization",
+                  "normal_mean": 0.0003,
+                  "z": -3.3581
+                },
+                {
+                  "abnormal_mean": 25418154.6667,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.rss",
+                  "normal_mean": 27744085.3333,
+                  "z": -4.6198
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "30b0dfc1e0948e730e486ed2459f8e76",
+            "1b19253c4823c9df72c580e80fbbc850",
+            "a53598322d0f7b1718456ac0a980d67c"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the strict policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 23 (JVMLatency) injected into ts-basic-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-22T05:40:58Z: injection_start @ ts-basic-service \u2014 fault injection window start",
+      "2025-07-22 05:40:58.144932642+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-22 05:41:28.184237621+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-22T05:44:57Z: injection_end @ ts-basic-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-basic-service-latency-nw95cs",
+    "category": "JVMChaos",
+    "chaos_type": "JVMLatency",
+    "evid": "obs",
+    "fault_kind": "jvm_method_latency",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMLatency",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_latency",
+      "fault_type": 23,
+      "mapped": true,
+      "obs_channel_expected": "elevated span duration on a method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-train-service",
+    "rca_pct": 0,
+    "refuse": null,
+    "sec": 7.4,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts4-ts-basic-service-latency-nw95cs",
+    "category": "JVMChaos",
+    "chaos_type": "JVMLatency",
+    "evid": "obs",
+    "fault_kind": "jvm_method_latency",
+    "hops": 3,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMLatency",
+      "expected_propagation_channel": "horizontal",
+      "fault_kind": "jvm_method_latency",
+      "fault_type": 23,
+      "mapped": true,
+      "obs_channel_expected": "elevated span duration on a method",
+      "target_layer": "application"
+    },
+    "rank1": "ts-train-service",
+    "rca_pct": 25,
+    "refuse": null,
+    "sec": 7.4,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

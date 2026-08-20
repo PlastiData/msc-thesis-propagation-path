@@ -1,0 +1,245 @@
+{
+  "algo": {
+    "algo": "traceback-A8",
+    "algo_ac_at_1": 0.625265,
+    "available": true,
+    "error": null,
+    "predicted_chain": [
+      "ts-payment-service",
+      "ts-inside-payment-service",
+      "ts-ui-dashboard"
+    ],
+    "rank1": "ts-payment-service",
+    "rank1_hit": true
+  },
+  "case_id": "ts3-ts-payment-service-stress-hndhvq",
+  "evidence": {
+    "composition": {
+      "inferred": "0.0%",
+      "observed": "100.0%",
+      "supported": "0.0%"
+    },
+    "path": [
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-payment-service -> ts-inside-payment-service",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 7,
+          "error_count": 0,
+          "route": "POST /api/v1/paymentservice/payment",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 0.456,
+                  "family": "gauge",
+                  "metric": "container.cpu.usage",
+                  "normal_mean": 0.0117,
+                  "z": 80.7826
+                },
+                {
+                  "abnormal_mean": 587906.7234,
+                  "family": "gauge",
+                  "metric": "container.filesystem.usage",
+                  "normal_mean": 466944.0,
+                  "z": 120962723404.2554
+                },
+                {
+                  "abnormal_mean": 2439336221.7674,
+                  "family": "gauge",
+                  "metric": "container.memory.available",
+                  "normal_mean": 2413846101.3333,
+                  "z": 11.6832
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 5.617,
+                  "family": "gauge",
+                  "metric": "container.memory.major_page_faults",
+                  "normal_mean": 0.0,
+                  "z": 5617021.2766
+                },
+                {
+                  "abnormal_mean": 646645.1064,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 538368.0,
+                  "z": 23.835
+                },
+                {
+                  "abnormal_mean": 5.4468,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.major_page_faults",
+                  "normal_mean": 0.0,
+                  "z": 5446808.5106
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "accb489ee0e608d8262d66f57def5739",
+            "38ec07483768dddca5efd7180aad18d0",
+            "5dc037945573a637a6bde33b6d5f91fe"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      },
+      {
+        "checks": {
+          "statistical": "pass",
+          "structural": "pass",
+          "temporal": "unknown"
+        },
+        "hop": "ts-inside-payment-service -> ts-ui-dashboard",
+        "level": "observed",
+        "missing_evidence": [],
+        "refs": {
+          "call_count": 15,
+          "error_count": 8,
+          "route": "POST /api/v1/inside_pay_service/inside_payment",
+          "stat": {
+            "source": {
+              "hits": [
+                {
+                  "abnormal_mean": 5.617,
+                  "family": "gauge",
+                  "metric": "container.memory.major_page_faults",
+                  "normal_mean": 0.0,
+                  "z": 5617021.2766
+                },
+                {
+                  "abnormal_mean": 646645.1064,
+                  "family": "gauge",
+                  "metric": "k8s.pod.filesystem.usage",
+                  "normal_mean": 538368.0,
+                  "z": 23.835
+                },
+                {
+                  "abnormal_mean": 5.4468,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.major_page_faults",
+                  "normal_mean": 0.0,
+                  "z": 5446808.5106
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            },
+            "target": {
+              "hits": [
+                {
+                  "abnormal_mean": 12048.1489,
+                  "family": "gauge",
+                  "metric": "container.memory.page_faults",
+                  "normal_mean": 7002.7708,
+                  "z": 4.9829
+                },
+                {
+                  "abnormal_mean": 12767.7872,
+                  "family": "gauge",
+                  "metric": "k8s.pod.memory.page_faults",
+                  "normal_mean": 7690.0,
+                  "z": 5.2
+                }
+              ],
+              "source": "metrics",
+              "verdict": "pass"
+            }
+          },
+          "trace_ids": [
+            "38ec07483768dddca5efd7180aad18d0",
+            "accb489ee0e608d8262d66f57def5739",
+            "5dc037945573a637a6bde33b6d5f91fe"
+          ]
+        },
+        "sources": [
+          "abnormal_metrics.parquet",
+          "abnormal_traces.parquet"
+        ]
+      }
+    ]
+  },
+  "judgment": {
+    "cannot_claim": "The available dataset does not prove that this is the unique true causal path.",
+    "missing_evidence": [],
+    "safe_statement": "The telemetry supports this candidate relationship under the relaxed policy."
+  },
+  "reality": {
+    "known_injection": "Injected fault (benchmark label): fault_type 28 (JVMMemoryStress) injected into ts-payment-service.",
+    "observed_symptom": "ts-ui-dashboard selected by frozen-policy-v1:primary.",
+    "timeline_summary": [
+      "2025-07-25T10:07:04Z: injection_start @ ts-payment-service \u2014 fault injection window start",
+      "2025-07-25 10:07:04.005756466+00:00: selected_symptom @ ts-ui-dashboard \u2014 first span on symptom service (no Error); policy pick has no clock",
+      "2025-07-25 10:07:48.428043263+00:00: first_error_span @ loadgenerator \u2014 earliest Error span in abnormal window (any service)",
+      "2025-07-25 10:07:48.431000+00:00: path_first_error @ ts-inside-payment-service \u2014 first Error span on accepted-path service",
+      "2025-07-25T10:11:03Z: injection_end @ ts-payment-service \u2014 fault injection window end"
+    ]
+  },
+  "scorecard": {
+    "algo": "traceback-A8",
+    "case": "ts3-ts-payment-service-stress-hndhvq",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-payment-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 8.0,
+    "seed": "fault",
+    "target_layer": "application"
+  },
+  "scorecard_algo": {
+    "algo": "traceback-A8",
+    "case": "ts3-ts-payment-service-stress-hndhvq",
+    "category": "JVMChaos",
+    "chaos_type": "JVMMemoryStress",
+    "evid": "obs",
+    "fault_kind": "jvm_heap_stress",
+    "hops": 2,
+    "injected_fault": {
+      "category": "JVMChaos",
+      "chaos_type": "JVMMemoryStress",
+      "expected_propagation_channel": "vertical",
+      "fault_kind": "jvm_heap_stress",
+      "fault_type": 28,
+      "mapped": true,
+      "obs_channel_expected": "jvm.memory.used climbs to limit",
+      "target_layer": "application"
+    },
+    "rank1": "ts-payment-service",
+    "rca_pct": 100,
+    "refuse": null,
+    "sec": 8.0,
+    "seed": "algo",
+    "target_layer": "application"
+  },
+  "status": "candidate_path_constructed"
+}

@@ -1,0 +1,88 @@
+{
+  "version": "0.1.0",
+  "symptom_policy": {
+    "id": "frozen-policy-v1",
+    "exclude_services": ["loadgenerator", "USER", "user"],
+    "primary": {
+      "source": "conclusion.parquet",
+      "require_issues": true,
+      "rank_by": ["succ_drop_desc", "duration_ratio_desc", "span_name_asc"],
+      "component_from": "span_name_host"
+    },
+    "fallback": {
+      "source": "conclusion.parquet",
+      "require_issues": false,
+      "rank_by": ["duration_ratio_desc", "span_name_asc"],
+      "component_from": "span_name_host"
+    }
+  },
+  "span_to_service": {
+    "rule": "use_span_service_name",
+    "note": "PAVE collapse unpublished; deterministic service_name column"
+  },
+  "path_search": {
+    "max_hops": 5,
+    "max_visits_per_component": 2,
+    "selection_order": [
+      "fewest_inferred",
+      "most_observed",
+      "shortest",
+      "lexical_path"
+    ]
+  },
+  "checks": {
+    "statistical": {
+      "gauge_zscore_threshold": 3.0,
+      "gauge_metric_substrings": ["cpu", "memory", "mem", "utilization", "usage", "working_set"],
+      "count_percentile": 99.0,
+      "count_multiplier_vs_p99": 2.0,
+      "count_metric_substrings": ["total", "count", "restarts", "timeouts", "drop"],
+      "latency_multiplier": 3.0,
+      "latency_metric_substrings": ["duration", "latency", "p99", "p95", "p90"],
+      "epsilon": 1e-6
+    },
+    "temporal": {
+      "allow_unknown": true,
+      "unknown_never_becomes_pass": true
+    }
+  },
+  "classification": {
+    "observed": {
+      "structural": "pass",
+      "statistical": "pass",
+      "require_incident_endpoints": true,
+      "temporal_may_be": ["pass", "unknown"]
+    },
+    "supported": {
+      "min_pass_checks": 2,
+      "structural_may_be": ["pass", "fail"],
+      "forbid_all_unknown": true
+    }
+  },
+  "acceptance_presets": {
+    "strict": {
+      "require_connected_path": true,
+      "max_inferred_edges": 0,
+      "min_observed_or_supported_fraction": 1.0,
+      "allow_ambiguous_paths": false
+    },
+    "relaxed": {
+      "require_connected_path": true,
+      "max_inferred_edges": 2,
+      "min_observed_or_supported_fraction": 0.5,
+      "allow_ambiguous_paths": false
+    }
+  },
+  "rejection_reasons": [
+    "injected_component_unavailable",
+    "symptom_unavailable",
+    "no_connected_candidate_path",
+    "required_horizontal_relationship_unavailable",
+    "required_vertical_topology_unavailable",
+    "ambiguous_equally_supported_paths",
+    "evidence_query_failed",
+    "unsupported_case_schema",
+    "algo_output_missing",
+    "other"
+  ]
+}
