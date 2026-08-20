@@ -4,7 +4,7 @@
 
 | Artifact | Where |
 |---|---|
-| Thesis code and tests | this repo `analysis/` |
+| Thesis code and tests | this repo `analysis/`, `tests/` |
 | Frozen dual seed results (n=1422) | `results/evidence_path_poc/sample_all/{strict,relaxed}/` |
 | Telemetry datapack (~13.4 GB) | [Zenodo 10.5281/zenodo.17105974](https://doi.org/10.5281/zenodo.17105974) → `rcabench-absolute_anomaly.tar.gz` |
 | Upstream RCA ranking outputs | not shipped; dual seed numbers are frozen in `results/`; injection seed re runs need data only |
@@ -22,7 +22,7 @@ That is the layout expected by `--data-root`.
 ```bash
 python -m venv .venv
 .venv/bin/pip install -e ".[dev]"
-.venv/bin/pytest analysis/test_evidence_poc.py -q
+.venv/bin/python -m pytest tests/ -q
 ```
 
 ## Browse frozen results (no data required)
@@ -37,8 +37,17 @@ Each case folder has `machine_graph.json`, `human_report.json`, `graph.html`. Ro
 ## Re run with an injection seed (needs Zenodo data)
 
 ```bash
-.venv/bin/python analysis/evidence_path_poc.py \
+.venv/bin/python analysis/cli.py \
   --case ts0-ts-order-service-stress-64c8cv \
+  --policy strict \
+  --data-root data/rcabench-platform-v2/data/rcabench
+```
+
+Sample list:
+
+```bash
+.venv/bin/python analysis/cli.py \
+  --sample analysis/samples/sample10.txt \
   --policy strict \
   --data-root data/rcabench-platform-v2/data/rcabench
 ```

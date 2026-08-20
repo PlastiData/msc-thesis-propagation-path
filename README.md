@@ -8,10 +8,13 @@ This repository is the public code and result pack for an MSc thesis (Alexis Mar
 
 | Path | What it is |
 |---|---|
-| `analysis/` | Python implementation: build the path, label edges, apply strict or relaxed policy, write HTML and JSON |
-| `results/evidence_path_poc/sample_all/` | Frozen outputs for 1422 benchmark cases, under `strict/` and `relaxed/` (open `index.html`) |
+| `analysis/cli.py` | CLI entry for one case or a sample list |
+| `analysis/pipeline/` | Reality → graph → evidence → judgment → emit |
+| `analysis/samples/` | Case id lists (`sample10`, `sample100`, `sample_all`) |
+| `tests/` | Unit and integration tests |
+| `results/evidence_path_poc/sample_all/` | Frozen outputs for 1422 benchmark cases (`strict/` and `relaxed/`; open `index.html`) |
 | `results/evidence_path_poc/sample10/` | Small subset for a quick look |
-| `docs/REPRODUCE.md` | How to install, browse results, download data, and re run a case |
+| `docs/REPRODUCE.md` | Install, browse results, datapack, re run a case |
 | `scripts/validate.sh` | Checks that the tree is complete and tests pass |
 
 **What is not here.** The ~13 GB RCABench telemetry pack and the ~15 GB upstream ranking outputs. Download the datapack from Zenodo ([DOI 10.5281/zenodo.17105974](https://doi.org/10.5281/zenodo.17105974), CC BY 4.0). The frozen dual seed numbers in `results/` already include both injection seed and RCA seed columns.
@@ -22,7 +25,7 @@ This repository is the public code and result pack for an MSc thesis (Alexis Mar
 git clone https://github.com/PlastiData/msc-thesis-propagation-path.git
 cd msc-thesis-propagation-path
 python -m venv .venv && .venv/bin/pip install -e ".[dev]"
-.venv/bin/pytest analysis/test_evidence_poc.py -q
+.venv/bin/python -m pytest tests/ -q
 python3 -m http.server 8765 -d results/evidence_path_poc/sample_all/strict
 ```
 

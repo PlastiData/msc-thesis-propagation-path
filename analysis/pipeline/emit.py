@@ -1289,7 +1289,7 @@ def aggregate(machines: list[dict]) -> dict:
 def summary_md(summary: dict, *, sample: str, policy: str) -> str:
     rca_cov = summary.get("rca_path_coverage") or 0.0
     lines = [
-        f"# Evidence path POC — {sample} / {policy}",
+        f"# Evidence path — {sample} / {policy}",
         "",
         "| Measurement | Formula | Count | Result |",
         "|---|---|---:|---:|",

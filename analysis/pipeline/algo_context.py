@@ -1,4 +1,4 @@
-"""Upstream RCA rankings from output/… as investigation metadata (not the POC core).
+"""Upstream RCA rankings from output/… as investigation metadata (not the pipeline core).
 
 RCA seed needs per-case algo parquet under output_root. Without those files the
 inject-seed path still runs; RCA column reports algo_output_missing.

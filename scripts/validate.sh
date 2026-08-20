@@ -8,9 +8,10 @@ export PIP_CONFIG_FILE="${PIP_CONFIG_FILE:-/dev/null}"
 echo "== structure =="
 test -f README.md
 test -f LICENSE
-test -f analysis/evidence_path_poc.py
-test -f analysis/evidence/evidence_rules.json
-test -f analysis/evidence/fault_types.py
+test -f analysis/cli.py
+test -d analysis/pipeline
+test -f analysis/pipeline/evidence_rules.json
+test -f analysis/pipeline/fault_types.py
 test -f analysis/ground_truth.py
 test -f results/evidence_path_poc/sample_all/strict/summary.json
 test -f results/evidence_path_poc/sample_all/relaxed/summary.json
@@ -37,16 +38,16 @@ if [[ ! -x .venv/bin/python ]]; then
     .venv/bin/pip install -e ".[dev]"
   fi
 fi
-.venv/bin/python -m pytest analysis/test_evidence_poc.py -q
+.venv/bin/python -m pytest tests/ -q
 
 echo "== import entrypoint =="
-PYTHONPATH=analysis .venv/bin/python -c "import evidence_path_poc as e; print('OUT_ROOT', e.OUT_ROOT)"
+PYTHONPATH=analysis .venv/bin/python -c "import cli as e; print('OUT_ROOT', e.OUT_ROOT)"
 
 echo "== inject run if data present =="
 DATA_ROOT="${DATA_ROOT:-$ROOT/data/rcabench-platform-v2/data/rcabench}"
 CASE="${CASE:-ts0-ts-order-service-stress-64c8cv}"
 if [[ -d "$DATA_ROOT/$CASE" ]]; then
-  .venv/bin/python analysis/evidence_path_poc.py --case "$CASE" --policy strict --data-root "$DATA_ROOT"
+  .venv/bin/python analysis/cli.py --case "$CASE" --policy strict --data-root "$DATA_ROOT"
   test -f "results/evidence_path_poc/_cli_cases/strict/$CASE/machine_graph.json"
   echo "inject-seed run OK"
 else

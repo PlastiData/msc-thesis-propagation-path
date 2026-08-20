@@ -7,10 +7,10 @@ The dashboard is **generated static HTML** next to the POC outputs — same idea
 
 ```bash
 cd rcabench-platform-feat-fse26
-.venv/bin/python analysis/evidence_path_poc.py --sample analysis/sample10.txt --policy strict
-.venv/bin/python analysis/evidence_path_poc.py --sample analysis/sample10.txt --policy relaxed
+.venv/bin/python analysis/cli.py --sample analysis/samples/sample10.txt --policy strict
+.venv/bin/python analysis/cli.py --sample analysis/samples/sample10.txt --policy relaxed
 
-cd analysis/output_charts/evidence_path_poc/sample10/strict
+cd results/evidence_path_poc/sample10/strict
 python3 -m http.server 8765
 # open http://127.0.0.1:8765/
 ```
@@ -33,7 +33,7 @@ timeline anchors (not a full Gantt) → rankings secondary.
 
 Frozen copy of the pre-console layout (RQ tables first):
 
-`analysis/output_charts/evidence_path_poc/_snapshot_rq_first_20260804/`
+`results/evidence_path_poc/_snapshot_rq_first_20260804/`
 
 Open `…/_snapshot_rq_first_20260804/sample10/strict/index.html`. Live regen never writes into `_snapshot_*`.
 

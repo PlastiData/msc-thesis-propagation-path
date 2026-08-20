@@ -13,7 +13,7 @@ from collections import Counter
 from pathlib import Path
 
 SUMMARY = Path(
-    "output_charts/evidence_path_poc/sample_all/strict/summary.json"
+    "results/evidence_path_poc/sample_all/strict/summary.json"
 )
 
 

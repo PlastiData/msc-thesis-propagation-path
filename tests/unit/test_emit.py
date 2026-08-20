@@ -1,20 +1,8 @@
-"""Tests for the evidence-backed propagation POC."""
+"""Emit, scorecard, and aggregate HTML tests."""
 
 from __future__ import annotations
 
-import json
-import sys
-from pathlib import Path
-
-import pytest
-
-ANALYSIS_DIR = Path(__file__).resolve().parent
-if str(ANALYSIS_DIR) not in sys.path:
-    sys.path.insert(0, str(ANALYSIS_DIR))
-
-from evidence.algo_context import select_best_algo
-from evidence.config import load_rules, select_policy
-from evidence.emit import (
+from pipeline.emit import (
     SCORECARD_HEADER,
     aggregate,
     build_scorecard,
@@ -25,85 +13,7 @@ from evidence.emit import (
     reject_machine_graph,
     scorecard_line,
 )
-from evidence.evidence import classify_edge
-from evidence.fault_taxonomy import (
-    FAULT_TYPE_NAMES,
-    all_taxonomy_fault_types,
-    injection_taxonomy,
-    taxonomy_public,
-)
-from evidence.judgment import case_metrics, judge
-
-
-def ratios_sum_to_one(obs: float, sup: float, inf: float, tol: float = 1e-9) -> bool:
-    return abs((obs + sup + inf) - 1.0) <= tol
-
-
-def test_injection_taxonomy_lookup_completeness() -> None:
-    """All named ints + sample10 fault_types map to Tables 5–6 fields."""
-    sample10_types = {22, 28, 7, 11, 8}
-    for ft in set(FAULT_TYPE_NAMES) | sample10_types | set(all_taxonomy_fault_types()):
-        row = injection_taxonomy(ft)
-        assert row["mapped"] is True, f"unmapped fault_type {ft}"
-        assert row["category"]
-        assert row["chaos_type"]
-        assert row["target_layer"] in ("infrastructure", "application")
-        assert row["fault_kind"]
-        assert row["expected_propagation_channel"]
-        pub = taxonomy_public(ft)
-        assert pub["mapped"] is True
-        assert pub["fault_kind"] == row["fault_kind"]
-
-    unknown = injection_taxonomy(999)
-    assert unknown["mapped"] is False
-    assert unknown["fault_kind"].startswith("unknown_")
-
-
-def test_rules_load_and_policies() -> None:
-    rules = load_rules()
-    assert "error" not in rules
-    assert rules["_config_hash"]
-    strict = select_policy(rules, "strict")
-    relaxed = select_policy(rules, "relaxed")
-    assert isinstance(strict, dict)
-    assert isinstance(relaxed, dict)
-    assert strict["max_inferred_edges"] == 0
-    assert relaxed["max_inferred_edges"] >= 1
-
-
-def test_classify_observed_supported_inferred() -> None:
-    rules = load_rules()
-    level, missing = classify_edge(
-        {"structural": "pass", "statistical": "pass", "temporal": "unknown"},
-        rules,
-        both_incident=True,
-    )
-    assert level == "observed"
-    assert missing == []
-
-    level, missing = classify_edge(
-        {"structural": "fail", "statistical": "pass", "temporal": "pass"},
-        rules,
-        both_incident=True,
-    )
-    assert level == "supported"
-
-    level, missing = classify_edge(
-        {"structural": "fail", "statistical": "fail", "temporal": "unknown"},
-        rules,
-        both_incident=False,
-    )
-    assert level == "inferred"
-    assert "usable_temporal_onset_ordering" in missing
-    assert "unknown" != "pass"
-
-
-def test_unknown_temporal_never_promoted() -> None:
-    rules = load_rules()
-    checks = {"structural": "pass", "statistical": "pass", "temporal": "unknown"}
-    level, _ = classify_edge(checks, rules, both_incident=True)
-    assert level == "observed"
-    assert checks["temporal"] == "unknown"
+from pipeline.fault_taxonomy import taxonomy_public
 
 
 def test_reject_stays_in_denominator() -> None:
@@ -116,24 +26,6 @@ def test_reject_stays_in_denominator() -> None:
     assert summary["constructed_cases"] == 0
     assert summary["path_coverage"] == 0.0
     assert summary["rejection_profile"]["symptom_unavailable"]["count"] == 1
-
-
-def test_case_metrics_ratios() -> None:
-    judgment = {
-        "status": "candidate_path_constructed",
-        "selected_path_edge_ids": ["e1", "e2"],
-    }
-    edges = {
-        "e1": {"evidence_level": "observed"},
-        "e2": {"evidence_level": "inferred"},
-    }
-    metrics = case_metrics(judgment, edges)
-    assert metrics["returned_edges"] == 2
-    assert ratios_sum_to_one(
-        metrics["observed_edge_ratio"],
-        metrics["supported_edge_ratio"],
-        metrics["inferred_edge_ratio"],
-    )
 
 
 def test_human_derived_only_from_machine() -> None:
@@ -149,37 +41,6 @@ def test_human_derived_only_from_machine() -> None:
     assert human["scorecard"]["hops"] is None
     assert human["scorecard"]["refuse"] == "other"
     assert human["scorecard_algo"]["seed"] == "algo"
-
-
-def test_select_best_algo_by_ac_at_1() -> None:
-    rankings = {
-        "nsigma": {"available": True, "rank1": "svc-n"},
-        "traceback-A8": {"available": True, "rank1": "svc-a8"},
-        "baro": {"available": True, "rank1": "svc-b"},
-    }
-    perf = [
-        {"algorithm": "traceback-A8", "AC@1": 0.625},
-        {"algorithm": "traceback-A7", "AC@1": 0.55},
-        {"algorithm": "nsigma", "AC@1": 0.4},
-        {"algorithm": "baro", "AC@1": 0.3},
-    ]
-    best = select_best_algo(rankings, perf)
-    assert best["algo"] == "traceback-A8"
-    assert best["rank1"] == "svc-a8"
-    assert best["ac_at_1"] == 0.625
-    assert best["selection"] == "best_ac_at_1"
-
-    only_nsigma = {"nsigma": rankings["nsigma"]}
-    best2 = select_best_algo(only_nsigma, perf)
-    assert best2["algo"] == "nsigma"
-
-    forced = select_best_algo(rankings, perf, override="baro")
-    assert forced["algo"] == "baro"
-    assert forced["selection"] == "override"
-
-    missing = select_best_algo({}, perf)
-    assert missing["available"] is False
-    assert missing["reason"] == "algo_output_missing"
 
 
 def test_scorecard_matches_console_keys() -> None:
@@ -351,77 +212,6 @@ def test_case_page_renders_path_map() -> None:
     assert "fault injection window start" in page
 
 
-def test_call_pair_stats_and_timeline_honesty() -> None:
-    import pandas as pd
-    from evidence.reality import build_timeline, enrich_timeline_path_errors
-    from trace_graph import call_pair_stats
-
-    traces = pd.DataFrame(
-        [
-            {
-                "time": "2025-01-01T00:00:01Z",
-                "trace_id": "t1",
-                "span_id": "s1",
-                "parent_span_id": "",
-                "span_name": "GET /root",
-                "service_name": "caller",
-                "attr.status_code": "Unset",
-            },
-            {
-                "time": "2025-01-01T00:00:02Z",
-                "trace_id": "t1",
-                "span_id": "s2",
-                "parent_span_id": "s1",
-                "span_name": "POST /api/v1/x",
-                "service_name": "callee",
-                "attr.status_code": "Error",
-            },
-            {
-                "time": "2025-01-01T00:00:03Z",
-                "trace_id": "t2",
-                "span_id": "s3",
-                "parent_span_id": "s1",
-                "span_name": "POST /api/v1/x",
-                "service_name": "callee",
-                "attr.status_code": "Unset",
-            },
-        ]
-    )
-    # parent s1 only exists once; second child still resolves via id2svc for s1
-    stats = call_pair_stats(traces)
-    assert ("caller", "callee") in stats
-    assert stats[("caller", "callee")]["call_count"] == 2
-    assert stats[("caller", "callee")]["error_count"] == 1
-    assert "POST /api/v1/x" in stats[("caller", "callee")]["span_names"]
-    assert "t1" in stats[("caller", "callee")]["trace_ids"]
-
-    injection = {
-        "component": "callee",
-        "start_time": "2025-01-01T00:00:00Z",
-        "end_time": "2025-01-01T00:10:00Z",
-    }
-    symptom = {
-        "component": "caller",
-        "span_name": "GET /root",
-        "source": "conclusion.parquet",
-    }
-    timeline = build_timeline(injection, symptom, traces)
-    types = [e["event_type"] for e in timeline]
-    assert "injection_start" in types
-    assert "injection_end" in types
-    assert "first_error_span" in types
-    assert "selected_symptom" in types
-    assert types.index("injection_start") < types.index("injection_end")
-    symptom_ev = next(e for e in timeline if e["event_type"] == "selected_symptom")
-    assert symptom_ev["timestamp"] != injection["end_time"]
-    assert "note" in symptom_ev
-
-    enriched = enrich_timeline_path_errors(timeline, traces, ["caller", "callee"])
-    assert any(e["event_type"] == "path_first_error" for e in enriched) or any(
-        e["event_type"] == "first_error_span" and e["component"] == "callee"
-        for e in enriched
-    )
-
 def test_path_agreement_classes() -> None:
     ok = "candidate_path_constructed"
     refuse = "insufficient_evidence"
@@ -570,86 +360,3 @@ def test_aggregate_agreement_and_index_rq() -> None:
     assert "relaxed" in page2
     assert "8/10" in page2
 
-
-def test_judge_prefers_fewest_inferred() -> None:
-    policy = {
-        "max_inferred_edges": 2,
-        "min_observed_or_supported_fraction": 0.0,
-        "allow_ambiguous_paths": False,
-    }
-    annotated = {
-        "annotated_paths": [
-            {
-                "nodes": ["a", "b", "c"],
-                "edges": [
-                    {"edge_id": "e1", "evidence_level": "inferred"},
-                    {"edge_id": "e2", "evidence_level": "observed"},
-                ],
-            },
-            {
-                "nodes": ["a", "c"],
-                "edges": [
-                    {"edge_id": "e3", "evidence_level": "observed"},
-                ],
-            },
-        ]
-    }
-    result = judge(annotated, policy, "relaxed")
-    assert result["status"] == "candidate_path_constructed"
-    assert result["selected_path_edge_ids"] == ["e3"]
-
-
-@pytest.mark.parametrize("policy_name", ["strict", "relaxed"])
-def test_smoke_one_case_if_data_present(policy_name: str) -> None:
-    data_root = ANALYSIS_DIR.parent / "data/rcabench-platform-v2/data/rcabench"
-    case_id = "ts4-ts-basic-service-request-delay-rxfqg2"
-    if not (data_root / case_id).exists():
-        pytest.skip("benchmark data not present")
-    import evidence_path_poc as poc
-
-    rules = load_rules()
-    policy = select_policy(rules, policy_name)
-    assert isinstance(policy, dict)
-    machine = poc.process_case(
-        case_id,
-        data_root=data_root,
-        rules=rules,
-        policy=policy,
-        policy_name=policy_name,
-        run_meta={"policy": policy_name, "config_hash": rules["_config_hash"]},
-    )
-    assert machine["schema_version"]
-    assert machine["judgment"]["status"] in {
-        "candidate_path_constructed",
-        "insufficient_evidence",
-    }
-    assert machine["judgment"]["primary_rejection_reason"] in {
-        None,
-        *rules["rejection_reasons"],
-    }
-    assert "rca_path" in machine
-    assert machine["rca_path"]["judgment"]["status"] in {
-        "candidate_path_constructed",
-        "insufficient_evidence",
-    }
-    assert machine["rca_path"]["judgment"]["primary_rejection_reason"] in {
-        None,
-        *rules["rejection_reasons"],
-    }
-    assert "scorecard" in machine
-    assert machine["rca_path"].get("scorecard", {}).get("seed") == "algo"
-
-    machine2 = poc.process_case(
-        case_id,
-        data_root=data_root,
-        rules=rules,
-        policy=policy,
-        policy_name=policy_name,
-        run_meta={"policy": policy_name, "config_hash": rules["_config_hash"]},
-    )
-    assert machine["judgment"] == machine2["judgment"]
-    assert machine["case_metrics"] == machine2["case_metrics"]
-    assert machine["rca_path"]["judgment"] == machine2["rca_path"]["judgment"]
-    dumped = json.dumps(machine["candidate_graph"], sort_keys=True)
-    dumped2 = json.dumps(machine2["candidate_graph"], sort_keys=True)
-    assert dumped == dumped2
