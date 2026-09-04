@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>ts2-ts-travel-service-pod-failure-jqk2bj</title>
+<style>
+:root { --bg:#faf9f7; --ink:#1a1a1a; --muted:#666; --line:#ddd; }
+body{font-family:ui-sans-serif,system-ui,sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:1.35rem;margin:0 0 .5rem}
+h2{font-size:1.05rem;margin:1.5rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+h3{font-size:.95rem;margin:.2rem 0 .5rem}
+.banner{padding:.9rem 1rem;background:#fff;border-left:5px solid #1b9e77;margin:1rem 0;box-shadow:0 1px 0 var(--line)}
+.verdicts{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin:.4rem 0 .6rem;font-family:ui-monospace,monospace;font-size:.92rem}
+.verdicts .v{font-weight:700}
+.agree{display:inline-block;font-size:.8rem;padding:.15rem .45rem;border:1px solid var(--line);background:#fff}
+.path-compare{background:#fff;border:1px solid var(--line);padding:1rem;margin:1rem 0}
+.path-row{display:flex;align-items:center;gap:.75rem;margin:.55rem 0;flex-wrap:wrap}
+.path-row .lab{min-width:4.5rem;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.strip{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.25rem}
+.strip .hop{background:#111;color:#fff;padding:.2rem .45rem;font-size:.82rem;border-radius:4px}
+.strip .tick{display:inline-block;width:18px;height:0;border-top:3px solid #1b9e77;margin:0 .1rem}
+.strip .tick.dashed{border-top-style:dashed;border-color:#d95f02}
+.strip.refuse{color:#a45;font-family:ui-monospace,monospace;font-size:.88rem}
+.tag.same{font-size:.75rem;color:var(--muted);border:1px solid var(--line);padding:.1rem .35rem}
+.maps{margin:.5rem 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;padding:1rem;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:#fff}
+th,td{border:1px solid var(--line);padding:.4rem;text-align:left;vertical-align:top}
+.muted{color:var(--muted)} .warn{color:#a45} .tiny{font-size:.78rem;line-height:1.35;margin-top:.15rem}
+.legend span{display:inline-block;margin-right:1rem}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:.3rem;vertical-align:middle}
+ul.timeline{list-style:none;padding:0;margin:0}
+ul.timeline li{padding:.35rem 0;border-bottom:1px solid var(--line)}
+ul.timeline .t{color:var(--muted);font-size:.85rem;display:block}
+code{font-size:.9em} code.tid{font-size:.78em}
+a{color:#0b5}
+/* rca_second_opinion_css */
+.card.hit{border-left:5px solid #1b9e77} .card.miss{border-left:5px solid #d95f02} .card.insuff{border-left:5px solid #999}
+.badge{font-size:.75rem;font-family:ui-monospace,monospace;border:1px solid var(--line);padding:.1rem .4rem}
+.run-card{background:#fbfbfa;border:1px solid var(--line);padding:.7rem .9rem;margin:.4rem 0}
+.run-card dl{margin:.3rem 0} .run-card dt{font-weight:600;font-size:.82rem;margin-top:.4rem}
+.run-card dd{margin:.1rem 0 0;font-size:.85rem;line-height:1.4}
+.verdict-flow{display:flex;align-items:center;gap:.4rem;font-family:ui-monospace,monospace;font-size:.8rem}
+.verdict-flow .arrow{color:var(--muted)}
+.ai-tiny{font-size:.78rem;margin:.3rem 0} .ai-subhead{font-size:.85rem;margin:.7rem 0 .3rem;color:var(--muted)}
+</style></head><body><main>
+<p><a href="../index.html">← sample index</a></p>
+<h1>ts2-ts-travel-service-pod-failure-jqk2bj</h1>
+<div class="banner" id="verdict">
+<div class="verdicts">
+<span>Inject <span class="v">ACCEPT (relaxed)</span></span>
+<span>RCA <span class="v">ACCEPT (relaxed)</span></span>
+<span class="agree">differ</span>
+</div>
+Injection <code>travel</code>
+ → symptom <code>ui-dashboard</code><br>
+<div class='tiny'><strong>Injected fault (benchmark label)</strong>: fault_type=1 → <code>PodFailure</code> (PodChaos, infrastructure, kind=<code>pod_unavailable</code>, channel=vertical)</div>
+Injection window <code>2025-07-18T10:55:36Z</code> → <code>2025-07-18T10:59:36Z</code><br>Symptom route <code>/api/v1/travelservice/trips/left</code><br>
+RCA seed algo <code>traceback-A8</code> (AC@1 62.5%)
+ → <code>travel-plan</code><br>
+<em>Evidence levels describe availability, not causal correctness.</em>
+</div>
+<div class="legend">
+<span><i style="background:#1b9e77"></i>observed</span>
+<span><i style="background:#7570b3"></i>supported</span>
+<span><i style="background:#d95f02"></i>inferred (dashed)</span>
+</div>
+<section id="dual-path">
+<h2>Dual-path compare</h2>
+<div class="path-compare"><div class='path-row'><div class='lab'>Inject</div><span class='strip'><span class='hop'>travel</span><span class='tick dashed' style='border-color:#d95f02' title='inferred'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='path-row'><div class='lab'>RCA</div><span class='strip'><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></div>
+<details class='maps'><summary>Fault-seeded SVG map</summary><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="fault-seeded candidate path"><line x1="132.0" y1="55" x2="228.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="180.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><line x1="312.0" y1="55" x2="408.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="492.0" y1="55" x2="588.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="540.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="50.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="90.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel</text><rect x="230.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="270.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="410.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="450.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="590.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="630.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg></details>
+<details class='maps'><summary>RCA-seeded SVG map</summary><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="RCA-seeded candidate path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel-plan</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg></details>
+</section>
+
+<section id="evidence">
+<h2>Edge evidence (fault-selected)</h2>
+<p class="muted tiny">Struct/Stat are verdicts. Route, calls/errors, trace ids, and metric numbers are re-queryable refs from abnormal-window telemetry. Per-hop onset time is not available on this dataset.</p>
+<table>
+<thead><tr><th>From</th><th>To</th><th>Route</th><th>Level</th><th>Struct</th><th>Calls</th><th>Traces</th><th>Stat</th></tr></thead>
+<tbody>
+<tr><td>travel</td><td>route-plan</td><td><code>—</code></td><td style='color:#d95f02;font-weight:600'>inferred</td><td>fail (nrm)</td><td>—</td><td><span class='muted'>—</span></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · container.filesystem.usage z=-426855489361.7021 (abn 40088.5106 / nrm 466944.0) · +2 more</div><div class='muted tiny'>to: pass · container.memory.available z=-4.0333 (abn 2483510613.3333 / nrm 2495957845.3333) · +2 more</div></td></tr><tr><td>route-plan</td><td>travel-plan</td><td><code>POST /api/v1/routeplanservice/routePlan/quickestRoute</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>240 / 240 err</td><td><code class='tid'>a791bc2a2da43b13…</code><br><code class='tid'>ea9f3fe67a3a9185…</code><br><code class='tid'>7e402e4007d6cb1a…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · container.memory.available z=-4.0333 (abn 2483510613.3333 / nrm 2495957845.3333) · +2 more</div><div class='muted tiny'>to: pass · hubble_http_request_duration_p50_seconds ×53.9532 (abn 10.0 / nrm 0.1853) · +2 more</div></td></tr><tr><td>travel-plan</td><td>ui-dashboard</td><td><code>POST /api/v1/travelplanservice/travelPlan/quickest</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>15 / 15 err</td><td><code class='tid'>a791bc2a2da43b13…</code><br><code class='tid'>ea9f3fe67a3a9185…</code><br><code class='tid'>7e402e4007d6cb1a…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · hubble_http_request_duration_p50_seconds ×53.9532 (abn 10.0 / nrm 0.1853) · +2 more</div><div class='muted tiny'>to: pass · container.cpu.usage z=-8.4598 (abn 0.0027 / nrm 0.017) · +2 more</div></td></tr>
+</tbody></table>
+</section>
+
+<section>
+<h2>Upstream RCA rankings (from output parquet)</h2>
+<p>Primary walk seed: <strong>traceback-A8</strong>
+ → <code>travel-plan</code> (miss).
+ Injection label best rank under primary: <strong>2</strong>.</p>
+<p><strong>Walk chain:</strong> travel-plan → ui-dashboard</p>
+
+<div class="grid">
+<div class="card">
+<h3>All algorithms on this case</h3>
+<table><thead><tr><th>Algo</th><th>Rank-1</th><th>Hit@1</th><th>Hit@5</th><th>True rank</th></tr></thead>
+<tbody><tr><td>traceback-A8</td><td>travel-plan</td><td>·</td><td>✓</td><td>2</td></tr><tr><td>traceback-A7</td><td>—</td><td>·</td><td>·</td><td>—</td></tr><tr><td>nsigma</td><td>rabbitmq</td><td>·</td><td>·</td><td>599</td></tr><tr><td>baro</td><td>order</td><td>·</td><td>·</td><td>883</td></tr><tr><td>random</td><td>loadgenerator</td><td>·</td><td>·</td><td>—</td></tr></tbody></table>
+</div>
+<div class="card">
+<h3>traceback-A8 top services</h3>
+<table><thead><tr><th>Rank</th><th>Service</th><th>Hit</th></tr></thead>
+<tbody><tr><td>1</td><td>travel-plan</td><td>·</td></tr><tr><td>2</td><td>travel</td><td>✓</td></tr><tr><td>3</td><td>route-plan</td><td>·</td></tr><tr><td>4</td><td>ui-dashboard</td><td>·</td></tr><tr><td>5</td><td>route</td><td>·</td></tr><tr><td>6</td><td>basic</td><td>·</td></tr><tr><td>7</td><td>seat</td><td>·</td></tr><tr><td>8</td><td>loadgenerator</td><td>·</td></tr></tbody></table>
+</div>
+</div>
+<p class="muted">Rankings come from <code>output/rcabench-platform-v2/data/rcabench/&lt;case&gt;/&lt;algo&gt;/output.parquet</code>.
+Evidence path labels are independent of these scores.</p>
+</section>
+
+<div class="grid">
+<div class="card">
+<h2>Timeline anchors</h2>
+<p class="muted tiny">Sparse anchors only (injection window, first error, symptom / path errors) — not a full incident Gantt.</p>
+<ul class="timeline"><li><span class='t'>2025-07-18T10:55:36Z</span> <strong>injection_start</strong> @ <code>travel</code><div class='muted tiny'>fault injection window start</div></li><li><span class='t'>2025-07-18 10:55:38.061755469+00:00</span> <strong>first_error_span</strong> @ <code>loadgenerator</code><div class='muted tiny'>earliest Error span in abnormal window (any service)</div></li><li><span class='t'>2025-07-18 10:55:38.084000+00:00</span> <strong>path_first_error</strong> @ <code>travel-plan</code><div class='muted tiny'>first Error span on accepted-path service</div></li><li><span class='t'>2025-07-18 10:55:38.090000+00:00</span> <strong>path_first_error</strong> @ <code>route-plan</code><div class='muted tiny'>first Error span on accepted-path service</div></li><li><span class='t'>2025-07-18 10:55:58.758412385+00:00</span> <strong>selected_symptom</strong> @ <code>ui-dashboard</code><div class='muted tiny'>first Error span on symptom service</div></li><li><span class='t'>2025-07-18 10:55:58.758412385+00:00</span> <strong>path_first_error</strong> @ <code>ui-dashboard</code><div class='muted tiny'>first Error span on accepted-path service</div></li><li><span class='t'>2025-07-18T10:59:36Z</span> <strong>injection_end</strong> @ <code>travel</code><div class='muted tiny'>fault injection window end</div></li></ul>
+</div>
+<div class="card">
+<h2>What was detected</h2>
+<ul><li>Injection at ts-travel-service</li><li>Symptom at ts-ui-dashboard</li><li>Dependency present only in normal window</li><li>ts-travel-service shows 3 abnormal metric signal(s)</li><li>ts-ui-dashboard shows 3 abnormal metric signal(s)</li><li>Temporal ordering left unknown; timing alone cannot prove causality</li><li>Dependency present only in normal window</li><li>ts-food-service shows 2 abnormal metric signal(s)</li><li>Temporal ordering left unknown; timing alone cannot prove causality</li><li>Direct abnormal-window parent-child relationship</li></ul>
+</div>
+</div>
+<!-- rca_second_opinion_section:start -->
+<h2>AI second opinions</h2>
+<div class="banner">
+real ground truth <code>['ts-travel-service']</code>
+&nbsp; algorithm's seed <code>ts-travel-plan-service</code>
+<br><em>Standardized cards below follow the run-report template; each is one model's independent pass over the same evidence.</em>
+</div>
+<div class="grid">
+        <div class="card miss">
+          <h3>gpt-5.6-luna</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#b3261e">after: no match</span><span class="muted">$0.006</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:16:23Z — ts2-ts-travel-service-pod-failure-jqk2bj — pipeline #373</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-travel-plan-service</dd><dt>Summary</dt><dd>gpt-5.6-luna chose confirm (confidence: medium) — It is the only coherent statistically abnormal path with structural support from route-plan to symptom.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-travel-plan-service; It is the only coherent statistically abnormal path with structural support from route-plan to symptom.</dd><dt>Suggested next step</dt><dd>Proceed with ts-travel-plan-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=27173, duration=17.7s,
+model=gpt-5.6-luna, pipeline=ts2-ts-travel-service-pod-failure-jqk2bj/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (confirmed): ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-confirmed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel-plan</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          
+        </div>
+        <div class="card miss">
+          <h3>gpt-5.6-terra</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#b3261e">after: no match</span><span class="muted">$0.060</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:16:25Z — ts2-ts-travel-service-pod-failure-jqk2bj — pipeline #374</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-travel-plan-service</dd><dt>Summary</dt><dd>gpt-5.6-terra chose confirm (confidence: medium) — Strong abnormality and fully supported path; alternatives lack comparably valid propagation evidence.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-travel-plan-service; Strong abnormality and fully supported path; alternatives lack comparably valid propagation evidence.</dd><dt>Suggested next step</dt><dd>Proceed with ts-travel-plan-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=29495, duration=15.2s,
+model=gpt-5.6-terra, pipeline=ts2-ts-travel-service-pod-failure-jqk2bj/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (confirmed): ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-confirmed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel-plan</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          
+        </div>
+        <div class="card miss">
+          <h3>claude-sonnet-5</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#b3261e">after: no match</span><span class="muted">$0.057</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:16:19Z — ts2-ts-travel-service-pod-failure-jqk2bj — pipeline #375</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-travel-plan-service</dd><dt>Summary</dt><dd>claude-sonnet-5 chose confirm (confidence: medium) — Only candidate with fully structural+statistical validated path to symptom, high 54x deviation.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-travel-plan-service; Only candidate with fully structural+statistical validated path to symptom, high 54x deviation.</dd><dt>Suggested next step</dt><dd>Proceed with ts-travel-plan-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=25818, duration=25.6s,
+model=claude-sonnet-5, pipeline=ts2-ts-travel-service-pod-failure-jqk2bj/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (confirmed): ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-confirmed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel-plan</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          
+        </div>
+        <div class="card hit">
+          <h3>claude-haiku-4-5-20251001</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.030</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:16:14Z — ts2-ts-travel-service-pod-failure-jqk2bj — pipeline #376</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-travel-service (over algorithm's ts-travel-plan-service)</dd><dt>Summary</dt><dd>claude-haiku-4-5-20251001 chose propose (confidence: medium) — Extreme deviation in ts-travel-service (426T vs 54x); earlier in causal chain than proposed root</dd><dt>Evidence</dt><dd>Algorithm seed was ts-travel-plan-service; Extreme deviation in ts-travel-service (426T vs 54x); earlier in causal chain than proposed root</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-travel-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=20494, duration=41.7s,
+model=claude-haiku-4-5-20251001, pipeline=ts2-ts-travel-service-pod-failure-jqk2bj/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-travel-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-travel-service -&gt; ts-route-plan-service -&gt; ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="real solution path"><line x1="132.0" y1="55" x2="228.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="180.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><line x1="312.0" y1="55" x2="408.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="492.0" y1="55" x2="588.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="540.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="50.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="90.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel</text><rect x="230.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="270.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="410.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="450.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="590.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="630.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card miss">
+          <h3>gemini-3.5-flash-lite</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#b3261e">after: no match</span><span class="muted">$0.001</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T21:52:44Z — ts2-ts-travel-service-pod-failure-jqk2bj — pipeline #377</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-travel-plan-service</dd><dt>Summary</dt><dd>gemini-3.5-flash-lite chose confirm (confidence: high) — Passed structural and statistical checks with strong metric deviations along path to symptom.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-travel-plan-service; Passed structural and statistical checks with strong metric deviations along path to symptom.</dd><dt>Suggested next step</dt><dd>Proceed with ts-travel-plan-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=2467, duration=0.7s,
+model=gemini-3.5-flash-lite, pipeline=ts2-ts-travel-service-pod-failure-jqk2bj/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (confirmed): ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-confirmed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel-plan</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          
+        </div>
+        <div class="card hit">
+          <h3>gemini-3.7-flash</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.002</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T21:52:43Z — ts2-ts-travel-service-pod-failure-jqk2bj — pipeline #378</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-travel-service (over algorithm's ts-travel-plan-service)</dd><dt>Summary</dt><dd>gemini-3.7-flash chose propose (confidence: high) — ts-travel-service has an overwhelmingly massive metric deviation compared to all other services.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-travel-plan-service; ts-travel-service has an overwhelmingly massive metric deviation compared to all other services.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-travel-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=2479, duration=2.7s,
+model=gemini-3.7-flash, pipeline=ts2-ts-travel-service-pod-failure-jqk2bj/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-travel-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-travel-service -&gt; ts-route-plan-service -&gt; ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="real solution path"><line x1="132.0" y1="55" x2="228.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="180.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><line x1="312.0" y1="55" x2="408.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="492.0" y1="55" x2="588.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="540.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="50.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="90.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel</text><rect x="230.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="270.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="410.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="450.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="590.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="630.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div></div>
+<details><summary>Prompt sent (identical across all 4 models)</summary><pre>You are reviewing a root-cause-analysis case for a failure in a microservice system.
+
+An automated algorithm (traceback-A8) inspected the evidence and proposed
+"ts-travel-plan-service" as the most likely root cause. A path WAS built from that starting point to the symptom, but that does not confirm it is correct - only that the evidence between those specific points held together.
+
+Here is what the evidence shows.
+
+Candidate connections between services, with the statistical/structural/temporal checks
+each one passed or failed (computed from real metric z-scores, call-graph structure, and
+onset timestamps during the incident window). NOTE: temporal ordering is unknown for every edge in this case (no Error span at both endpoints to order). Do not treat that as a gap unique to this case or wait for it; decide from the statistical/structural signals and magnitudes below instead.
+  - ts-travel-service -&gt; ts-ui-dashboard: statistical=pass, structural=fail, temporal=unknown
+  - ts-travel-service -&gt; ts-food-service: statistical=pass, structural=fail, temporal=unknown
+  - ts-food-service -&gt; ts-ui-dashboard: statistical=pass, structural=pass, temporal=unknown
+  - ts-travel-service -&gt; ts-preserve-service: statistical=pass, structural=fail, temporal=unknown
+  - ts-preserve-service -&gt; ts-ui-dashboard: statistical=pass, structural=fail, temporal=unknown
+  - ts-food-service -&gt; ts-preserve-service: statistical=pass, structural=fail, temporal=unknown
+  - ts-travel-service -&gt; ts-route-plan-service: statistical=pass, structural=fail, temporal=unknown
+  - ts-route-plan-service -&gt; ts-travel-plan-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-travel-plan-service -&gt; ts-ui-dashboard: statistical=pass, structural=pass, temporal=unknown
+  - loadgenerator-55664b679b-tbf5s -&gt; loadgenerator: statistical=unknown, structural=pass, temporal=unknown
+  - ts-verification-code-service-5ccb47f48b-h24ll -&gt; ts-verification-code-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-ui-dashboard-9c5b7b7d4-5xzqt -&gt; ts-ui-dashboard: statistical=unknown, structural=pass, temporal=unknown
+  - ts-auth-service-5db57c8fc9-n4727 -&gt; ts-auth-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-user-service-7956998c46-5bc7f -&gt; ts-user-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-order-other-service-6d4568c67d-smgqw -&gt; ts-order-other-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-order-service-bf7548fd8-r8xqp -&gt; ts-order-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-consign-service-5c78f79656-k4ttd -&gt; ts-consign-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-route-service-794d78b55b-d765f -&gt; ts-route-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel-plan-service-6cbb7cbb89-hwddh -&gt; ts-travel-plan-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-route-plan-service-5fdb7c87c8-mrjwt -&gt; ts-route-plan-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-train-service-77f9c6464c-jvb86 -&gt; ts-train-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-basic-service-7f6d959755-4ck7s -&gt; ts-basic-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel2-service-789c8887cf-2rgjq -&gt; ts-travel2-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-station-service-86fc99c77-wz98m -&gt; ts-station-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-price-service-57984b7c8d-r98n2 -&gt; ts-price-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-seat-service-56455c6b6d-ccqtt -&gt; ts-seat-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-config-service-7ff4bcc859-mhsdn -&gt; ts-config-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-train-food-service-c56498cfb-jnsq6 -&gt; ts-train-food-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-contacts-service-66f5db7796-8hjdx -&gt; ts-contacts-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-food-service-6998b4bf85-9224s -&gt; ts-food-service: statistical=unknown, structural=pass, temporal=unknown
+  - worker4 -&gt; ts-auth-service-5db57c8fc9-n4727: statistical=unknown, structural=pass, temporal=unknown
+  - worker4 -&gt; ts-cancel-service-5fcb6975c5-kq9vg: statistical=unknown, structural=pass, temporal=unknown
+  - worker4 -&gt; ts-contacts-service-66f5db7796-8hjdx: statistical=unknown, structural=pass, temporal=unknown
+  - worker4 -&gt; ts-delivery-service-78bb4449d9-f9sdn: statistical=unknown, structural=pass, temporal=unknown
+  - worker4 -&gt; ts-food-service-6998b4bf85-9224s: statistical=unknown, structural=pass, temporal=unknown
+  - worker4 -&gt; ts-station-service-86fc99c77-wz98m: statistical=unknown, structural=pass, temporal=unknown
+  - worker4 -&gt; ts-travel-plan-service-6cbb7cbb89-hwddh: statistical=unknown, structural=pass, temporal=unknown
+  - worker4 -&gt; ts-wait-order-service-b5f7d5577-nflg8: statistical=unknown, structural=pass, temporal=unknown
+  - worker2 -&gt; loadgenerator-55664b679b-tbf5s: statistical=unknown, structural=pass, temporal=unknown
+  - worker2 -&gt; ts-admin-order-service-7897899b9f-dzjdc: statistical=unknown, structural=pass, temporal=unknown
+
+Other evidence signals observed, with how far each deviated from its normal range
+(this is the number that actually distinguishes otherwise-similar candidates):
+  - Symptom at ts-ui-dashboard
+  - Dependency present only in normal window
+  - ts-travel-service shows 3 abnormal metric signal(s) (strongest deviation: 426855489361.7x normal)
+  - ts-ui-dashboard shows 3 abnormal metric signal(s) (strongest deviation: 35.2x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - ts-food-service shows 2 abnormal metric signal(s) (strongest deviation: 16.3x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - ts-preserve-service shows 2 abnormal metric signal(s) (strongest deviation: 27.9x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - ts-route-plan-service shows 3 abnormal metric signal(s) (strongest deviation: 6.9x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - ts-travel-plan-service shows 3 abnormal metric signal(s) (strongest deviation: 54.0x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+
+Four other independent detection algorithms also examined this same case; their
+own top picks were:
+  - baro -&gt; ts-order-service
+  - nsigma -&gt; rabbitmq
+  - random -&gt; loadgenerator
+  - traceback-A7 -&gt; None
+
+Given ONLY this evidence, decide:
+1. Do you CONFIRM "ts-travel-plan-service" as the root cause, PROPOSE a different service instead,
+   or is the evidence INSUFFICIENT to decide either way? Only use INSUFFICIENT if
+   no candidate's evidence is meaningfully stronger than the others - a difference
+   in deviation magnitude or in how many independent algorithms/checks agree IS a
+   meaningful basis for CONFIRM or PROPOSE, even without temporal ordering.
+2. Confidence: low, medium, or high.
+3. Reasoning in 15 words or fewer.
+
+Respond with ONLY a JSON object, no other text:
+{"decision": "confirm"|"propose"|"insufficient", "service": "&lt;service name or null&gt;",
+ "confidence": "low"|"medium"|"high", "reason": "&lt;15 words or fewer&gt;"}</pre></details>
+<!-- rca_second_opinion_section:end --></main></body></html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>ts5-ts-train-food-service-container-kill-qbtw4j</title>
+<style>
+:root { --bg:#faf9f7; --ink:#1a1a1a; --muted:#666; --line:#ddd; }
+body{font-family:ui-sans-serif,system-ui,sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:1.35rem;margin:0 0 .5rem}
+h2{font-size:1.05rem;margin:1.5rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+h3{font-size:.95rem;margin:.2rem 0 .5rem}
+.banner{padding:.9rem 1rem;background:#fff;border-left:5px solid #1b9e77;margin:1rem 0;box-shadow:0 1px 0 var(--line)}
+.verdicts{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin:.4rem 0 .6rem;font-family:ui-monospace,monospace;font-size:.92rem}
+.verdicts .v{font-weight:700}
+.agree{display:inline-block;font-size:.8rem;padding:.15rem .45rem;border:1px solid var(--line);background:#fff}
+.path-compare{background:#fff;border:1px solid var(--line);padding:1rem;margin:1rem 0}
+.path-row{display:flex;align-items:center;gap:.75rem;margin:.55rem 0;flex-wrap:wrap}
+.path-row .lab{min-width:4.5rem;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.strip{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.25rem}
+.strip .hop{background:#111;color:#fff;padding:.2rem .45rem;font-size:.82rem;border-radius:4px}
+.strip .tick{display:inline-block;width:18px;height:0;border-top:3px solid #1b9e77;margin:0 .1rem}
+.strip .tick.dashed{border-top-style:dashed;border-color:#d95f02}
+.strip.refuse{color:#a45;font-family:ui-monospace,monospace;font-size:.88rem}
+.tag.same{font-size:.75rem;color:var(--muted);border:1px solid var(--line);padding:.1rem .35rem}
+.maps{margin:.5rem 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;padding:1rem;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:#fff}
+th,td{border:1px solid var(--line);padding:.4rem;text-align:left;vertical-align:top}
+.muted{color:var(--muted)} .warn{color:#a45} .tiny{font-size:.78rem;line-height:1.35;margin-top:.15rem}
+.legend span{display:inline-block;margin-right:1rem}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:.3rem;vertical-align:middle}
+ul.timeline{list-style:none;padding:0;margin:0}
+ul.timeline li{padding:.35rem 0;border-bottom:1px solid var(--line)}
+ul.timeline .t{color:var(--muted);font-size:.85rem;display:block}
+code{font-size:.9em} code.tid{font-size:.78em}
+a{color:#0b5}
+/* rca_second_opinion_css */
+.card.hit{border-left:5px solid #1b9e77} .card.miss{border-left:5px solid #d95f02} .card.insuff{border-left:5px solid #999}
+.badge{font-size:.75rem;font-family:ui-monospace,monospace;border:1px solid var(--line);padding:.1rem .4rem}
+.run-card{background:#fbfbfa;border:1px solid var(--line);padding:.7rem .9rem;margin:.4rem 0}
+.run-card dl{margin:.3rem 0} .run-card dt{font-weight:600;font-size:.82rem;margin-top:.4rem}
+.run-card dd{margin:.1rem 0 0;font-size:.85rem;line-height:1.4}
+.verdict-flow{display:flex;align-items:center;gap:.4rem;font-family:ui-monospace,monospace;font-size:.8rem}
+.verdict-flow .arrow{color:var(--muted)}
+.ai-tiny{font-size:.78rem;margin:.3rem 0} .ai-subhead{font-size:.85rem;margin:.7rem 0 .3rem;color:var(--muted)}
+</style></head><body><main>
+<p><a href="../index.html">← sample index</a></p>
+<h1>ts5-ts-train-food-service-container-kill-qbtw4j</h1>
+<div class="banner" id="verdict">
+<div class="verdicts">
+<span>Inject <span class="v">ACCEPT (relaxed)</span></span>
+<span>RCA <span class="v">ACCEPT (relaxed)</span></span>
+<span class="agree">differ</span>
+</div>
+Injection <code>train-food</code>
+ → symptom <code>ui-dashboard</code><br>
+<div class='tiny'><strong>Injected fault (benchmark label)</strong>: fault_type=2 → <code>ContainerKill</code> (PodChaos, infrastructure, kind=<code>pod_failure</code>, channel=vertical)</div>
+Injection window <code>2025-08-28T07:41:43Z</code> → <code>2025-08-28T07:45:43Z</code><br>Symptom route <code>/api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId}</code><br>
+RCA seed algo <code>traceback-A8</code> (AC@1 62.5%)
+ → <code>food</code><br>
+<em>Evidence levels describe availability, not causal correctness.</em>
+</div>
+<div class="legend">
+<span><i style="background:#1b9e77"></i>observed</span>
+<span><i style="background:#7570b3"></i>supported</span>
+<span><i style="background:#d95f02"></i>inferred (dashed)</span>
+</div>
+<section id="dual-path">
+<h2>Dual-path compare</h2>
+<div class="path-compare"><div class='path-row'><div class='lab'>Inject</div><span class='strip'><span class='hop'>train-food</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>food</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='path-row'><div class='lab'>RCA</div><span class='strip'><span class='hop'>food</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></div>
+<details class='maps'><summary>Fault-seeded SVG map</summary><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="fault-seeded candidate path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg></details>
+<details class='maps'><summary>RCA-seeded SVG map</summary><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="RCA-seeded candidate path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">food</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg></details>
+</section>
+
+<section id="evidence">
+<h2>Edge evidence (fault-selected)</h2>
+<p class="muted tiny">Struct/Stat are verdicts. Route, calls/errors, trace ids, and metric numbers are re-queryable refs from abnormal-window telemetry. Per-hop onset time is not available on this dataset.</p>
+<table>
+<thead><tr><th>From</th><th>To</th><th>Route</th><th>Level</th><th>Struct</th><th>Calls</th><th>Traces</th><th>Stat</th></tr></thead>
+<tbody>
+<tr><td>train-food</td><td>food</td><td><code>GET /api/v1/trainfoodservice/trainfoods/{tripId}</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>293</td><td><code class='tid'>24080a5a24b5ffe4…</code><br><code class='tid'>4c9e24a276294b89…</code><br><code class='tid'>f2353ad500f1da43…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · container.cpu.usage z=14.3807 (abn 0.9901 / nrm 0.0426) · +2 more</div><div class='muted tiny'>to: pass · container.memory.available z=-7.3272 (abn 2388858965.3333 / nrm 2396116736.0) · +2 more</div></td></tr><tr><td>food</td><td>ui-dashboard</td><td><code>GET /api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>390 / 96 err</td><td><code class='tid'>1e75f5008c29330c…</code><br><code class='tid'>ad3933c4cc95ebfe…</code><br><code class='tid'>7c78e3c6917160a9…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · container.memory.available z=-7.3272 (abn 2388858965.3333 / nrm 2396116736.0) · +2 more</div><div class='muted tiny'>to: pass · container.filesystem.available z=3.7128 (abn 39308479573.3333 / nrm 39228489472.0) · +2 more</div></td></tr>
+</tbody></table>
+</section>
+
+<section>
+<h2>Upstream RCA rankings (from output parquet)</h2>
+<p>Primary walk seed: <strong>traceback-A8</strong>
+ → <code>food</code> (miss).
+ Injection label best rank under primary: <strong>7</strong>.</p>
+<p><strong>Walk chain:</strong> food → ui-dashboard</p>
+
+<div class="grid">
+<div class="card">
+<h3>All algorithms on this case</h3>
+<table><thead><tr><th>Algo</th><th>Rank-1</th><th>Hit@1</th><th>Hit@5</th><th>True rank</th></tr></thead>
+<tbody><tr><td>traceback-A8</td><td>food</td><td>·</td><td>·</td><td>7</td></tr><tr><td>traceback-A7</td><td>food</td><td>·</td><td>✓</td><td>2</td></tr><tr><td>nsigma</td><td>train-food</td><td>✓</td><td>✓</td><td>1</td></tr><tr><td>baro</td><td>train-food</td><td>✓</td><td>✓</td><td>1</td></tr><tr><td>random</td><td>seat</td><td>·</td><td>·</td><td>30</td></tr></tbody></table>
+</div>
+<div class="card">
+<h3>traceback-A8 top services</h3>
+<table><thead><tr><th>Rank</th><th>Service</th><th>Hit</th></tr></thead>
+<tbody><tr><td>1</td><td>food</td><td>·</td></tr><tr><td>2</td><td>travel-plan</td><td>·</td></tr><tr><td>3</td><td>train</td><td>·</td></tr><tr><td>4</td><td>order</td><td>·</td></tr><tr><td>5</td><td>payment</td><td>·</td></tr><tr><td>6</td><td>consign</td><td>·</td></tr><tr><td>7</td><td>train-food</td><td>✓</td></tr><tr><td>8</td><td>seat</td><td>·</td></tr></tbody></table>
+</div>
+</div>
+<p class="muted">Rankings come from <code>output/rcabench-platform-v2/data/rcabench/&lt;case&gt;/&lt;algo&gt;/output.parquet</code>.
+Evidence path labels are independent of these scores.</p>
+</section>
+
+<div class="grid">
+<div class="card">
+<h2>Timeline anchors</h2>
+<p class="muted tiny">Sparse anchors only (injection window, first error, symptom / path errors) — not a full incident Gantt.</p>
+<ul class="timeline"><li><span class='t'>2025-08-28T07:41:43Z</span> <strong>injection_start</strong> @ <code>train-food</code><div class='muted tiny'>fault injection window start</div></li><li><span class='t'>2025-08-28 07:41:46.553368966+00:00</span> <strong>first_error_span</strong> @ <code>ui-dashboard</code><div class='muted tiny'>earliest Error span in abnormal window (any service)</div></li><li><span class='t'>2025-08-28 07:41:46.553368966+00:00</span> <strong>selected_symptom</strong> @ <code>ui-dashboard</code><div class='muted tiny'>first Error span on symptom service</div></li><li><span class='t'>2025-08-28 07:41:46.574000+00:00</span> <strong>path_first_error</strong> @ <code>food</code><div class='muted tiny'>first Error span on accepted-path service</div></li><li><span class='t'>2025-08-28T07:45:43Z</span> <strong>injection_end</strong> @ <code>train-food</code><div class='muted tiny'>fault injection window end</div></li></ul>
+</div>
+<div class="card">
+<h2>What was detected</h2>
+<ul><li>Injection at ts-train-food-service</li><li>Symptom at ts-ui-dashboard</li><li>Direct abnormal-window parent-child relationship</li><li>ts-train-food-service shows 3 abnormal metric signal(s)</li><li>ts-food-service shows 3 abnormal metric signal(s)</li><li>Temporal ordering left unknown; timing alone cannot prove causality</li><li>Direct abnormal-window parent-child relationship</li><li>ts-ui-dashboard shows 3 abnormal metric signal(s)</li><li>Temporal ordering left unknown; timing alone cannot prove causality</li><li>Direct abnormal-window parent-child relationship</li></ul>
+</div>
+</div>
+<!-- rca_second_opinion_section:start -->
+<h2>AI second opinions</h2>
+<div class="banner">
+real ground truth <code>['ts-train-food-service']</code>
+&nbsp; algorithm's seed <code>ts-food-service</code>
+<br><em>Standardized cards below follow the run-report template; each is one model's independent pass over the same evidence.</em>
+</div>
+<div class="grid">
+        <div class="card hit">
+          <h3>claude-sonnet-5</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.051</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:00:53Z — ts5-ts-train-food-service-container-kill-qbtw4j — pipeline #13</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-train-food-service (over algorithm's ts-food-service)</dd><dt>Summary</dt><dd>claude-sonnet-5 chose propose (confidence: high) — Upstream of food-service; 45840340425x deviation dwarfs food-service's 11.9x; 2 algos agree.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-food-service; Upstream of food-service; 45840340425x deviation dwarfs food-service's 11.9x; 2 algos agree.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-train-food-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=25243, duration=18.4s,
+model=claude-sonnet-5, pipeline=ts5-ts-train-food-service-container-kill-qbtw4j/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="real solution path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card hit">
+          <h3>gpt-5.6-luna</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.006</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:01:03Z — ts5-ts-train-food-service-container-kill-qbtw4j — pipeline #14</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-train-food-service (over algorithm's ts-food-service)</dd><dt>Summary</dt><dd>gpt-5.6-luna chose propose (confidence: medium) — Stronger metric deviation and agreement from two independent algorithms outweigh food-service’s weaker anomaly evidence.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-food-service; Stronger metric deviation and agreement from two independent algorithms outweigh food-service’s weaker anomaly evidence.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-train-food-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=26966, duration=11.7s,
+model=gpt-5.6-luna, pipeline=ts5-ts-train-food-service-container-kill-qbtw4j/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="real solution path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card hit">
+          <h3>gpt-5.6-terra</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.060</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:01:06Z — ts5-ts-train-food-service-container-kill-qbtw4j — pipeline #15</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-train-food-service (over algorithm's ts-food-service)</dd><dt>Summary</dt><dd>gpt-5.6-terra chose propose (confidence: high) — Extreme deviation and two independent algorithms favor ts-train-food-service over ts-food-service.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-food-service; Extreme deviation and two independent algorithms favor ts-train-food-service over ts-food-service.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-train-food-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=29520, duration=10.9s,
+model=gpt-5.6-terra, pipeline=ts5-ts-train-food-service-container-kill-qbtw4j/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="real solution path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card hit">
+          <h3>claude-haiku-4-5-20251001</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.025</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:00:52Z — ts5-ts-train-food-service-container-kill-qbtw4j — pipeline #16</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-train-food-service (over algorithm's ts-food-service)</dd><dt>Summary</dt><dd>claude-haiku-4-5-20251001 chose propose (confidence: high) — ts-train-food-service shows 45B× metric deviation; 2 algorithms pick it over ts-food-service.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-food-service; ts-train-food-service shows 45B× metric deviation; 2 algorithms pick it over ts-food-service.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-train-food-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=19507, duration=33.7s,
+model=claude-haiku-4-5-20251001, pipeline=ts5-ts-train-food-service-container-kill-qbtw4j/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="real solution path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card hit">
+          <h3>gemini-3.5-flash-lite</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.001</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T21:40:46Z — ts5-ts-train-food-service-container-kill-qbtw4j — pipeline #17</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-train-food-service (over algorithm's ts-food-service)</dd><dt>Summary</dt><dd>gemini-3.5-flash-lite chose propose (confidence: high) — Extreme metric deviation of over 45 billion times normal and multiple algorithms agree.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-food-service; Extreme metric deviation of over 45 billion times normal and multiple algorithms agree.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-train-food-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=2509, duration=1.0s,
+model=gemini-3.5-flash-lite, pipeline=ts5-ts-train-food-service-container-kill-qbtw4j/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="real solution path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card hit">
+          <h3>gemini-3.7-flash</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.002</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T21:40:46Z — ts5-ts-train-food-service-container-kill-qbtw4j — pipeline #18</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-train-food-service (over algorithm's ts-food-service)</dd><dt>Summary</dt><dd>gemini-3.7-flash chose propose (confidence: high) — Upstream service with massive metric deviation and consensus from multiple detection algorithms.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-food-service; Upstream service with massive metric deviation and consensus from multiple detection algorithms.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-train-food-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=2522, duration=2.5s,
+model=gemini-3.7-flash, pipeline=ts5-ts-train-food-service-container-kill-qbtw4j/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-train-food-service -&gt; ts-food-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="real solution path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">train-food</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">food</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div></div>
+<details><summary>Prompt sent (identical across all 4 models)</summary><pre>You are reviewing a root-cause-analysis case for a failure in a microservice system.
+
+An automated algorithm (traceback-A8) inspected the evidence and proposed
+"ts-food-service" as the most likely root cause. A path WAS built from that starting point to the symptom, but that does not confirm it is correct - only that the evidence between those specific points held together.
+
+Here is what the evidence shows.
+
+Candidate connections between services, with the statistical/structural/temporal checks
+each one passed or failed (computed from real metric z-scores, call-graph structure, and
+onset timestamps during the incident window). NOTE: temporal ordering is unknown for every edge in this case (no Error span at both endpoints to order). Do not treat that as a gap unique to this case or wait for it; decide from the statistical/structural signals and magnitudes below instead.
+  - ts-train-food-service -&gt; ts-food-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-food-service -&gt; ts-ui-dashboard: statistical=pass, structural=pass, temporal=unknown
+  - ts-food-service -&gt; ts-preserve-service: statistical=fail, structural=pass, temporal=unknown
+  - ts-preserve-service -&gt; ts-ui-dashboard: statistical=fail, structural=pass, temporal=unknown
+  - ts-user-service-87d8d9d54-2xzz5 -&gt; ts-user-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-ui-dashboard-59499f7b8b-4zg8d -&gt; ts-ui-dashboard: statistical=unknown, structural=pass, temporal=unknown
+  - ts-preserve-service-87fbbf5b5-lnrzz -&gt; ts-preserve-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel-service-74794d67b9-7nrn2 -&gt; ts-travel-service: statistical=unknown, structural=pass, temporal=unknown
+  - loadgenerator-7c6465b994-wtf7w -&gt; loadgenerator: statistical=unknown, structural=pass, temporal=unknown
+  - ts-contacts-service-746b87fbc6-976d9 -&gt; ts-contacts-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-basic-service-599dcbcd59-8q4wt -&gt; ts-basic-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-train-service-6bdbdb4547-rm4ns -&gt; ts-train-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-route-service-799f648896-72hkv -&gt; ts-route-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-station-service-96ccf6fc-xhj4l -&gt; ts-station-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-price-service-54b6b4b96-r77rs -&gt; ts-price-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel2-service-6659b8fd5f-qdzsv -&gt; ts-travel2-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-order-service-554d59f5c-nzf7s -&gt; ts-order-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-seat-service-675c89f44-dzgvb -&gt; ts-seat-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-config-service-788886954c-6ptd7 -&gt; ts-config-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-order-other-service-86c75649c4-4hl8v -&gt; ts-order-other-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-food-service-5dd9757985-vfr92 -&gt; ts-food-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-verification-code-service-6c9f97cb54-8xwsm -&gt; ts-verification-code-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-auth-service-54bd57586c-8dwfp -&gt; ts-auth-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel-plan-service-5b7fb74b4f-pd4mr -&gt; ts-travel-plan-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-route-plan-service-76fc6cc974-zg5l9 -&gt; ts-route-plan-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-consign-service-f89c85c6-r9cc2 -&gt; ts-consign-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-train-food-service-bcf66b6d8-ml742 -&gt; ts-train-food-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-station-food-service-59fc9cbf74-xd82h -&gt; ts-station-food-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-assurance-service-6b6f9549bd-dm74w -&gt; ts-assurance-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-security-service-6868bb5d87-4x9w5 -&gt; ts-security-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-inside-payment-service-69459cf8c4-tbcrw -&gt; ts-inside-payment-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-payment-service-66bfbd95f5-7j9v2 -&gt; ts-payment-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-consign-price-service-65d465fbbd-ntqcj -&gt; ts-consign-price-service: statistical=unknown, structural=pass, temporal=unknown
+  - worker1 -&gt; ts-admin-order-service-5f48c9847-fctwq: statistical=unknown, structural=pass, temporal=unknown
+  - worker1 -&gt; ts-cancel-service-5d6f598b75-4n5hb: statistical=unknown, structural=pass, temporal=unknown
+  - worker1 -&gt; ts-consign-price-service-65d465fbbd-ntqcj: statistical=unknown, structural=pass, temporal=unknown
+  - worker1 -&gt; ts-delivery-service-669dcd76fc-t6fkl: statistical=unknown, structural=pass, temporal=unknown
+  - worker1 -&gt; ts-inside-payment-service-69459cf8c4-tbcrw: statistical=unknown, structural=pass, temporal=unknown
+  - worker1 -&gt; ts-preserve-other-service-6bbdcb9df4-6x97t: statistical=unknown, structural=pass, temporal=unknown
+  - worker1 -&gt; ts-security-service-6868bb5d87-4x9w5: statistical=unknown, structural=pass, temporal=unknown
+
+Other evidence signals observed, with how far each deviated from its normal range
+(this is the number that actually distinguishes otherwise-similar candidates):
+  - Symptom at ts-ui-dashboard
+  - Direct abnormal-window parent-child relationship
+  - ts-train-food-service shows 3 abnormal metric signal(s) (strongest deviation: 45840340425.5x normal)
+  - ts-food-service shows 3 abnormal metric signal(s) (strongest deviation: 11.9x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - ts-ui-dashboard shows 3 abnormal metric signal(s) (strongest deviation: 3.7x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - ts-preserve-service has no metric deviation under configured thresholds
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+
+Four other independent detection algorithms also examined this same case; their
+own top picks were:
+  - baro -&gt; ts-train-food-service
+  - nsigma -&gt; ts-train-food-service
+  - random -&gt; ts-seat-service
+  - traceback-A7 -&gt; ts-food-service
+
+Given ONLY this evidence, decide:
+1. Do you CONFIRM "ts-food-service" as the root cause, PROPOSE a different service instead,
+   or is the evidence INSUFFICIENT to decide either way? Only use INSUFFICIENT if
+   no candidate's evidence is meaningfully stronger than the others - a difference
+   in deviation magnitude or in how many independent algorithms/checks agree IS a
+   meaningful basis for CONFIRM or PROPOSE, even without temporal ordering.
+2. Confidence: low, medium, or high.
+3. Reasoning in 15 words or fewer.
+
+Respond with ONLY a JSON object, no other text:
+{"decision": "confirm"|"propose"|"insufficient", "service": "&lt;service name or null&gt;",
+ "confidence": "low"|"medium"|"high", "reason": "&lt;15 words or fewer&gt;"}</pre></details>
+<!-- rca_second_opinion_section:end --></main></body></html>

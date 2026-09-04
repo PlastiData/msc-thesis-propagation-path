@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>ts2-ts-basic-service-response-abort-jl47fg</title>
+<style>
+:root { --bg:#faf9f7; --ink:#1a1a1a; --muted:#666; --line:#ddd; }
+body{font-family:ui-sans-serif,system-ui,sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:1.35rem;margin:0 0 .5rem}
+h2{font-size:1.05rem;margin:1.5rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+h3{font-size:.95rem;margin:.2rem 0 .5rem}
+.banner{padding:.9rem 1rem;background:#fff;border-left:5px solid #1b9e77;margin:1rem 0;box-shadow:0 1px 0 var(--line)}
+.verdicts{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin:.4rem 0 .6rem;font-family:ui-monospace,monospace;font-size:.92rem}
+.verdicts .v{font-weight:700}
+.agree{display:inline-block;font-size:.8rem;padding:.15rem .45rem;border:1px solid var(--line);background:#fff}
+.path-compare{background:#fff;border:1px solid var(--line);padding:1rem;margin:1rem 0}
+.path-row{display:flex;align-items:center;gap:.75rem;margin:.55rem 0;flex-wrap:wrap}
+.path-row .lab{min-width:4.5rem;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.strip{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.25rem}
+.strip .hop{background:#111;color:#fff;padding:.2rem .45rem;font-size:.82rem;border-radius:4px}
+.strip .tick{display:inline-block;width:18px;height:0;border-top:3px solid #1b9e77;margin:0 .1rem}
+.strip .tick.dashed{border-top-style:dashed;border-color:#d95f02}
+.strip.refuse{color:#a45;font-family:ui-monospace,monospace;font-size:.88rem}
+.tag.same{font-size:.75rem;color:var(--muted);border:1px solid var(--line);padding:.1rem .35rem}
+.maps{margin:.5rem 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;padding:1rem;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:#fff}
+th,td{border:1px solid var(--line);padding:.4rem;text-align:left;vertical-align:top}
+.muted{color:var(--muted)} .warn{color:#a45} .tiny{font-size:.78rem;line-height:1.35;margin-top:.15rem}
+.legend span{display:inline-block;margin-right:1rem}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:.3rem;vertical-align:middle}
+ul.timeline{list-style:none;padding:0;margin:0}
+ul.timeline li{padding:.35rem 0;border-bottom:1px solid var(--line)}
+ul.timeline .t{color:var(--muted);font-size:.85rem;display:block}
+code{font-size:.9em} code.tid{font-size:.78em}
+a{color:#0b5}
+/* rca_second_opinion_css */
+.card.hit{border-left:5px solid #1b9e77} .card.miss{border-left:5px solid #d95f02} .card.insuff{border-left:5px solid #999}
+.badge{font-size:.75rem;font-family:ui-monospace,monospace;border:1px solid var(--line);padding:.1rem .4rem}
+.run-card{background:#fbfbfa;border:1px solid var(--line);padding:.7rem .9rem;margin:.4rem 0}
+.run-card dl{margin:.3rem 0} .run-card dt{font-weight:600;font-size:.82rem;margin-top:.4rem}
+.run-card dd{margin:.1rem 0 0;font-size:.85rem;line-height:1.4}
+.verdict-flow{display:flex;align-items:center;gap:.4rem;font-family:ui-monospace,monospace;font-size:.8rem}
+.verdict-flow .arrow{color:var(--muted)}
+.ai-tiny{font-size:.78rem;margin:.3rem 0} .ai-subhead{font-size:.85rem;margin:.7rem 0 .3rem;color:var(--muted)}
+</style></head><body><main>
+<p><a href="../index.html">← sample index</a></p>
+<h1>ts2-ts-basic-service-response-abort-jl47fg</h1>
+<div class="banner" id="verdict">
+<div class="verdicts">
+<span>Inject <span class="v">ACCEPT (relaxed)</span></span>
+<span>RCA <span class="v">ACCEPT (relaxed)</span></span>
+<span class="agree">differ</span>
+</div>
+Injection <code>route</code>
+ → symptom <code>ui-dashboard</code><br>
+<div class='tiny'><strong>Injected fault (benchmark label)</strong>: fault_type=6 → <code>HTTPResponseAbort</code> (HTTPChaos, application, kind=<code>http_aborted</code>, channel=horizontal)</div>
+Injection window <code>2025-09-06T04:17:28Z</code> → <code>2025-09-06T04:21:26Z</code><br>Symptom route <code>/api/v1/travel2service/trips/left</code><br>
+RCA seed algo <code>traceback-A8</code> (AC@1 62.5%)
+ → <code>station</code><br>
+<em>Evidence levels describe availability, not causal correctness.</em>
+</div>
+<div class="legend">
+<span><i style="background:#1b9e77"></i>observed</span>
+<span><i style="background:#7570b3"></i>supported</span>
+<span><i style="background:#d95f02"></i>inferred (dashed)</span>
+</div>
+<section id="dual-path">
+<h2>Dual-path compare</h2>
+<div class="path-compare"><div class='path-row'><div class='lab'>Inject</div><span class='strip'><span class='hop'>route</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div><div class='path-row'><div class='lab'>RCA</div><span class='strip'><span class='hop'>station</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>basic</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>route-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>travel-plan</span><span class='tick' style='border-color:#1b9e77' title='observed'></span><span class='hop'>ui-dashboard</span></span></div></div>
+<details class='maps'><summary>Fault-seeded SVG map</summary><svg viewBox="0 0 960 120" width="100%" role="img" aria-label="fault-seeded candidate path"><line x1="122.0" y1="55" x2="198.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="160.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="282.0" y1="55" x2="358.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="320.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="442.0" y1="55" x2="518.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="602.0" y1="55" x2="678.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="640.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="762.0" y1="55" x2="838.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="800.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="40.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="80.0" y="60" text-anchor="middle" font-size="12" fill="#fff">route</text><rect x="200.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="240.0" y="60" text-anchor="middle" font-size="12" fill="#111">basic</text><rect x="360.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="400.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel</text><rect x="520.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="560.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="680.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="720.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="840.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="880.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg></details>
+<details class='maps'><summary>RCA-seeded SVG map</summary><svg viewBox="0 0 960 120" width="100%" role="img" aria-label="RCA-seeded candidate path"><line x1="122.0" y1="55" x2="198.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="160.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="282.0" y1="55" x2="358.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="320.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="442.0" y1="55" x2="518.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="602.0" y1="55" x2="678.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="640.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="762.0" y1="55" x2="838.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="800.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="40.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="80.0" y="60" text-anchor="middle" font-size="12" fill="#fff">station</text><rect x="200.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="240.0" y="60" text-anchor="middle" font-size="12" fill="#111">basic</text><rect x="360.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="400.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel</text><rect x="520.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="560.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="680.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="720.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="840.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="880.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg></details>
+</section>
+
+<section id="evidence">
+<h2>Edge evidence (fault-selected)</h2>
+<p class="muted tiny">Struct/Stat are verdicts. Route, calls/errors, trace ids, and metric numbers are re-queryable refs from abnormal-window telemetry. Per-hop onset time is not available on this dataset.</p>
+<table>
+<thead><tr><th>From</th><th>To</th><th>Route</th><th>Level</th><th>Struct</th><th>Calls</th><th>Traces</th><th>Stat</th></tr></thead>
+<tbody>
+<tr><td>route</td><td>basic</td><td><code>POST /api/v1/routeservice/routes/byIds/</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>8</td><td><code class='tid'>1a5e8b23b8014e85…</code><br><code class='tid'>4c698de9daa6de1f…</code><br><code class='tid'>a355179ab391f05d…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · container.memory.available z=-5.2656 (abn 2414894145.3617 / nrm 2441629013.3333) · +2 more</div><div class='muted tiny'>to: pass · container.cpu.usage z=5.4346 (abn 2.13 / nrm 0.3031) · +2 more</div></td></tr><tr><td>basic</td><td>travel</td><td><code>POST /api/v1/basicservice/basic/travels</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>9 / 9 err</td><td><code class='tid'>eeb94c530e96eff2…</code><br><code class='tid'>05ebb4b4aa939f13…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · container.cpu.usage z=5.4346 (abn 2.13 / nrm 0.3031) · +2 more</div><div class='muted tiny'>to: pass · container.filesystem.available z=-21.0897 (abn 26216106027.5745 / nrm 26517492480.0) · +2 more</div></td></tr><tr><td>route-plan</td><td>travel-plan</td><td><code>POST /api/v1/routeplanservice/routePlan/quickestRoute</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>10 / 9 err</td><td><code class='tid'>5b80b7453e0517db…</code><br><code class='tid'>1d720a96b4751df1…</code><br><code class='tid'>7f6529148d5755a1…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · hubble_http_request_duration_p50_seconds ×6.1875 (abn 6.8906 / nrm 1.1136) · +2 more</div><div class='muted tiny'>to: pass · container.memory.page_faults z=3.1136 (abn 142267.6809 / nrm 139692.0417) · +2 more</div></td></tr><tr><td>travel-plan</td><td>ui-dashboard</td><td><code>POST /api/v1/travelplanservice/travelPlan/quickest</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>9 / 8 err</td><td><code class='tid'>5b80b7453e0517db…</code><br><code class='tid'>1d720a96b4751df1…</code><br><code class='tid'>7f6529148d5755a1…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · container.memory.page_faults z=3.1136 (abn 142267.6809 / nrm 139692.0417) · +2 more</div><div class='muted tiny'>to: pass · hubble_http_request_duration_p50_seconds ×3.5424 (abn 0.0951 / nrm 0.0268)</div></td></tr><tr><td>travel</td><td>route-plan</td><td><code>POST /api/v1/travelservice/trips/left</code></td><td style='color:#1b9e77;font-weight:600'>observed</td><td>pass (abn+nrm)</td><td>68 / 64 err</td><td><code class='tid'>5b80b7453e0517db…</code><br><code class='tid'>1d720a96b4751df1…</code><br><code class='tid'>7f6529148d5755a1…</code></td><td><div><strong>pass</strong></div><div class='muted tiny'>from: pass · container.filesystem.available z=-21.0897 (abn 26216106027.5745 / nrm 26517492480.0) · +2 more</div><div class='muted tiny'>to: pass · hubble_http_request_duration_p50_seconds ×6.1875 (abn 6.8906 / nrm 1.1136) · +2 more</div></td></tr>
+</tbody></table>
+</section>
+
+<section>
+<h2>Upstream RCA rankings (from output parquet)</h2>
+<p>Primary walk seed: <strong>traceback-A8</strong>
+ → <code>station</code> (miss).
+ Injection label best rank under primary: <strong>2</strong>.</p>
+<p><strong>Walk chain:</strong> station</p>
+
+<div class="grid">
+<div class="card">
+<h3>All algorithms on this case</h3>
+<table><thead><tr><th>Algo</th><th>Rank-1</th><th>Hit@1</th><th>Hit@5</th><th>True rank</th></tr></thead>
+<tbody><tr><td>traceback-A8</td><td>station</td><td>·</td><td>✓</td><td>2</td></tr><tr><td>traceback-A7</td><td>route</td><td>✓</td><td>✓</td><td>1</td></tr><tr><td>nsigma</td><td>payment</td><td>·</td><td>·</td><td>744</td></tr><tr><td>baro</td><td>payment</td><td>·</td><td>·</td><td>744</td></tr><tr><td>random</td><td>contacts</td><td>·</td><td>·</td><td>8</td></tr></tbody></table>
+</div>
+<div class="card">
+<h3>traceback-A8 top services</h3>
+<table><thead><tr><th>Rank</th><th>Service</th><th>Hit</th></tr></thead>
+<tbody><tr><td>1</td><td>station</td><td>·</td></tr><tr><td>2</td><td>route</td><td>✓</td></tr><tr><td>3</td><td>travel</td><td>·</td></tr><tr><td>4</td><td>route-plan</td><td>·</td></tr><tr><td>5</td><td>travel2</td><td>·</td></tr><tr><td>6</td><td>travel-plan</td><td>·</td></tr><tr><td>7</td><td>ui-dashboard</td><td>·</td></tr><tr><td>8</td><td>basic</td><td>✓</td></tr></tbody></table>
+</div>
+</div>
+<p class="muted">Rankings come from <code>output/rcabench-platform-v2/data/rcabench/&lt;case&gt;/&lt;algo&gt;/output.parquet</code>.
+Evidence path labels are independent of these scores.</p>
+</section>
+
+<div class="grid">
+<div class="card">
+<h2>Timeline anchors</h2>
+<p class="muted tiny">Sparse anchors only (injection window, first error, symptom / path errors) — not a full incident Gantt.</p>
+<ul class="timeline"><li><span class='t'>2025-09-06T04:17:28Z</span> <strong>injection_start</strong> @ <code>route</code><div class='muted tiny'>fault injection window start</div></li><li><span class='t'>2025-09-06 04:17:28.001914084+00:00</span> <strong>selected_symptom</strong> @ <code>ui-dashboard</code><div class='muted tiny'>first span on symptom service (no Error); policy pick has no clock</div></li><li><span class='t'>2025-09-06 04:17:28.156354141+00:00</span> <strong>first_error_span</strong> @ <code>loadgenerator</code><div class='muted tiny'>earliest Error span in abnormal window (any service)</div></li><li><span class='t'>2025-09-06 04:17:29.160000+00:00</span> <strong>path_first_error</strong> @ <code>travel</code><div class='muted tiny'>first Error span on accepted-path service</div></li><li><span class='t'>2025-09-06 04:18:08.703000+00:00</span> <strong>path_first_error</strong> @ <code>travel-plan</code><div class='muted tiny'>first Error span on accepted-path service</div></li><li><span class='t'>2025-09-06 04:18:08.712000+00:00</span> <strong>path_first_error</strong> @ <code>route-plan</code><div class='muted tiny'>first Error span on accepted-path service</div></li><li><span class='t'>2025-09-06 04:21:22.504000+00:00</span> <strong>path_first_error</strong> @ <code>basic</code><div class='muted tiny'>first Error span on accepted-path service</div></li><li><span class='t'>2025-09-06T04:21:26Z</span> <strong>injection_end</strong> @ <code>route</code><div class='muted tiny'>fault injection window end</div></li></ul>
+</div>
+<div class="card">
+<h2>What was detected</h2>
+<ul><li>Injection at ts-route-service</li><li>Symptom at ts-ui-dashboard</li><li>Direct abnormal-window parent-child relationship</li><li>ts-route-service shows 3 abnormal metric signal(s)</li><li>ts-ui-dashboard shows 1 abnormal metric signal(s)</li><li>Temporal ordering left unknown; timing alone cannot prove causality</li><li>Direct abnormal-window parent-child relationship</li><li>ts-travel-service shows 3 abnormal metric signal(s)</li><li>Temporal ordering left unknown; timing alone cannot prove causality</li><li>Direct abnormal-window parent-child relationship</li></ul>
+</div>
+</div>
+<!-- rca_second_opinion_section:start -->
+<h2>AI second opinions</h2>
+<div class="banner">
+real ground truth <code>['ts-basic-service', 'ts-route-service']</code>
+&nbsp; algorithm's seed <code>ts-station-service</code>
+<br><em>Standardized cards below follow the run-report template; each is one model's independent pass over the same evidence.</em>
+</div>
+<div class="grid">
+        <div class="card miss">
+          <h3>claude-sonnet-5</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#b3261e">after: no match</span><span class="muted">$0.051</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:18:30Z — ts2-ts-basic-service-response-abort-jl47fg — pipeline #427</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-travel2-service (over algorithm's ts-station-service)</dd><dt>Summary</dt><dd>claude-sonnet-5 chose propose (confidence: medium) — 91.2x deviation far exceeds ts-station-service, which shows none itself.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-station-service; 91.2x deviation far exceeds ts-station-service, which shows none itself.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-travel2-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=25116, duration=17.2s,
+model=claude-sonnet-5, pipeline=ts2-ts-basic-service-response-abort-jl47fg/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-travel2-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel2</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          
+        </div>
+        <div class="card hit">
+          <h3>gpt-5.6-terra</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.076</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:18:38Z — ts2-ts-basic-service-response-abort-jl47fg — pipeline #428</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-basic-service (over algorithm's ts-station-service)</dd><dt>Summary</dt><dd>gpt-5.6-terra chose propose (confidence: medium) — Basic has 61.3x deviation and a structurally supported path to symptom.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-station-service; Basic has 61.3x deviation and a structurally supported path to symptom.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-basic-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=36617, duration=16.2s,
+model=gpt-5.6-terra, pipeline=ts2-ts-basic-service-response-abort-jl47fg/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-basic-service -&gt; ts-preserve-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">basic</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">preserve</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-route-service -&gt; ts-basic-service -&gt; ts-travel-service -&gt; ts-route-plan-service -&gt; ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 960 120" width="100%" role="img" aria-label="real solution path"><line x1="122.0" y1="55" x2="198.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="160.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="282.0" y1="55" x2="358.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="320.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="442.0" y1="55" x2="518.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="602.0" y1="55" x2="678.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="640.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="762.0" y1="55" x2="838.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="800.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="40.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="80.0" y="60" text-anchor="middle" font-size="12" fill="#fff">route</text><rect x="200.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="240.0" y="60" text-anchor="middle" font-size="12" fill="#111">basic</text><rect x="360.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="400.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel</text><rect x="520.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="560.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="680.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="720.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="840.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="880.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card hit">
+          <h3>gpt-5.6-luna</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.007</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:18:37Z — ts2-ts-basic-service-response-abort-jl47fg — pipeline #429</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-basic-service (over algorithm's ts-station-service)</dd><dt>Summary</dt><dd>gpt-5.6-luna chose propose (confidence: medium) — ts-basic-service shows 61.3x deviation; ts-station-service has no reported abnormal metric evidence.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-station-service; ts-basic-service shows 61.3x deviation; ts-station-service has no reported abnormal metric evidence.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-basic-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=33242, duration=17.7s,
+model=gpt-5.6-luna, pipeline=ts2-ts-basic-service-response-abort-jl47fg/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-basic-service -&gt; ts-preserve-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="162.0" y1="55" x2="318.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="240.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><line x1="402.0" y1="55" x2="558.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><rect x="80.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="120.0" y="60" text-anchor="middle" font-size="12" fill="#fff">basic</text><rect x="320.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="360.0" y="60" text-anchor="middle" font-size="12" fill="#111">preserve</text><rect x="560.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="600.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-route-service -&gt; ts-basic-service -&gt; ts-travel-service -&gt; ts-route-plan-service -&gt; ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 960 120" width="100%" role="img" aria-label="real solution path"><line x1="122.0" y1="55" x2="198.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="160.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="282.0" y1="55" x2="358.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="320.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="442.0" y1="55" x2="518.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="602.0" y1="55" x2="678.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="640.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="762.0" y1="55" x2="838.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="800.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="40.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="80.0" y="60" text-anchor="middle" font-size="12" fill="#fff">route</text><rect x="200.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="240.0" y="60" text-anchor="middle" font-size="12" fill="#111">basic</text><rect x="360.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="400.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel</text><rect x="520.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="560.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="680.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="720.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="840.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="880.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card hit">
+          <h3>claude-haiku-4-5-20251001</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.025</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T07:18:24Z — ts2-ts-basic-service-response-abort-jl47fg — pipeline #430</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-route-service (over algorithm's ts-station-service)</dd><dt>Summary</dt><dd>claude-haiku-4-5-20251001 chose propose (confidence: medium) — ts-station-service shows no metric abnormality; ts-route-service exhibits 5.3x deviation with broader connectivity.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-station-service; ts-station-service shows no metric abnormality; ts-route-service exhibits 5.3x deviation with broader connectivity.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-route-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=19379, duration=32.3s,
+model=claude-haiku-4-5-20251001, pipeline=ts2-ts-basic-service-response-abort-jl47fg/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-route-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">route</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-route-service -&gt; ts-basic-service -&gt; ts-travel-service -&gt; ts-route-plan-service -&gt; ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 960 120" width="100%" role="img" aria-label="real solution path"><line x1="122.0" y1="55" x2="198.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="160.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="282.0" y1="55" x2="358.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="320.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="442.0" y1="55" x2="518.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="602.0" y1="55" x2="678.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="640.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="762.0" y1="55" x2="838.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="800.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="40.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="80.0" y="60" text-anchor="middle" font-size="12" fill="#fff">route</text><rect x="200.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="240.0" y="60" text-anchor="middle" font-size="12" fill="#111">basic</text><rect x="360.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="400.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel</text><rect x="520.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="560.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="680.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="720.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="840.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="880.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div>
+        <div class="card miss">
+          <h3>gemini-3.5-flash-lite</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#b3261e">after: no match</span><span class="muted">$0.001</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T21:52:53Z — ts2-ts-basic-service-response-abort-jl47fg — pipeline #431</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-travel2-service (over algorithm's ts-station-service)</dd><dt>Summary</dt><dd>gemini-3.5-flash-lite chose propose (confidence: high) — Extremely high metric deviation magnitude (91.2x) points to ts-travel2-service.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-station-service; Extremely high metric deviation magnitude (91.2x) points to ts-travel2-service.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-travel2-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=2346, duration=0.8s,
+model=gemini-3.5-flash-lite, pipeline=ts2-ts-basic-service-response-abort-jl47fg/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-travel2-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">travel2</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          
+        </div>
+        <div class="card hit">
+          <h3>gemini-3.7-flash</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#b3261e">before: no match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.002</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T22:05:48Z — ts2-ts-basic-service-response-abort-jl47fg — pipeline #432</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-route-service (over algorithm's ts-station-service)</dd><dt>Summary</dt><dd>gemini-3.7-flash chose propose (confidence: medium) — ts-route-service is the common upstream branching to all downstream abnormal services.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-station-service; ts-route-service is the common upstream branching to all downstream abnormal services.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-route-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=2344, duration=35.2s,
+model=gemini-3.7-flash, pipeline=ts2-ts-basic-service-response-abort-jl47fg/wrong_accepted</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-route-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">route</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution: ts-route-service -&gt; ts-basic-service -&gt; ts-travel-service -&gt; ts-route-plan-service -&gt; ts-travel-plan-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 960 120" width="100%" role="img" aria-label="real solution path"><line x1="122.0" y1="55" x2="198.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="160.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="282.0" y1="55" x2="358.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="320.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="442.0" y1="55" x2="518.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="480.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="602.0" y1="55" x2="678.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="640.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><line x1="762.0" y1="55" x2="838.0" y2="55" stroke="#1b9e77" stroke-width="3" /><text x="800.0" y="37" text-anchor="middle" font-size="12" fill="#1b9e77">observed</text><rect x="40.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="80.0" y="60" text-anchor="middle" font-size="12" fill="#fff">route</text><rect x="200.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="240.0" y="60" text-anchor="middle" font-size="12" fill="#111">basic</text><rect x="360.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="400.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel</text><rect x="520.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="560.0" y="60" text-anchor="middle" font-size="12" fill="#111">route-plan</text><rect x="680.0" y="37" width="80" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" /><text x="720.0" y="60" text-anchor="middle" font-size="12" fill="#111">travel-plan</text><rect x="840.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="880.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+        </div></div>
+<details><summary>Prompt sent (identical across all 4 models)</summary><pre>You are reviewing a root-cause-analysis case for a failure in a microservice system.
+
+An automated algorithm (traceback-A8) inspected the evidence and proposed
+"ts-station-service" as the most likely root cause. A path WAS built from that starting point to the symptom, but that does not confirm it is correct - only that the evidence between those specific points held together.
+
+Here is what the evidence shows.
+
+Candidate connections between services, with the statistical/structural/temporal checks
+each one passed or failed (computed from real metric z-scores, call-graph structure, and
+onset timestamps during the incident window). NOTE: temporal ordering is unknown for every edge in this case (no Error span at both endpoints to order). Do not treat that as a gap unique to this case or wait for it; decide from the statistical/structural signals and magnitudes below instead.
+  - ts-route-service -&gt; ts-ui-dashboard: statistical=pass, structural=pass, temporal=unknown
+  - ts-route-service -&gt; ts-travel-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-travel-service -&gt; ts-ui-dashboard: statistical=pass, structural=pass, temporal=unknown
+  - ts-route-service -&gt; ts-travel2-service: statistical=pass, structural=fail, temporal=unknown
+  - ts-travel2-service -&gt; ts-ui-dashboard: statistical=pass, structural=pass, temporal=unknown
+  - ts-route-service -&gt; ts-basic-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-basic-service -&gt; ts-preserve-service: statistical=fail, structural=fail, temporal=unknown
+  - ts-preserve-service -&gt; ts-ui-dashboard: statistical=fail, structural=fail, temporal=unknown
+  - ts-basic-service -&gt; ts-travel-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-basic-service -&gt; ts-travel2-service: statistical=pass, structural=fail, temporal=unknown
+  - ts-route-service -&gt; ts-route-plan-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-route-plan-service -&gt; ts-travel-plan-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-travel-plan-service -&gt; ts-ui-dashboard: statistical=pass, structural=pass, temporal=unknown
+  - ts-travel-service -&gt; ts-food-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-food-service -&gt; ts-ui-dashboard: statistical=pass, structural=pass, temporal=unknown
+  - ts-travel-service -&gt; ts-preserve-service: statistical=fail, structural=fail, temporal=unknown
+  - ts-food-service -&gt; ts-preserve-service: statistical=fail, structural=fail, temporal=unknown
+  - ts-travel-service -&gt; ts-route-plan-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-travel2-service -&gt; ts-route-plan-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-station-service -&gt; ts-basic-service: statistical=pass, structural=pass, temporal=unknown
+  - ts-auth-service-6f5b7d4d64-pm944 -&gt; ts-auth-service: statistical=unknown, structural=pass, temporal=unknown
+  - loadgenerator-5cf9cc5f54-5g9xb -&gt; loadgenerator: statistical=unknown, structural=pass, temporal=unknown
+  - ts-ui-dashboard-cdd95b86c-dz8x9 -&gt; ts-ui-dashboard: statistical=unknown, structural=pass, temporal=unknown
+  - ts-train-service-7fd4bc4b9b-b75gm -&gt; ts-train-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-verification-code-service-5cf9cc49d5-bxhp9 -&gt; ts-verification-code-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-route-service-5cdfd57bd7-7m2mw -&gt; ts-route-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-station-service-7b75998cfd-94kgx -&gt; ts-station-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-user-service-5b5b45f5b9-vj7km -&gt; ts-user-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel-service-fbbd88b6b-mhn92 -&gt; ts-travel-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-order-service-687867685d-n69vg -&gt; ts-order-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-order-other-service-65f458c7fc-j7rkc -&gt; ts-order-other-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-cancel-service-7566fb95d8-bm6lc -&gt; ts-cancel-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel2-service-7fd6cf5784-t7kf7 -&gt; ts-travel2-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-inside-payment-service-6d497c8fcc-zpcww -&gt; ts-inside-payment-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel-plan-service-69865d84f8-z52k7 -&gt; ts-travel-plan-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-route-plan-service-64f7f6c585-4dvnb -&gt; ts-route-plan-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-consign-service-77655cfd95-7clhh -&gt; ts-consign-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-price-service-6b784db86c-4s6fp -&gt; ts-price-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-seat-service-5c44567799-c87dw -&gt; ts-seat-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-config-service-78cd5b655b-2tmrx -&gt; ts-config-service: statistical=unknown, structural=pass, temporal=unknown
+
+Other evidence signals observed, with how far each deviated from its normal range
+(this is the number that actually distinguishes otherwise-similar candidates):
+  - Symptom at ts-ui-dashboard
+  - Direct abnormal-window parent-child relationship
+  - ts-route-service shows 3 abnormal metric signal(s) (strongest deviation: 5.3x normal)
+  - ts-ui-dashboard shows 1 abnormal metric signal(s) (strongest deviation: 3.5x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - ts-travel-service shows 3 abnormal metric signal(s) (strongest deviation: 21.1x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - ts-travel2-service shows 3 abnormal metric signal(s) (strongest deviation: 91.2x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - ts-basic-service shows 3 abnormal metric signal(s) (strongest deviation: 61.3x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - ts-preserve-service has no metric deviation under configured thresholds
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - ts-route-plan-service shows 3 abnormal metric signal(s) (strongest deviation: 6.2x normal)
+  - Temporal ordering left unknown; timing alone cannot prove causality
+
+Four other independent detection algorithms also examined this same case; their
+own top picks were:
+  - baro -&gt; ts-payment-service
+  - nsigma -&gt; ts-payment-service
+  - random -&gt; ts-contacts-service
+  - traceback-A7 -&gt; ts-route-service
+
+Given ONLY this evidence, decide:
+1. Do you CONFIRM "ts-station-service" as the root cause, PROPOSE a different service instead,
+   or is the evidence INSUFFICIENT to decide either way? Only use INSUFFICIENT if
+   no candidate's evidence is meaningfully stronger than the others - a difference
+   in deviation magnitude or in how many independent algorithms/checks agree IS a
+   meaningful basis for CONFIRM or PROPOSE, even without temporal ordering.
+2. Confidence: low, medium, or high.
+3. Reasoning in 15 words or fewer.
+
+Respond with ONLY a JSON object, no other text:
+{"decision": "confirm"|"propose"|"insufficient", "service": "&lt;service name or null&gt;",
+ "confidence": "low"|"medium"|"high", "reason": "&lt;15 words or fewer&gt;"}</pre></details>
+<!-- rca_second_opinion_section:end --></main></body></html>

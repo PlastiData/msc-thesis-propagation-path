@@ -1,0 +1,160 @@
+{
+  "nodes": [
+    {
+      "id": "incident",
+      "type": "entity",
+      "label": "Incident (datapack folder)"
+    },
+    {
+      "id": "injection_json",
+      "type": "entity",
+      "label": "injection.json"
+    },
+    {
+      "id": "env_json",
+      "type": "entity",
+      "label": "env.json"
+    },
+    {
+      "id": "ground_truth",
+      "type": "entity",
+      "label": "Ground truth labels"
+    },
+    {
+      "id": "traces",
+      "type": "entity",
+      "label": "Trace parquet (normal/abnormal)"
+    },
+    {
+      "id": "metrics",
+      "type": "entity",
+      "label": "Metrics parquet"
+    },
+    {
+      "id": "logs",
+      "type": "entity",
+      "label": "Logs parquet"
+    },
+    {
+      "id": "conclusion",
+      "type": "entity",
+      "label": "conclusion.parquet"
+    },
+    {
+      "id": "service",
+      "type": "entity",
+      "label": "Microservice"
+    },
+    {
+      "id": "span",
+      "type": "entity",
+      "label": "Trace span"
+    },
+    {
+      "id": "pod",
+      "type": "entity",
+      "label": "Kubernetes pod"
+    },
+    {
+      "id": "container",
+      "type": "entity",
+      "label": "Container"
+    }
+  ],
+  "edges": [
+    {
+      "from": "incident",
+      "to": "injection_json",
+      "type": "contains"
+    },
+    {
+      "from": "incident",
+      "to": "env_json",
+      "type": "contains"
+    },
+    {
+      "from": "incident",
+      "to": "traces",
+      "type": "contains"
+    },
+    {
+      "from": "incident",
+      "to": "metrics",
+      "type": "contains"
+    },
+    {
+      "from": "incident",
+      "to": "logs",
+      "type": "contains"
+    },
+    {
+      "from": "incident",
+      "to": "conclusion",
+      "type": "contains"
+    },
+    {
+      "from": "injection_json",
+      "to": "ground_truth",
+      "type": "contains"
+    },
+    {
+      "from": "traces",
+      "to": "span",
+      "type": "contains"
+    },
+    {
+      "from": "span",
+      "to": "service",
+      "type": "join",
+      "via": "service_name"
+    },
+    {
+      "from": "span",
+      "to": "span",
+      "type": "join",
+      "via": "parent_span_id \u2192 span_id"
+    },
+    {
+      "from": "metrics",
+      "to": "service",
+      "type": "join",
+      "via": "service_name"
+    },
+    {
+      "from": "logs",
+      "to": "service",
+      "type": "join",
+      "via": "service_name"
+    },
+    {
+      "from": "logs",
+      "to": "traces",
+      "type": "join",
+      "via": "trace_id (when present)"
+    },
+    {
+      "from": "ground_truth",
+      "to": "service",
+      "type": "join",
+      "via": "gt.service"
+    },
+    {
+      "from": "ground_truth",
+      "to": "pod",
+      "type": "join",
+      "via": "gt.pod"
+    },
+    {
+      "from": "ground_truth",
+      "to": "container",
+      "type": "join",
+      "via": "gt.container"
+    },
+    {
+      "from": "conclusion",
+      "to": "span",
+      "type": "join",
+      "via": "SpanName"
+    }
+  ]
+}

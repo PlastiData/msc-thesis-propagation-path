@@ -1,64 +1,47 @@
-# Failure propagation paths
+# Failure propagation paths with evidence
 
-This repository is the public code and result pack for an MSc thesis (Alexis Marin, SRH Berlin, 2026).
+Public code and result pack for an MSc thesis (Alexis Marin, SRH Berlin, 2026).
 
-**What the method does.** In a cloud native microservice failure, it builds a candidate path from a seed service to a symptom service. Every hop is labelled Observed, Supported, or Inferred, with a pointer back to the telemetry that supports the label. If the evidence is too weak for the chosen acceptance policy, it returns refuse and names the reason (for example weak hops, or no connected route). That refusal is a valid output, not a crash.
+Folder layout matches the committee USB handover (without the written thesis PDF and without the 13 GB telemetry pack).
 
-**What you will find here**
+## Read first
+
+1. **`01-results/propagation-paths/strict/index.html`** — main dashboard (n=1422)
+2. **`docs/`** — folder map, pipeline, labels, headline numbers
+3. **`02-implementation/`** — curated code, tests, `scripts/validate.sh`
 
 | Path | What it is |
 |---|---|
-| `analysis/cli.py` | CLI entry for one case or a sample list |
-| `analysis/pipeline/` | Reality → graph → evidence → judgment → emit |
-| `analysis/samples/` | Case id lists (`sample10`, `sample100`, `sample_all`) |
-| `rankings/` | Upstream RCA rankings (44 MB) so the RCA seed is reproducible |
-| `tests/` | Unit and integration tests |
-| `results/evidence_path_poc/sample_all/` | Frozen outputs for 1422 benchmark cases (`strict/` and `relaxed/`; open `index.html`) |
-| `results/evidence_path_poc/sample10/` | Small subset for a quick look |
-| `docs/REPRODUCE.md` | Install, browse results, datapack, re run a case |
-| `scripts/validate.sh` | Checks that the tree is complete and tests pass |
+| `01-results/` | Frozen dashboards + LLM second-opinion pilot |
+| `02-implementation/` | Thesis pipeline (CLI, tests) |
+| `03-methodology/` | Method figures |
+| `04-data/rankings/` | RCA seeds only — **no** case telemetry |
+| `05-upstream-benchmark/` | Fang et al. evaluation platform (unmodified subset) |
+| `annex/` | Literature notes + investigation HTML |
+| `docs/` | Plain-English pack notes |
 
-**What is not here.** The ~13 GB RCABench telemetry pack. Download it from Zenodo ([DOI 10.5281/zenodo.17105974](https://doi.org/10.5281/zenodo.17105974), CC BY 4.0). Everything else needed to recompute a case is in this repository, including the upstream rankings that provide the RCA seed.
+**Not here:** thesis Markdown/PDF/DOCX (private monorepo); ~13 GB RCABench telemetry ([Zenodo](https://doi.org/10.5281/zenodo.17105974)).
 
-
-
-## What this looks like
-
-Three views of the method. Full size images live under [`docs/figures/`](docs/figures/).
-
-### 1. Full evidence path (chain)
-
-A candidate route from seed to symptom. Every hop is labelled with evidence, or the case is refused.
-
-![Accepted five-hop path example](docs/figures/fig-path-example.png)
-
-### 2. Horizontal vs vertical edges
-
-Path search walks **horizontal** service-to-service edges. **Vertical** edges are placement context (pod, container, node), not hops on the returned path. Request direction and effect direction can disagree on call edges.
-
-![Horizontal vs vertical channels](docs/figures/fig-channels.png)
-
-![Request vs effect direction](docs/figures/fig-direction.png)
-
-### 3. Ranking metrics vs path judgment
-
-Upstream RCA algorithms produce a ranked list (AC@1 / Top@k). This repository takes a seed (injection or RCA rank-1), builds a path, and returns either a graded route or an explicit refuse. The headline metric here is Path Coverage, not causal accuracy against a hidden graph.
-
-![Ranking list vs evidence path](docs/figures/fig-seed-vs-path.png)
-
-Pipeline overview:
-
-![Reality, Evidence, Judgment pipeline](docs/figures/fig-pipeline.png)
-
-
-**Run**
+## View results (no install)
 
 ```bash
-git clone https://github.com/PlastiData/msc-thesis-propagation-path.git
-cd msc-thesis-propagation-path
-python -m venv .venv && .venv/bin/pip install -e ".[dev]"
-.venv/bin/python -m pytest tests/ -q
-python3 -m http.server 8765 -d results/evidence_path_poc/sample_all/strict
+python3 -m http.server 8765 -d 01-results/propagation-paths/strict
+# open http://127.0.0.1:8765/
 ```
 
-Open http://127.0.0.1:8765/ for the case queue. License: [CC BY 4.0](LICENSE).
+Relaxed twin: `01-results/propagation-paths/relaxed/`. LLM pilot: `01-results/llm-second-opinion/relaxed/`.
+
+## Validate (optional)
+
+```bash
+cd 02-implementation
+python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+# if venv fails on some filesystems, copy this folder to a native Linux path first
+bash scripts/validate.sh
+```
+
+`validate.sh` expects this repository layout (sibling `01-results/`, `04-data/`).
+
+## Method in one line
+
+Build a candidate service path from a seed (injection or RCA rank-1) to a symptom; label every hop Observed / Supported / Inferred with re-executable evidence, or return `insufficient_evidence` with a named gap. Dual-seed agreement is descriptive — not causal accuracy.

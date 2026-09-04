@@ -1,0 +1,29 @@
+[project]
+name = "msc-thesis-propagation-path"
+version = "0.1.0"
+description = "Failure propagation paths with evidence for cloud native RCA (MSc thesis)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "CC-BY-4.0" }
+authors = [{ name = "Alexis Marin" }]
+dependencies = [
+  "pandas>=2.0",
+  "pyarrow>=14.0",
+  "requests>=2.31",
+  "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["analysis"]
+include = ["pipeline*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["analysis"]
+testpaths = ["tests"]

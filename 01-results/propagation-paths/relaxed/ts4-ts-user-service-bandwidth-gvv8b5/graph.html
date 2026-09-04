@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>ts4-ts-user-service-bandwidth-gvv8b5</title>
+<style>
+:root { --bg:#faf9f7; --ink:#1a1a1a; --muted:#666; --line:#ddd; }
+body{font-family:ui-sans-serif,system-ui,sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:1.35rem;margin:0 0 .5rem}
+h2{font-size:1.05rem;margin:1.5rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+h3{font-size:.95rem;margin:.2rem 0 .5rem}
+.banner{padding:.9rem 1rem;background:#fff;border-left:5px solid #c44;margin:1rem 0;box-shadow:0 1px 0 var(--line)}
+.verdicts{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin:.4rem 0 .6rem;font-family:ui-monospace,monospace;font-size:.92rem}
+.verdicts .v{font-weight:700}
+.agree{display:inline-block;font-size:.8rem;padding:.15rem .45rem;border:1px solid var(--line);background:#fff}
+.path-compare{background:#fff;border:1px solid var(--line);padding:1rem;margin:1rem 0}
+.path-row{display:flex;align-items:center;gap:.75rem;margin:.55rem 0;flex-wrap:wrap}
+.path-row .lab{min-width:4.5rem;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.strip{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.25rem}
+.strip .hop{background:#111;color:#fff;padding:.2rem .45rem;font-size:.82rem;border-radius:4px}
+.strip .tick{display:inline-block;width:18px;height:0;border-top:3px solid #1b9e77;margin:0 .1rem}
+.strip .tick.dashed{border-top-style:dashed;border-color:#d95f02}
+.strip.refuse{color:#a45;font-family:ui-monospace,monospace;font-size:.88rem}
+.tag.same{font-size:.75rem;color:var(--muted);border:1px solid var(--line);padding:.1rem .35rem}
+.maps{margin:.5rem 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;padding:1rem;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:#fff}
+th,td{border:1px solid var(--line);padding:.4rem;text-align:left;vertical-align:top}
+.muted{color:var(--muted)} .warn{color:#a45} .tiny{font-size:.78rem;line-height:1.35;margin-top:.15rem}
+.legend span{display:inline-block;margin-right:1rem}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:.3rem;vertical-align:middle}
+ul.timeline{list-style:none;padding:0;margin:0}
+ul.timeline li{padding:.35rem 0;border-bottom:1px solid var(--line)}
+ul.timeline .t{color:var(--muted);font-size:.85rem;display:block}
+code{font-size:.9em} code.tid{font-size:.78em}
+a{color:#0b5}
+/* rca_second_opinion_css */
+.card.hit{border-left:5px solid #1b9e77} .card.miss{border-left:5px solid #d95f02} .card.insuff{border-left:5px solid #999}
+.badge{font-size:.75rem;font-family:ui-monospace,monospace;border:1px solid var(--line);padding:.1rem .4rem}
+.run-card{background:#fbfbfa;border:1px solid var(--line);padding:.7rem .9rem;margin:.4rem 0}
+.run-card dl{margin:.3rem 0} .run-card dt{font-weight:600;font-size:.82rem;margin-top:.4rem}
+.run-card dd{margin:.1rem 0 0;font-size:.85rem;line-height:1.4}
+.verdict-flow{display:flex;align-items:center;gap:.4rem;font-family:ui-monospace,monospace;font-size:.8rem}
+.verdict-flow .arrow{color:var(--muted)}
+.ai-tiny{font-size:.78rem;margin:.3rem 0} .ai-subhead{font-size:.85rem;margin:.7rem 0 .3rem;color:var(--muted)}
+</style></head><body><main>
+<p><a href="../index.html">← sample index</a></p>
+<h1>ts4-ts-user-service-bandwidth-gvv8b5</h1>
+<div class="banner" id="verdict">
+<div class="verdicts">
+<span>Inject <span class="v">REFUSE — nopath</span></span>
+<span>RCA <span class="v">REFUSE — horiz</span></span>
+<span class="agree">both_refuse</span>
+</div>
+Injection <code>mysql</code>
+ → symptom <code>ui-dashboard</code><br>
+<div class='tiny'><strong>Injected fault (benchmark label)</strong>: fault_type=21 → <code>NetworkBandwidth</code> (NetworkChaos, infrastructure, kind=<code>network_bandwidth_limit</code>, channel=vertical+horizontal)</div>
+Injection window <code>2025-07-25T12:00:09Z</code> → <code>2025-07-25T12:04:09Z</code><br>Symptom route <code>/api/v1/userservice/users/id/{userId}</code><br>
+RCA seed algo <code>traceback-A8</code> (AC@1 62.5%)
+ → <code>user</code><br>
+<em>Evidence levels describe availability, not causal correctness.</em>
+</div>
+<div class="legend">
+<span><i style="background:#1b9e77"></i>observed</span>
+<span><i style="background:#7570b3"></i>supported</span>
+<span><i style="background:#d95f02"></i>inferred (dashed)</span>
+</div>
+<section id="dual-path">
+<h2>Dual-path compare</h2>
+<div class="path-compare"><div class='path-row'><div class='lab'>Inject</div><span class='strip refuse'>refuse — nopath</span></div><div class='path-row'><div class='lab'>RCA</div><span class='strip refuse'>refuse — horiz</span></div></div>
+
+
+</section>
+<section><h2>Why no fault-seeded path</h2><p><strong>no_connected_candidate_path</strong></p><ul><li>No official process-level ground truth was available.</li><li>No connected horizontal candidate path from injection to symptom.</li></ul></section>
+<section id="evidence">
+<h2>Edge evidence</h2>
+<p class="muted tiny">Struct/Stat are verdicts. Route, calls/errors, trace ids, and metric numbers are re-queryable refs from abnormal-window telemetry. Per-hop onset time is not available on this dataset.</p>
+<table>
+<thead><tr><th>From</th><th>To</th><th>Route</th><th>Level</th><th>Struct</th><th>Calls</th><th>Traces</th><th>Stat</th></tr></thead>
+<tbody>
+<tr><td colspan="8">No selected edges</td></tr>
+</tbody></table>
+</section>
+
+<section>
+<h2>Upstream RCA rankings (from output parquet)</h2>
+<p>Primary walk seed: <strong>traceback-A8</strong>
+ → <code>user</code> (hit).
+ Injection label best rank under primary: <strong>—</strong>.</p>
+<p><strong>Walk chain:</strong> user → ui-dashboard</p>
+
+<div class="grid">
+<div class="card">
+<h3>All algorithms on this case</h3>
+<table><thead><tr><th>Algo</th><th>Rank-1</th><th>Hit@1</th><th>Hit@5</th><th>True rank</th></tr></thead>
+<tbody><tr><td>traceback-A8</td><td>user</td><td>✓</td><td>·</td><td>—</td></tr><tr><td>traceback-A7</td><td>—</td><td>·</td><td>·</td><td>—</td></tr><tr><td>nsigma</td><td>user</td><td>·</td><td>✓</td><td>4</td></tr><tr><td>baro</td><td>user</td><td>·</td><td>·</td><td>48</td></tr><tr><td>random</td><td>travel-plan</td><td>·</td><td>✓</td><td>3</td></tr></tbody></table>
+</div>
+<div class="card">
+<h3>traceback-A8 top services</h3>
+<table><thead><tr><th>Rank</th><th>Service</th><th>Hit</th></tr></thead>
+<tbody><tr><td>1</td><td>user</td><td>✓</td></tr><tr><td>2</td><td>order</td><td>·</td></tr><tr><td>3</td><td>preserve</td><td>·</td></tr><tr><td>4</td><td>ui-dashboard</td><td>·</td></tr><tr><td>5</td><td>route-plan</td><td>·</td></tr><tr><td>6</td><td>travel</td><td>·</td></tr><tr><td>7</td><td>route</td><td>·</td></tr><tr><td>8</td><td>travel2</td><td>·</td></tr></tbody></table>
+</div>
+</div>
+<p class="muted">Rankings come from <code>output/rcabench-platform-v2/data/rcabench/&lt;case&gt;/&lt;algo&gt;/output.parquet</code>.
+Evidence path labels are independent of these scores.</p>
+</section>
+
+<div class="grid">
+<div class="card">
+<h2>Timeline anchors</h2>
+<p class="muted tiny">Sparse anchors only (injection window, first error, symptom / path errors) — not a full incident Gantt.</p>
+<ul class="timeline"><li><span class='t'>2025-07-25T12:00:09Z</span> <strong>injection_start</strong> @ <code>mysql</code><div class='muted tiny'>fault injection window start</div></li><li><span class='t'>2025-07-25 12:00:09.012523728+00:00</span> <strong>selected_symptom</strong> @ <code>ui-dashboard</code><div class='muted tiny'>first span on symptom service (no Error); policy pick has no clock</div></li><li><span class='t'>2025-07-25 12:00:10.094898935+00:00</span> <strong>first_error_span</strong> @ <code>loadgenerator</code><div class='muted tiny'>earliest Error span in abnormal window (any service)</div></li><li><span class='t'>2025-07-25T12:04:09Z</span> <strong>injection_end</strong> @ <code>mysql</code><div class='muted tiny'>fault injection window end</div></li></ul>
+</div>
+<div class="card">
+<h2>What was detected</h2>
+<ul><li>Injection at mysql</li><li>Symptom at ts-ui-dashboard</li><li>Direct abnormal-window parent-child relationship</li><li>ts-user-service shows 2 abnormal metric signal(s)</li><li>ts-ui-dashboard has no metric deviation under configured thresholds</li><li>Temporal ordering left unknown; timing alone cannot prove causality</li><li>Dependency present only in normal window</li><li>ts-cancel-service has no metric deviation under configured thresholds</li><li>Temporal ordering left unknown; timing alone cannot prove causality</li><li>Dependency present only in normal window</li></ul>
+</div>
+</div>
+<!-- rca_second_opinion_section:start -->
+<h2>AI second opinions</h2>
+<div class="banner">
+real ground truth <code>['mysql', 'ts-user-service']</code>
+&nbsp; algorithm's seed <code>ts-user-service</code>
+<br><em>Standardized cards below follow the run-report template; each is one model's independent pass over the same evidence.</em>
+</div>
+<div class="grid">
+        <div class="card hit">
+          <h3>gpt-5.6-luna</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#0a7d2c">before: match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.003</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T10:14:10Z — ts4-ts-user-service-bandwidth-gvv8b5 — pipeline #3337</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-user-service</dd><dt>Summary</dt><dd>gpt-5.6-luna chose confirm (confidence: medium) — Largest 10.2x deviation and three algorithms agree; structural link exists, but statistical/temporal evidence is weak.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-user-service; Largest 10.2x deviation and three algorithms agree; structural link exists, but statistical/temporal evidence is weak.</dd><dt>Suggested next step</dt><dd>Proceed with ts-user-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=14079, duration=8.3s,
+model=gpt-5.6-luna, pipeline=ts4-ts-user-service-bandwidth-gvv8b5/correct_refused</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">Confirmed ts-user-service, but the algorithm's own path to symptom was refused; nothing to draw.</div>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution path unavailable (refused: no_connected_candidate_path).</div>
+        </div>
+        <div class="card hit">
+          <h3>gpt-5.6-terra</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#0a7d2c">before: match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.032</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T10:14:13Z — ts4-ts-user-service-bandwidth-gvv8b5 — pipeline #3338</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-user-service</dd><dt>Summary</dt><dd>gpt-5.6-terra chose confirm (confidence: medium) — Strong 10.2x deviation and agreement from three algorithms outweigh weaker alternatives.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-user-service; Strong 10.2x deviation and agreement from three algorithms outweigh weaker alternatives.</dd><dt>Suggested next step</dt><dd>Proceed with ts-user-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=15355, duration=7.2s,
+model=gpt-5.6-terra, pipeline=ts4-ts-user-service-bandwidth-gvv8b5/correct_refused</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">Confirmed ts-user-service, but the algorithm's own path to symptom was refused; nothing to draw.</div>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution path unavailable (refused: no_connected_candidate_path).</div>
+        </div>
+        <div class="card hit">
+          <h3>claude-sonnet-5</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#0a7d2c">before: match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.074</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T10:57:36Z — ts4-ts-user-service-bandwidth-gvv8b5 — pipeline #3339</div>
+<dl><dt>Title</dt><dd>PROPOSE ts-user-service (over algorithm's ts-user-service)</dd><dt>Summary</dt><dd>claude-sonnet-5 chose propose (confidence: medium) — Only ts-user-service shows strong metric deviation (10.2x); ui-dashboard is just symptom.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-user-service; Only ts-user-service shows strong metric deviation (10.2x); ui-dashboard is just symptom.</dd><dt>Suggested next step</dt><dd>Re-run path construction seeded from ts-user-service to check whether a path becomes acceptable.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=36870, duration=19.4s,
+model=claude-sonnet-5, pipeline=ts4-ts-user-service-bandwidth-gvv8b5/correct_refused</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">AI path (proposed): ts-user-service -&gt; ts-ui-dashboard</div><svg viewBox="0 0 720 120" width="100%" role="img" aria-label="AI-proposed path"><line x1="222.0" y1="55" x2="498.0" y2="55" stroke="#d95f02" stroke-width="3" stroke-dasharray="7 5" /><text x="360.0" y="37" text-anchor="middle" font-size="12" fill="#d95f02">inferred</text><rect x="140.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="180.0" y="60" text-anchor="middle" font-size="12" fill="#fff">user</text><rect x="500.0" y="37" width="80" height="36" rx="8" fill="#111" stroke="#111" stroke-width="1.5" /><text x="540.0" y="60" text-anchor="middle" font-size="12" fill="#fff">ui-dashboard</text></svg>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution path unavailable (refused: no_connected_candidate_path).</div>
+        </div>
+        <div class="card hit">
+          <h3>claude-haiku-4-5-20251001</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#0a7d2c">before: match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.045</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T10:57:35Z — ts4-ts-user-service-bandwidth-gvv8b5 — pipeline #3340</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-user-service</dd><dt>Summary</dt><dd>claude-haiku-4-5-20251001 chose confirm (confidence: medium) — Three algorithms independently converge on ts-user-service; 10.2x metric deviation vs others. Statistical correlation absent.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-user-service; Three algorithms independently converge on ts-user-service; 10.2x metric deviation vs others. Statistical correlation absent.</dd><dt>Suggested next step</dt><dd>Proceed with ts-user-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=30111, duration=55.0s,
+model=claude-haiku-4-5-20251001, pipeline=ts4-ts-user-service-bandwidth-gvv8b5/correct_refused</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">Confirmed ts-user-service, but the algorithm's own path to symptom was refused; nothing to draw.</div>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution path unavailable (refused: no_connected_candidate_path).</div>
+        </div>
+        <div class="card hit">
+          <h3>gemini-3.5-flash-lite</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#0a7d2c">before: match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.001</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T22:37:49Z — ts4-ts-user-service-bandwidth-gvv8b5 — pipeline #3341</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-user-service</dd><dt>Summary</dt><dd>gemini-3.5-flash-lite chose confirm (confidence: high) — Multiple detectors agree, strong metric deviation, and direct relationship to symptom.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-user-service; Multiple detectors agree, strong metric deviation, and direct relationship to symptom.</dd><dt>Suggested next step</dt><dd>Proceed with ts-user-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=2412, duration=0.8s,
+model=gemini-3.5-flash-lite, pipeline=ts4-ts-user-service-bandwidth-gvv8b5/correct_refused</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">Confirmed ts-user-service, but the algorithm's own path to symptom was refused; nothing to draw.</div>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution path unavailable (refused: no_connected_candidate_path).</div>
+        </div>
+        <div class="card hit">
+          <h3>gemini-3.7-flash</h3>
+          <div class="verdict-flow"><span class="badge" style="color:#0a7d2c">before: match</span><span class="arrow">&rarr;</span><span class="badge" style="color:#0a7d2c">after: match</span><span class="muted">$0.002</span></div>
+          <div class="run-card">
+<div class="tiny muted">2026-09-01T22:37:47Z — ts4-ts-user-service-bandwidth-gvv8b5 — pipeline #3342</div>
+<dl><dt>Title</dt><dd>CONFIRM ts-user-service</dd><dt>Summary</dt><dd>gemini-3.7-flash chose confirm (confidence: high) — Multiple algorithms agree and ts-user-service exhibits 10.2x normal metric deviation.</dd><dt>Evidence</dt><dd>Algorithm seed was ts-user-service; Multiple algorithms agree and ts-user-service exhibits 10.2x normal metric deviation.</dd><dt>Suggested next step</dt><dd>Proceed with ts-user-service as root cause; no further action needed.</dd><dt>Limitations</dt><dd>No temporal ordering available for this case; decision rests on statistical/structural signals only.</dd></dl>
+<div class="tiny muted">Run stats: status=ok, tokens=2433, duration=4.7s,
+model=gemini-3.7-flash, pipeline=ts4-ts-user-service-bandwidth-gvv8b5/correct_refused</div>
+</div>
+          <div class="ai-subhead">AI path</div>
+          <div class="ai-tiny muted">Confirmed ts-user-service, but the algorithm's own path to symptom was refused; nothing to draw.</div>
+          <div class="ai-subhead">Real solution (this model matched it)</div><div class="ai-tiny muted">Real solution path unavailable (refused: no_connected_candidate_path).</div>
+        </div></div>
+<details><summary>Prompt sent (identical across all 4 models)</summary><pre>You are reviewing a root-cause-analysis case for a failure in a microservice system.
+
+An automated algorithm (traceback-A8) inspected the evidence and proposed
+"ts-user-service" as the most likely root cause. When we tried to build a full evidence path from that starting point to the symptom, the attempt was REFUSED (reason: required_horizontal_relationship_unavailable).
+
+Here is what the evidence shows.
+
+Candidate connections between services, with the statistical/structural/temporal checks
+each one passed or failed (computed from real metric z-scores, call-graph structure, and
+onset timestamps during the incident window). NOTE: temporal ordering is unknown for every edge in this case (no Error span at both endpoints to order). Do not treat that as a gap unique to this case or wait for it; decide from the statistical/structural signals and magnitudes below instead.
+  - ts-user-service -&gt; ts-ui-dashboard: statistical=fail, structural=pass, temporal=unknown
+  - ts-user-service -&gt; ts-cancel-service: statistical=fail, structural=fail, temporal=unknown
+  - ts-cancel-service -&gt; ts-ui-dashboard: statistical=fail, structural=fail, temporal=unknown
+  - ts-user-service -&gt; ts-preserve-service: statistical=fail, structural=fail, temporal=unknown
+  - ts-preserve-service -&gt; ts-ui-dashboard: statistical=fail, structural=pass, temporal=unknown
+  - ts-ui-dashboard-69f886fc55-xb9mv -&gt; ts-ui-dashboard: statistical=unknown, structural=pass, temporal=unknown
+  - ts-auth-service-5c98dd7948-9qlhb -&gt; ts-auth-service: statistical=unknown, structural=pass, temporal=unknown
+  - loadgenerator-5867cb5967-gbkk5 -&gt; loadgenerator: statistical=unknown, structural=pass, temporal=unknown
+  - ts-route-service-757558799f-zplph -&gt; ts-route-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-user-service-d5b9d4bb9-sz4xw -&gt; ts-user-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-train-service-7575645468-pph8x -&gt; ts-train-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-station-service-774c9cb8b-bhd62 -&gt; ts-station-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel-plan-service-6c75975898-rn4v2 -&gt; ts-travel-plan-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel-service-765c9c9858-qwdlp -&gt; ts-travel-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-route-plan-service-6b4859cf65-swr5c -&gt; ts-route-plan-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-basic-service-5cdf66d69b-rbcj8 -&gt; ts-basic-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-seat-service-8959d487f-djj8x -&gt; ts-seat-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-order-service-5db685fb54-lf5gc -&gt; ts-order-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-price-service-fcbdb55f5-k2wdh -&gt; ts-price-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-config-service-b9bcfbc56-njltc -&gt; ts-config-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-contacts-service-848bdcc799-blsgr -&gt; ts-contacts-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-food-service-66b764476b-5rs2d -&gt; ts-food-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-train-food-service-64c578fd99-dk7w4 -&gt; ts-train-food-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-travel2-service-5b97989896-wnvxl -&gt; ts-travel2-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-station-food-service-864c57dbc7-ddhk7 -&gt; ts-station-food-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-assurance-service-76459f5575-7zg2v -&gt; ts-assurance-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-preserve-service-79b467b6c8-wmwls -&gt; ts-preserve-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-security-service-5fbb5c757b-wnkx4 -&gt; ts-security-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-verification-code-service-57566595bf-mx29h -&gt; ts-verification-code-service: statistical=unknown, structural=pass, temporal=unknown
+  - ts-order-other-service-677c8677b5-khb5f -&gt; ts-order-other-service: statistical=unknown, structural=pass, temporal=unknown
+  - worker6 -&gt; ts-contacts-service-848bdcc799-blsgr: statistical=unknown, structural=pass, temporal=unknown
+  - worker6 -&gt; ts-news-service-7869d45c45-cz5jc: statistical=unknown, structural=pass, temporal=unknown
+  - worker6 -&gt; ts-preserve-service-79b467b6c8-wmwls: statistical=unknown, structural=pass, temporal=unknown
+  - worker6 -&gt; ts-security-service-5fbb5c757b-wnkx4: statistical=unknown, structural=pass, temporal=unknown
+  - worker2 -&gt; ts-admin-order-service-74874bb64-hpg7c: statistical=unknown, structural=pass, temporal=unknown
+  - worker2 -&gt; ts-admin-user-service-7c45675555-cfc24: statistical=unknown, structural=pass, temporal=unknown
+  - worker2 -&gt; ts-assurance-service-76459f5575-7zg2v: statistical=unknown, structural=pass, temporal=unknown
+  - worker2 -&gt; ts-gateway-service-785597f976-7fr76: statistical=unknown, structural=pass, temporal=unknown
+  - worker2 -&gt; ts-inside-payment-service-655f955977-ljpnt: statistical=unknown, structural=pass, temporal=unknown
+  - worker2 -&gt; ts-order-service-5db685fb54-lf5gc: statistical=unknown, structural=pass, temporal=unknown
+
+Other evidence signals observed, with how far each deviated from its normal range
+(this is the number that actually distinguishes otherwise-similar candidates):
+  - Symptom at ts-ui-dashboard
+  - Direct abnormal-window parent-child relationship
+  - ts-user-service shows 2 abnormal metric signal(s) (strongest deviation: 10.2x normal)
+  - ts-ui-dashboard has no metric deviation under configured thresholds
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - ts-cancel-service has no metric deviation under configured thresholds
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Dependency present only in normal window
+  - ts-preserve-service has no metric deviation under configured thresholds
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Temporal ordering left unknown; timing alone cannot prove causality
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+  - Direct abnormal-window parent-child relationship
+
+Four other independent detection algorithms also examined this same case; their
+own top picks were:
+  - baro -&gt; ts-user-service
+  - nsigma -&gt; ts-user-service
+  - random -&gt; ts-travel-plan-service
+  - traceback-A7 -&gt; None
+
+Given ONLY this evidence, decide:
+1. Do you CONFIRM "ts-user-service" as the root cause, PROPOSE a different service instead,
+   or is the evidence INSUFFICIENT to decide either way? Only use INSUFFICIENT if
+   no candidate's evidence is meaningfully stronger than the others - a difference
+   in deviation magnitude or in how many independent algorithms/checks agree IS a
+   meaningful basis for CONFIRM or PROPOSE, even without temporal ordering.
+2. Confidence: low, medium, or high.
+3. Reasoning in 15 words or fewer.
+
+Respond with ONLY a JSON object, no other text:
+{"decision": "confirm"|"propose"|"insufficient", "service": "&lt;service name or null&gt;",
+ "confidence": "low"|"medium"|"high", "reason": "&lt;15 words or fewer&gt;"}</pre></details>
+<!-- rca_second_opinion_section:end --></main></body></html>

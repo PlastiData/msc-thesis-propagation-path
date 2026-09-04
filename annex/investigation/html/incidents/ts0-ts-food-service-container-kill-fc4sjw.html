@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ts0-ts-food-service-container-kill-fc4sjw — RCABench</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  
+</head>
+<body>
+  <div class="container">
+    <nav class="breadcrumb">
+      
+<a href="../index.html">Home</a> → Incident
+
+    </nav>
+    
+
+
+<section class="header-card">
+  <div class="header-card-top">
+    <h1 class="mono">ts0-ts-food-service-container-kill-fc4sjw</h1>
+    <div class="impact-badges">
+      
+      <span class="impact-badge impact-badge-slo-yes">SLO VIOLATED: YES</span>
+      
+      <span class="impact-badge impact-badge-traces">107,428 abnormal trace rows</span>
+      
+      <span class="impact-badge impact-badge-endpoints">1 endpoint affected</span>
+      
+    </div>
+  </div>
+  <p class="header-meta">
+    <span class="badge badge-fault">Container Kill</span>
+    <span class="text-muted">(container_kill)</span>
+    · <a href="../fault_types/container_kill.html">fault type page</a>
+    
+    · Ground-truth root cause service:
+    
+    <a href="../services/ts-food-service.html">ts-food-service</a>
+    
+    
+  </p>
+</section>
+
+
+<div class="callout callout-error">
+  <span class="badge badge-missing">MISSING FILE: k8s.json</span> <span class="badge badge-missing">MISSING FILE: trace_id_ts.json</span> 
+  
+</div>
+
+
+
+<section class="explainer-box">
+  <h2>What this benchmark evaluates</h2>
+  <p>
+    The <strong>Fang et al. (2025)</strong> RCABench benchmark asks RCA algorithms to <strong>rank which service caused the failure</strong>.
+    This browser documents the <strong>benchmark data</strong> for each incident — not algorithm output.
+  </p>
+  <ul>
+    <li><strong>Primary metric: Avg@5</strong> (also reported as Recall@5) — average of AC@1 through AC@5.</li>
+    <li><strong>AC@1</strong> — is the ground-truth root cause service in the algorithm's top-1 ranked services?</li>
+    <li><strong>Best published baseline ~37% AC@1</strong> on this dataset.</li>
+    <li><strong>Ground truth</strong> = <code>injection.json</code> → <code>ground_truth.service[0]</code> (root cause service label).</li>
+    <li>Trace ordering and call edges shown below are <strong>INFERRED</strong> observations — not ground truth and not proof of propagation.</li>
+  </ul>
+</section>
+
+
+<h2>Timeline — what happened</h2>
+<div class="timeline">
+  <div class="timeline-track">
+    <div class="timeline-segment timeline-normal" title="Normal baseline window">
+      <span class="timeline-label">Normal window</span>
+      <span class="timeline-duration">4.0 min</span>
+    </div>
+    <div class="timeline-segment timeline-fault" title="Active fault injection">
+      <span class="timeline-label">Fault active</span>
+      <span class="timeline-duration">4.0 min</span>
+    </div>
+    <div class="timeline-segment timeline-abnormal" title="Post-fault observation window">
+      <span class="timeline-label">Abnormal window</span>
+      <span class="timeline-duration">4.0 min</span>
+    </div>
+  </div>
+  <div class="timeline-markers">
+    <div class="timeline-marker">
+      <span class="marker-tag">T0</span>
+      <strong>Normal window start</strong>
+      <span class="mono marker-time">2025-08-09T00:53:58Z</span>
+    </div>
+    <div class="timeline-marker timeline-marker-inject">
+      <span class="marker-tag marker-tag-inject">T1 ⚡</span>
+      <strong>Normal window end / Fault inject</strong>
+      <span class="mono marker-time">2025-08-09T00:57:58Z</span>
+    </div>
+    <div class="timeline-marker">
+      <span class="marker-tag">T2</span>
+      <strong>Fault end</strong>
+      <span class="mono marker-time">2025-08-09T01:01:58Z</span>
+    </div>
+    <div class="timeline-marker">
+      <span class="marker-tag">T3</span>
+      <strong>Abnormal window end</strong>
+      <span class="mono marker-time">2025-08-09T01:01:58Z</span>
+    </div>
+  </div>
+  <p class="timeline-note text-muted">
+    Pre-fault baseline: 4 min normal telemetry before injection.
+    Abnormal window captures post-injection behavior used for RCA input.
+  </p>
+</div>
+
+
+<h2>Injection summary</h2>
+<table>
+  <tr><th>Target service</th><td><a href="../services/ts-food-service.html">ts-food-service</a></td></tr>
+  <tr><th>Pod</th><td class="mono">ts-food-service-5fd45cf66d-cdpv8</td></tr>
+  <tr><th>Container</th><td>ts-food-service</td></tr>
+  <tr><th>Namespace</th><td>ts</td></tr>
+  <tr><th>Fault type</th><td><span class="badge badge-fault">container_kill</span> — A container inside a pod is terminated (process killed).</td></tr>
+  <tr><th>Injection window</th><td class="mono">2025-08-09T00:57:58Z → 2025-08-09T01:01:58Z</td></tr>
+</table>
+
+<h3>Ground truth labels</h3>
+<p class="text-muted">From <code>injection.json</code> — used to score algorithm predictions (AC@k).</p>
+<table>
+  <tr><th>Level</th><th>Value</th></tr>
+  
+  <tr>
+    <td>service</td>
+    <td>
+      
+      ts-food-service
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td>
+      
+      ts-food-service-5fd45cf66d-lbnhg
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td>container</td>
+    <td>
+      
+      ts-food-service
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td>span</td>
+    <td>
+      
+      <span class="badge badge-gt-missing">NOT AVAILABLE</span>
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td>metric</td>
+    <td>
+      
+      <span class="badge badge-gt-missing">NOT AVAILABLE</span>
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td>function</td>
+    <td>
+      
+      <span class="badge badge-gt-missing">NOT AVAILABLE</span>
+      
+    </td>
+  </tr>
+  
+</table>
+
+
+<h2>System state — services &amp; pods</h2>
+
+<table>
+  <tr><th>Kind</th><th>Name</th><th>Service</th><th>Role</th></tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-food-service.html">ts-food-service</a>
+      
+    </td>
+    <td><a href="../services/ts-food-service.html">ts-food-service</a></td>
+    <td>
+      <span class="badge badge-both">BOTH</span>
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-food-service-5fd45cf66d-cdpv8
+      
+    </td>
+    <td><a href="../services/ts-food-service.html">ts-food-service</a></td>
+    <td>
+      <span class="badge badge-inject">INJECTION TARGET</span>
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-food-service-5fd45cf66d-lbnhg
+      
+    </td>
+    <td>—</td>
+    <td>
+      <span class="badge badge-root">ROOT CAUSE (GT)</span>
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      loadgenerator-8465b66847-4ns9h
+      
+    </td>
+    <td><a href="../services/loadgenerator.html">loadgenerator</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-assurance-service-79876db68f-qf6vd
+      
+    </td>
+    <td><a href="../services/ts-assurance-service.html">ts-assurance-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-auth-service-5dd97d5ccd-dvlkh
+      
+    </td>
+    <td><a href="../services/ts-auth-service.html">ts-auth-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-basic-service-68f7cbd746-k4gw7
+      
+    </td>
+    <td><a href="../services/ts-basic-service.html">ts-basic-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-cancel-service-6cb859955d-dq2ct
+      
+    </td>
+    <td><a href="../services/ts-cancel-service.html">ts-cancel-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-config-service-7c55667486-ql6g4
+      
+    </td>
+    <td><a href="../services/ts-config-service.html">ts-config-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-consign-price-service-6cffbf7945-g77mm
+      
+    </td>
+    <td><a href="../services/ts-consign-price-service.html">ts-consign-price-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-consign-service-745946dd49-swx9c
+      
+    </td>
+    <td><a href="../services/ts-consign-service.html">ts-consign-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-contacts-service-657d4cdfbf-42kzh
+      
+    </td>
+    <td><a href="../services/ts-contacts-service.html">ts-contacts-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-food-service-5fd45cf66d-2msb5
+      
+    </td>
+    <td><a href="../services/ts-food-service.html">ts-food-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-inside-payment-service-5548965b7f-tl44v
+      
+    </td>
+    <td><a href="../services/ts-inside-payment-service.html">ts-inside-payment-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-order-other-service-68fb6fd887-nsch4
+      
+    </td>
+    <td><a href="../services/ts-order-other-service.html">ts-order-other-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-order-service-56b9db98d8-h4l8z
+      
+    </td>
+    <td><a href="../services/ts-order-service.html">ts-order-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-payment-service-7648bd9bcd-4h5cl
+      
+    </td>
+    <td><a href="../services/ts-payment-service.html">ts-payment-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-preserve-service-7684df89bd-5fcvq
+      
+    </td>
+    <td><a href="../services/ts-preserve-service.html">ts-preserve-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-price-service-7494fb49fc-g8prn
+      
+    </td>
+    <td><a href="../services/ts-price-service.html">ts-price-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-route-plan-service-d9557d6d7-25f8s
+      
+    </td>
+    <td><a href="../services/ts-route-plan-service.html">ts-route-plan-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-route-service-86dcd6b94f-px824
+      
+    </td>
+    <td><a href="../services/ts-route-service.html">ts-route-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-seat-service-75676c6d97-92v2m
+      
+    </td>
+    <td><a href="../services/ts-seat-service.html">ts-seat-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-security-service-7cddbd789d-gdtk6
+      
+    </td>
+    <td><a href="../services/ts-security-service.html">ts-security-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-station-food-service-8c666b479-mr8l7
+      
+    </td>
+    <td><a href="../services/ts-station-food-service.html">ts-station-food-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-station-service-7ff47b8db8-5hrgk
+      
+    </td>
+    <td><a href="../services/ts-station-service.html">ts-station-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-train-food-service-7b67f6b66f-vh5zc
+      
+    </td>
+    <td><a href="../services/ts-train-food-service.html">ts-train-food-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-train-service-7b65db49f4-cj5jq
+      
+    </td>
+    <td><a href="../services/ts-train-service.html">ts-train-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-travel-plan-service-5b7bdc7c56-x8zw6
+      
+    </td>
+    <td><a href="../services/ts-travel-plan-service.html">ts-travel-plan-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-travel-service-7f856dcb7b-pqfqb
+      
+    </td>
+    <td><a href="../services/ts-travel-service.html">ts-travel-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-travel2-service-79fb6f545d-2ds95
+      
+    </td>
+    <td><a href="../services/ts-travel2-service.html">ts-travel2-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-ui-dashboard-64f6f55bb5-k5bdc
+      
+    </td>
+    <td><a href="../services/ts-ui-dashboard.html">ts-ui-dashboard</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-user-service-58c56cb98c-g5sxg
+      
+    </td>
+    <td><a href="../services/ts-user-service.html">ts-user-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>pod</td>
+    <td class="mono">
+      
+      ts-verification-code-service-57cddfb855-pm8tn
+      
+    </td>
+    <td><a href="../services/ts-verification-code-service.html">ts-verification-code-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/.html"></a>
+      
+    </td>
+    <td>—</td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/loadgenerator.html">loadgenerator</a>
+      
+    </td>
+    <td><a href="../services/loadgenerator.html">loadgenerator</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/mysql.html">mysql</a>
+      
+    </td>
+    <td><a href="../services/mysql.html">mysql</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/rabbitmq.html">rabbitmq</a>
+      
+    </td>
+    <td><a href="../services/rabbitmq.html">rabbitmq</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-admin-basic-info-service.html">ts-admin-basic-info-service</a>
+      
+    </td>
+    <td><a href="../services/ts-admin-basic-info-service.html">ts-admin-basic-info-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-admin-order-service.html">ts-admin-order-service</a>
+      
+    </td>
+    <td><a href="../services/ts-admin-order-service.html">ts-admin-order-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-admin-route-service.html">ts-admin-route-service</a>
+      
+    </td>
+    <td><a href="../services/ts-admin-route-service.html">ts-admin-route-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-admin-travel-service.html">ts-admin-travel-service</a>
+      
+    </td>
+    <td><a href="../services/ts-admin-travel-service.html">ts-admin-travel-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-admin-user-service.html">ts-admin-user-service</a>
+      
+    </td>
+    <td><a href="../services/ts-admin-user-service.html">ts-admin-user-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-assurance-service.html">ts-assurance-service</a>
+      
+    </td>
+    <td><a href="../services/ts-assurance-service.html">ts-assurance-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-auth-service.html">ts-auth-service</a>
+      
+    </td>
+    <td><a href="../services/ts-auth-service.html">ts-auth-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-avatar-service.html">ts-avatar-service</a>
+      
+    </td>
+    <td><a href="../services/ts-avatar-service.html">ts-avatar-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-basic-service.html">ts-basic-service</a>
+      
+    </td>
+    <td><a href="../services/ts-basic-service.html">ts-basic-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-cancel-service.html">ts-cancel-service</a>
+      
+    </td>
+    <td><a href="../services/ts-cancel-service.html">ts-cancel-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-config-service.html">ts-config-service</a>
+      
+    </td>
+    <td><a href="../services/ts-config-service.html">ts-config-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-consign-price-service.html">ts-consign-price-service</a>
+      
+    </td>
+    <td><a href="../services/ts-consign-price-service.html">ts-consign-price-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-consign-service.html">ts-consign-service</a>
+      
+    </td>
+    <td><a href="../services/ts-consign-service.html">ts-consign-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-contacts-service.html">ts-contacts-service</a>
+      
+    </td>
+    <td><a href="../services/ts-contacts-service.html">ts-contacts-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-delivery-service.html">ts-delivery-service</a>
+      
+    </td>
+    <td><a href="../services/ts-delivery-service.html">ts-delivery-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-execute-service.html">ts-execute-service</a>
+      
+    </td>
+    <td><a href="../services/ts-execute-service.html">ts-execute-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-food-delivery-service.html">ts-food-delivery-service</a>
+      
+    </td>
+    <td><a href="../services/ts-food-delivery-service.html">ts-food-delivery-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-gateway-service.html">ts-gateway-service</a>
+      
+    </td>
+    <td><a href="../services/ts-gateway-service.html">ts-gateway-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-inside-payment-service.html">ts-inside-payment-service</a>
+      
+    </td>
+    <td><a href="../services/ts-inside-payment-service.html">ts-inside-payment-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-news-service.html">ts-news-service</a>
+      
+    </td>
+    <td><a href="../services/ts-news-service.html">ts-news-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-notification-service.html">ts-notification-service</a>
+      
+    </td>
+    <td><a href="../services/ts-notification-service.html">ts-notification-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-order-other-service.html">ts-order-other-service</a>
+      
+    </td>
+    <td><a href="../services/ts-order-other-service.html">ts-order-other-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-order-service.html">ts-order-service</a>
+      
+    </td>
+    <td><a href="../services/ts-order-service.html">ts-order-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-payment-service.html">ts-payment-service</a>
+      
+    </td>
+    <td><a href="../services/ts-payment-service.html">ts-payment-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-preserve-other-service.html">ts-preserve-other-service</a>
+      
+    </td>
+    <td><a href="../services/ts-preserve-other-service.html">ts-preserve-other-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-preserve-service.html">ts-preserve-service</a>
+      
+    </td>
+    <td><a href="../services/ts-preserve-service.html">ts-preserve-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-price-service.html">ts-price-service</a>
+      
+    </td>
+    <td><a href="../services/ts-price-service.html">ts-price-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-rebook-service.html">ts-rebook-service</a>
+      
+    </td>
+    <td><a href="../services/ts-rebook-service.html">ts-rebook-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-route-plan-service.html">ts-route-plan-service</a>
+      
+    </td>
+    <td><a href="../services/ts-route-plan-service.html">ts-route-plan-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-route-service.html">ts-route-service</a>
+      
+    </td>
+    <td><a href="../services/ts-route-service.html">ts-route-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-seat-service.html">ts-seat-service</a>
+      
+    </td>
+    <td><a href="../services/ts-seat-service.html">ts-seat-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-security-service.html">ts-security-service</a>
+      
+    </td>
+    <td><a href="../services/ts-security-service.html">ts-security-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-station-food-service.html">ts-station-food-service</a>
+      
+    </td>
+    <td><a href="../services/ts-station-food-service.html">ts-station-food-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-station-service.html">ts-station-service</a>
+      
+    </td>
+    <td><a href="../services/ts-station-service.html">ts-station-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-ticket-office-service.html">ts-ticket-office-service</a>
+      
+    </td>
+    <td><a href="../services/ts-ticket-office-service.html">ts-ticket-office-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-train-food-service.html">ts-train-food-service</a>
+      
+    </td>
+    <td><a href="../services/ts-train-food-service.html">ts-train-food-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-train-service.html">ts-train-service</a>
+      
+    </td>
+    <td><a href="../services/ts-train-service.html">ts-train-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-travel-plan-service.html">ts-travel-plan-service</a>
+      
+    </td>
+    <td><a href="../services/ts-travel-plan-service.html">ts-travel-plan-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-travel-service.html">ts-travel-service</a>
+      
+    </td>
+    <td><a href="../services/ts-travel-service.html">ts-travel-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-travel2-service.html">ts-travel2-service</a>
+      
+    </td>
+    <td><a href="../services/ts-travel2-service.html">ts-travel2-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-ui-dashboard.html">ts-ui-dashboard</a>
+      
+    </td>
+    <td><a href="../services/ts-ui-dashboard.html">ts-ui-dashboard</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-user-service.html">ts-user-service</a>
+      
+    </td>
+    <td><a href="../services/ts-user-service.html">ts-user-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-verification-code-service.html">ts-verification-code-service</a>
+      
+    </td>
+    <td><a href="../services/ts-verification-code-service.html">ts-verification-code-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-voucher-service.html">ts-voucher-service</a>
+      
+    </td>
+    <td><a href="../services/ts-voucher-service.html">ts-voucher-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>service</td>
+    <td class="mono">
+      
+      <a href="../services/ts-wait-order-service.html">ts-wait-order-service</a>
+      
+    </td>
+    <td><a href="../services/ts-wait-order-service.html">ts-wait-order-service</a></td>
+    <td>
+      <span class="badge badge-telemetry">TELEMETRY ONLY</span>
+    </td>
+  </tr>
+  
+</table>
+
+
+
+<h2>Telemetry at a glance</h2>
+<table class="telemetry-compare">
+  <tr>
+    <th>Modality</th>
+    <th>Normal window</th>
+    <th>Abnormal window</th>
+  </tr>
+  <tr>
+    <td>Traces (span rows)</td>
+    <td>156,370</td>
+    <td><strong>107,428</strong></td>
+  </tr>
+  <tr>
+    <td>Metrics (rows)</td>
+    <td>72,500</td>
+    <td>72,485</td>
+  </tr>
+  <tr>
+    <td>Logs (rows)</td>
+    <td>82,200</td>
+    <td>56,759</td>
+  </tr>
+</table>
+<p class="text-muted">
+  Normal window = pre-fault baseline. Abnormal window = post-injection telemetry fed to RCA algorithms.
+  Abnormal traces include 50 error spans.
+</p>
+
+
+<h2>SLO / User impact</h2>
+
+<p>
+  Derived from <code>conclusion.parquet</code>.
+  SLO violated: <span class="badge badge-slo">YES</span>
+   · max P99 latency multiplier: <strong>84.82×</strong>
+</p>
+
+<table>
+  <tr><th>Endpoint</th><th>Normal P99</th><th>Abnormal P99</th><th>Latency multiplier</th></tr>
+  
+  <tr>
+    <td class="mono truncate">HTTP GET http://ts-ui-dashboard:8080/api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId}</td>
+    <td>0.2358037720700005</td>
+    <td>20.001193816919997</td>
+    <td><strong>84.82×</strong></td>
+  </tr>
+  
+</table>
+
+
+
+
+
+<div class="inferred-block">
+  <div class="inferred-banner">
+    <span class="badge badge-inferred">INFERRED</span>
+    <strong>Trace observations — not ground truth</strong>
+  </div>
+  <p>Observations derived from abnormal-window traces only. Not ground truth and not proof of failure propagation.</p>
+  
+  <h3>Error-first service ordering <span class="badge badge-inferred">INFERRED</span></h3>
+  <p class="text-muted">Services ordered by earliest error span in abnormal traces. Does not prove root cause or propagation order.</p>
+  <table><tr><th>Service</th><th>First error time</th></tr>
+  
+  <tr><td>loadgenerator</td><td class="mono">2025-08-09 00:57:58.603122+00:00</td></tr>
+  
+  <tr><td>ts-ui-dashboard</td><td class="mono">2025-08-09 00:57:58.626155+00:00</td></tr>
+  
+  </table>
+  
+  
+  <h3>Observed call edges (abnormal traces) <span class="badge badge-inferred">INFERRED</span></h3>
+  <p class="text-muted">Parent→child edges seen in trace spans. Structural dependency, not failure propagation proof.</p>
+  <table><tr><th>From</th><th>To</th></tr>
+  
+  <tr><td>loadgenerator</td><td>ts-ui-dashboard</td></tr>
+  
+  <tr><td>ts-admin-basic-info-service</td><td>ts-config-service</td></tr>
+  
+  <tr><td>ts-admin-basic-info-service</td><td>ts-contacts-service</td></tr>
+  
+  <tr><td>ts-admin-basic-info-service</td><td>ts-price-service</td></tr>
+  
+  <tr><td>ts-admin-basic-info-service</td><td>ts-station-service</td></tr>
+  
+  <tr><td>ts-admin-basic-info-service</td><td>ts-train-service</td></tr>
+  
+  <tr><td>ts-admin-order-service</td><td>ts-order-other-service</td></tr>
+  
+  <tr><td>ts-admin-order-service</td><td>ts-order-service</td></tr>
+  
+  <tr><td>ts-admin-route-service</td><td>ts-route-service</td></tr>
+  
+  <tr><td>ts-admin-route-service</td><td>ts-station-service</td></tr>
+  
+  <tr><td>ts-admin-travel-service</td><td>ts-route-service</td></tr>
+  
+  <tr><td>ts-admin-travel-service</td><td>ts-station-service</td></tr>
+  
+  <tr><td>ts-admin-travel-service</td><td>ts-train-service</td></tr>
+  
+  <tr><td>ts-admin-travel-service</td><td>ts-travel-service</td></tr>
+  
+  <tr><td>ts-admin-travel-service</td><td>ts-travel2-service</td></tr>
+  
+  <tr><td>ts-admin-user-service</td><td>ts-user-service</td></tr>
+  
+  <tr><td>ts-assurance-service</td><td>mysql</td></tr>
+  
+  <tr><td>ts-auth-service</td><td>mysql</td></tr>
+  
+  <tr><td>ts-auth-service</td><td>ts-verification-code-service</td></tr>
+  
+  <tr><td>ts-basic-service</td><td>ts-price-service</td></tr>
+  
+  <tr><td>ts-basic-service</td><td>ts-route-service</td></tr>
+  
+  <tr><td>ts-basic-service</td><td>ts-station-service</td></tr>
+  
+  <tr><td>ts-basic-service</td><td>ts-train-service</td></tr>
+  
+  <tr><td>ts-cancel-service</td><td>ts-inside-payment-service</td></tr>
+  
+  <tr><td>ts-cancel-service</td><td>ts-notification-service</td></tr>
+  
+  <tr><td>ts-cancel-service</td><td>ts-order-other-service</td></tr>
+  
+  <tr><td>ts-cancel-service</td><td>ts-order-service</td></tr>
+  
+  <tr><td>ts-cancel-service</td><td>ts-user-service</td></tr>
+  
+  <tr><td>ts-config-service</td><td>mysql</td></tr>
+  
+  <tr><td>ts-consign-price-service</td><td>mysql</td></tr>
+  
+  </table>
+  
+</div>
+
+
+
+<h2>Raw data &amp; files</h2>
+<p>Case folder (local path):</p>
+<div class="path-box">/home/alexis/thesis/rcabench-platform-feat-fse26/data/rcabench-platform-v2/data/rcabench/ts0-ts-food-service-container-kill-fc4sjw</div>
+
+<table>
+  <tr><th>File</th><th>Exists</th><th>Size</th><th>Rows</th><th>Columns</th></tr>
+  
+  <tr class="">
+    <td class="mono">normal_metrics.parquet</td>
+    <td>yes</td>
+    <td>193.1 kB</td>
+    <td>72500</td>
+    <td>15</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">abnormal_metrics.parquet</td>
+    <td>yes</td>
+    <td>187.5 kB</td>
+    <td>72485</td>
+    <td>15</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">normal_metrics_histogram.parquet</td>
+    <td>yes</td>
+    <td>47.3 kB</td>
+    <td>4058</td>
+    <td>14</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">abnormal_metrics_histogram.parquet</td>
+    <td>yes</td>
+    <td>42.2 kB</td>
+    <td>3996</td>
+    <td>14</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">normal_metrics_sum.parquet</td>
+    <td>yes</td>
+    <td>204.1 kB</td>
+    <td>88584</td>
+    <td>15</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">abnormal_metrics_sum.parquet</td>
+    <td>yes</td>
+    <td>190.3 kB</td>
+    <td>89577</td>
+    <td>15</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">normal_traces.parquet</td>
+    <td>yes</td>
+    <td>4.7 MB</td>
+    <td>156370</td>
+    <td>16</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">abnormal_traces.parquet</td>
+    <td>yes</td>
+    <td>3.2 MB</td>
+    <td>107428</td>
+    <td>16</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">normal_logs.parquet</td>
+    <td>yes</td>
+    <td>2.4 MB</td>
+    <td>82200</td>
+    <td>9</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">abnormal_logs.parquet</td>
+    <td>yes</td>
+    <td>1.7 MB</td>
+    <td>56759</td>
+    <td>9</td>
+  </tr>
+  
+  <tr class="">
+    <td class="mono">conclusion.parquet</td>
+    <td>yes</td>
+    <td>7.5 kB</td>
+    <td>22</td>
+    <td>12</td>
+  </tr>
+  
+</table>
+
+
+
+
+<h3>normal_traces — first 5 rows</h3>
+<table class="sample-table">
+  <tr><th>time</th><th>trace_id</th><th>span_id</th><th>parent_span_id</th><th>span_name</th><th>attr.span_kind</th><th>service_name</th><th>duration</th><th>attr.status_code</th><th>attr.k8s.pod.name</th><th>attr.k8s.service.name</th><th>attr.k8s.namespace.name</th></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">d21762da9859f910</td><td class="truncate">b991e9e67b2e01c1</td><td class="truncate">GET /api/v1/stationservice/stations/id/{stationNameForId}</td><td class="truncate">Server</td><td class="truncate">ts-station-service</td><td class="truncate">3429885</td><td class="truncate">Unset</td><td class="truncate">ts-station-service-7ff47b8db8-5hrgk</td><td class="truncate">ts-station-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.000558+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">46a45588283f8f5d</td><td class="truncate">d430cd407b9bbba3</td><td class="truncate">SELECT ts.route_stations</td><td class="truncate">Client</td><td class="truncate">ts-route-service</td><td class="truncate">592339</td><td class="truncate">Unset</td><td class="truncate">ts-route-service-86dcd6b94f-px824</td><td class="truncate">ts-route-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.000746+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">2053d16ea05c4e4f</td><td class="truncate">d21762da9859f910</td><td class="truncate">StationController.queryForStationId</td><td class="truncate">Internal</td><td class="truncate">ts-station-service</td><td class="truncate">2469037</td><td class="truncate">Unset</td><td class="truncate">ts-station-service-7ff47b8db8-5hrgk</td><td class="truncate">ts-station-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.001193+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">3506c1645db53def</td><td class="truncate">d430cd407b9bbba3</td><td class="truncate">SELECT ts.route_distances</td><td class="truncate">Client</td><td class="truncate">ts-route-service</td><td class="truncate">339130</td><td class="truncate">Unset</td><td class="truncate">ts-route-service-86dcd6b94f-px824</td><td class="truncate">ts-route-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.001475+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">7e1ef3dfb0cad623</td><td class="truncate">2053d16ea05c4e4f</td><td class="truncate">StationRepository.findByName</td><td class="truncate">Internal</td><td class="truncate">ts-station-service</td><td class="truncate">1417153</td><td class="truncate">Unset</td><td class="truncate">ts-station-service-7ff47b8db8-5hrgk</td><td class="truncate">ts-station-service</td><td class="truncate">ts0</td></tr>
+  
+</table>
+
+
+
+<h3>abnormal_traces — first 5 rows</h3>
+<table class="sample-table">
+  <tr><th>time</th><th>trace_id</th><th>span_id</th><th>parent_span_id</th><th>span_name</th><th>attr.span_kind</th><th>service_name</th><th>duration</th><th>attr.status_code</th><th>attr.k8s.pod.name</th><th>attr.k8s.service.name</th><th>attr.k8s.namespace.name</th></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.003218+00:00</td><td class="truncate">4bba012d4ea159cf7dcd96abfa7360f0</td><td class="truncate">0664cccc3456fa2c</td><td class="truncate"></td><td class="truncate">HTTP GET http://ts-ui-dashboard:8080/api/v1/userservice/users/id/4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f</td><td class="truncate">Client</td><td class="truncate">loadgenerator</td><td class="truncate">7815163</td><td class="truncate">Ok</td><td class="truncate">loadgenerator-8465b66847-4ns9h</td><td class="truncate">loadgenerator</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.004842+00:00</td><td class="truncate">345ef8f1f2f9533e8caabd8d3ee275b1</td><td class="truncate">709054f5372243ca</td><td class="truncate">84eaa3e3229f81b8</td><td class="truncate">GET</td><td class="truncate">Client</td><td class="truncate">ts-seat-service</td><td class="truncate">4593376</td><td class="truncate">Unset</td><td class="truncate">ts-seat-service-75676c6d97-92v2m</td><td class="truncate">ts-seat-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.009897+00:00</td><td class="truncate">345ef8f1f2f9533e8caabd8d3ee275b1</td><td class="truncate">ff0541055aa85b90</td><td class="truncate">5ace0847e7862564</td><td class="truncate">GET</td><td class="truncate">Client</td><td class="truncate">ts-travel-plan-service</td><td class="truncate">6861235</td><td class="truncate">Unset</td><td class="truncate">ts-travel-plan-service-5b7bdc7c56-x8zw6</td><td class="truncate">ts-travel-plan-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.011068+00:00</td><td class="truncate">d8d5c3da6240f838bdb59dd8a8257211</td><td class="truncate">80daca50b12cdf06</td><td class="truncate"></td><td class="truncate">HTTP POST http://ts-ui-dashboard:8080/api/v1/orderservice/order/refresh</td><td class="truncate">Client</td><td class="truncate">loadgenerator</td><td class="truncate">8336667</td><td class="truncate">Ok</td><td class="truncate">loadgenerator-8465b66847-4ns9h</td><td class="truncate">loadgenerator</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.012000+00:00</td><td class="truncate">345ef8f1f2f9533e8caabd8d3ee275b1</td><td class="truncate">cca34c8044f745dd</td><td class="truncate">ff0541055aa85b90</td><td class="truncate">GET /api/v1/trainservice/trains/byName/{name}</td><td class="truncate">Server</td><td class="truncate">ts-train-service</td><td class="truncate">4800833</td><td class="truncate">Unset</td><td class="truncate">ts-train-service-7b65db49f4-cj5jq</td><td class="truncate">ts-train-service</td><td class="truncate">ts0</td></tr>
+  
+</table>
+
+
+
+<h3>normal_metrics — first 5 rows</h3>
+<table class="sample-table">
+  <tr><th>time</th><th>metric</th><th>value</th><th>service_name</th><th>attr.k8s.node.name</th><th>attr.k8s.namespace.name</th><th>attr.k8s.statefulset.name</th><th>attr.k8s.deployment.name</th><th>attr.k8s.replicaset.name</th><th>attr.k8s.pod.name</th><th>attr.k8s.container.name</th><th>attr.destination_workload</th></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.030026+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.004505157</td><td class="truncate">ts-admin-route-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-admin-route-service</td><td class="truncate">None</td><td class="truncate">ts-admin-route-service-5d945db787-p8mrq</td><td class="truncate">ts-admin-route-service</td><td class="truncate">None</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.030026+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.004583913</td><td class="truncate">ts-rebook-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-rebook-service</td><td class="truncate">None</td><td class="truncate">ts-rebook-service-546f7bdbbd-kxlhn</td><td class="truncate">ts-rebook-service</td><td class="truncate">None</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.030026+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.004251723</td><td class="truncate">ts-admin-travel-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-admin-travel-service</td><td class="truncate">None</td><td class="truncate">ts-admin-travel-service-96cbcb44b-vbsff</td><td class="truncate">ts-admin-travel-service</td><td class="truncate">None</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.030026+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.007650801</td><td class="truncate">ts-delivery-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-delivery-service</td><td class="truncate">None</td><td class="truncate">ts-delivery-service-6b488868b8-qrjx6</td><td class="truncate">ts-delivery-service</td><td class="truncate">None</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.030026+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.087368133</td><td class="truncate">ts-contacts-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-contacts-service</td><td class="truncate">None</td><td class="truncate">ts-contacts-service-657d4cdfbf-42kzh</td><td class="truncate">ts-contacts-service</td><td class="truncate">None</td></tr>
+  
+</table>
+
+
+
+<h3>abnormal_metrics — first 5 rows</h3>
+<table class="sample-table">
+  <tr><th>time</th><th>metric</th><th>value</th><th>service_name</th><th>attr.k8s.node.name</th><th>attr.k8s.namespace.name</th><th>attr.k8s.statefulset.name</th><th>attr.k8s.deployment.name</th><th>attr.k8s.replicaset.name</th><th>attr.k8s.pod.name</th><th>attr.k8s.container.name</th><th>attr.destination_workload</th></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.044802+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.004610251</td><td class="truncate">ts-admin-route-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-admin-route-service</td><td class="truncate">None</td><td class="truncate">ts-admin-route-service-5d945db787-p8mrq</td><td class="truncate">ts-admin-route-service</td><td class="truncate">None</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.044802+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.004840676</td><td class="truncate">ts-rebook-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-rebook-service</td><td class="truncate">None</td><td class="truncate">ts-rebook-service-546f7bdbbd-kxlhn</td><td class="truncate">ts-rebook-service</td><td class="truncate">None</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.044802+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.005052854</td><td class="truncate">ts-admin-travel-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-admin-travel-service</td><td class="truncate">None</td><td class="truncate">ts-admin-travel-service-96cbcb44b-vbsff</td><td class="truncate">ts-admin-travel-service</td><td class="truncate">None</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.044802+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.022191551</td><td class="truncate">loadgenerator</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">loadgenerator</td><td class="truncate">None</td><td class="truncate">loadgenerator-8465b66847-4ns9h</td><td class="truncate">loadgenerator</td><td class="truncate">None</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.044802+00:00</td><td class="truncate">container.cpu.usage</td><td class="truncate">0.029556418</td><td class="truncate">ts-verification-code-service</td><td class="truncate">worker1</td><td class="truncate">ts0</td><td class="truncate">None</td><td class="truncate">ts-verification-code-service</td><td class="truncate">None</td><td class="truncate">ts-verification-code-service-57cddfb855-pm8tn</td><td class="truncate">ts-verification-code-service</td><td class="truncate">None</td></tr>
+  
+</table>
+
+
+
+<h3>normal_logs — first 5 rows</h3>
+<table class="sample-table">
+  <tr><th>time</th><th>trace_id</th><th>span_id</th><th>level</th><th>service_name</th><th>message</th><th>attr.k8s.pod.name</th><th>attr.k8s.service.name</th><th>attr.k8s.namespace.name</th></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.001000+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">652817de0c9b3deb</td><td class="truncate">INFO</td><td class="truncate">ts-basic-service</td><td class="truncate">[getRouteByRouteId][Get Route By Id][Success]</td><td class="truncate">ts-basic-service-68f7cbd746-k4gw7</td><td class="truncate">ts-basic-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.001000+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">2053d16ea05c4e4f</td><td class="truncate">INFO</td><td class="truncate">ts-station-service</td><td class="truncate">[queryForId][Query for station id][StationName: nanjing]</td><td class="truncate">ts-station-service-7ff47b8db8-5hrgk</td><td class="truncate">ts-station-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.002000+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">652817de0c9b3deb</td><td class="truncate">INFO</td><td class="truncate">ts-basic-service</td><td class="truncate">[queryForTravel][query start index and end index][indexStart: 0 indexEnd: 4]</td><td class="truncate">ts-basic-service-68f7cbd746-k4gw7</td><td class="truncate">ts-basic-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.002000+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">652817de0c9b3deb</td><td class="truncate">INFO</td><td class="truncate">ts-basic-service</td><td class="truncate">[queryForTravel][query stations and distances][stations: [nanjing, zhenjiang, wuxi, suzhou, shanghai] distances: [0, 100, 150, 200, 250]]</td><td class="truncate">ts-basic-service-68f7cbd746-k4gw7</td><td class="truncate">ts-basic-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:53:58.002000+00:00</td><td class="truncate">44ca41db5c90dec7b54e23c6d4d753f3</td><td class="truncate">652817de0c9b3deb</td><td class="truncate">INFO</td><td class="truncate">ts-basic-service</td><td class="truncate">[queryPriceConfigByRouteIdAndTrainType][Query For Price Config][RouteId: 92708982-77af-4318-be25-57ccb0ff69ad ,TrainType: GaoTieOne]</td><td class="truncate">ts-basic-service-68f7cbd746-k4gw7</td><td class="truncate">ts-basic-service</td><td class="truncate">ts0</td></tr>
+  
+</table>
+
+
+
+<h3>abnormal_logs — first 5 rows</h3>
+<table class="sample-table">
+  <tr><th>time</th><th>trace_id</th><th>span_id</th><th>level</th><th>service_name</th><th>message</th><th>attr.k8s.pod.name</th><th>attr.k8s.service.name</th><th>attr.k8s.namespace.name</th></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.004000+00:00</td><td class="truncate">345ef8f1f2f9533e8caabd8d3ee275b1</td><td class="truncate">84eaa3e3229f81b8</td><td class="truncate">INFO</td><td class="truncate">ts-seat-service</td><td class="truncate">[getLeftTicketOfInterval][Get Order tickets result][result is &lt;200,Response(status=0, msg=Seat is Null., data=null),[vary:&#34;Origin&#34;, &#34;Access-Control-Request-Method&#34;, &#34;Access-Control-Request-Headers&#34;...</td><td class="truncate">ts-seat-service-75676c6d97-92v2m</td><td class="truncate">ts-seat-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.009000+00:00</td><td class="truncate">345ef8f1f2f9533e8caabd8d3ee275b1</td><td class="truncate">84eaa3e3229f81b8</td><td class="truncate">INFO</td><td class="truncate">ts-seat-service</td><td class="truncate">[getDirectProportion][Configs is : Config(name=DirectTicketAllocationProportion, value=0.5, description=Allocation Proportion Of The Direct Ticket - From Start To End)]</td><td class="truncate">ts-seat-service-75676c6d97-92v2m</td><td class="truncate">ts-seat-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.013000+00:00</td><td class="truncate">345ef8f1f2f9533e8caabd8d3ee275b1</td><td class="truncate">7aadbb52953595e3</td><td class="truncate">INFO</td><td class="truncate">ts-train-service</td><td class="truncate">[retrieveByName][Retrieve train][TrainTypeName: TeKuai]</td><td class="truncate">ts-train-service-7b65db49f4-cj5jq</td><td class="truncate">ts-train-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.015000+00:00</td><td class="truncate">345ef8f1f2f9533e8caabd8d3ee275b1</td><td class="truncate">c3c18277f2fd3b79</td><td class="truncate">INFO</td><td class="truncate">ts-seat-service</td><td class="truncate">[getLeftTicketOfInterval][Get left ticket of interval][TravelDate: 2025-08-24,TrainNumber: T1235,SeatType: 3]</td><td class="truncate">ts-seat-service-75676c6d97-92v2m</td><td class="truncate">ts-seat-service</td><td class="truncate">ts0</td></tr>
+  
+  <tr><td class="truncate">2025-08-09 00:57:58.015000+00:00</td><td class="truncate">345ef8f1f2f9533e8caabd8d3ee275b1</td><td class="truncate">c3c18277f2fd3b79</td><td class="truncate">INFO</td><td class="truncate">ts-seat-service</td><td class="truncate">[getLeftTicketOfInterval][Seat request][request:Seat(travelDate=2025-08-24, trainNumber=T1235, startStation=taiyuan, destStation=shanghai, seatType=3, totalNum=2147483647, stations=[shanghai, taiyu...</td><td class="truncate">ts-seat-service-75676c6d97-92v2m</td><td class="truncate">ts-seat-service</td><td class="truncate">ts0</td></tr>
+  
+</table>
+
+
+
+
+
+  </div>
+  
+</body>
+</html>
